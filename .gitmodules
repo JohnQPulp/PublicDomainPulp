@@ -1,3 +1,6 @@
 [submodule "Pulpifier"]
 	path = Pulpifier
 	url = https://github.com/JohnQPulp/Pulpifier
+[submodule "VisualPulps/CupOfGold"]
+	path = VisualPulps/CupOfGold
+	url = https://github.com/JohnQPulp/CupOfGold
