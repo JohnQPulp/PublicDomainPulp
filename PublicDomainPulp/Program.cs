@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Mime;
 using System.Text;
+using Microsoft.Net.Http.Headers;
 using Pulp.Pulpifier;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,12 @@ foreach (string dir in Directory.GetDirectories("../VisualPulps")) {
 
 	visualPulps.Add(name, new(name, html));
 }
+
+app.Use((context, next) =>
+{
+	context.Response.Headers[HeaderNames.XContentTypeOptions] = "nosniff";
+	return next();
+});
 
 app.MapGet("/", () => "Hello World!");
 
