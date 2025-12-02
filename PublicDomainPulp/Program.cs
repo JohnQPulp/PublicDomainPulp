@@ -1,5 +1,3 @@
-using System.Net;
-using System.Net.Mime;
 using System.Text;
 using Microsoft.Net.Http.Headers;
 using Pulp.Pulpifier;
@@ -26,7 +24,12 @@ app.Use((context, next) =>
 	return next();
 });
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => {
+	string html = "PublicDomainPulp is a website for hosting visual novel transformation (pulpifications) of public domain (and creative commons) fiction books. The current catalog:<br><ul>";
+	html += string.Join("<br>", visualPulps.Values.Select(vp => $"<li><a href='/vn/{vp.DirName}/'>{vp.DirName}</a></li>"));
+	html += "</ul>";
+	return Results.Text(html, "text/html; charset=utf-8", Encoding.UTF8, 200);
+});
 
 app.MapGet("/vn/{book}/", (string book) =>
 {
