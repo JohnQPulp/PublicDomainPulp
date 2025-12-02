@@ -7,7 +7,9 @@ WebApplication app = builder.Build();
 
 Dictionary<string, VisualPulp> visualPulps = new(StringComparer.OrdinalIgnoreCase);
 
-foreach (string dir in Directory.GetDirectories("../VisualPulps")) {
+string baseDirectory = Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().IndexOf("/PublicDomainPulp/", StringComparison.Ordinal)) + "/PublicDomainPulp";
+
+foreach (string dir in Directory.GetDirectories(Path.Combine(baseDirectory, "VisualPulps"))) {
 	string name = Path.GetFileName(dir);
 
 	string rawText = File.ReadAllText(Path.Combine(dir, "book.txt"));
@@ -25,7 +27,8 @@ app.Use((context, next) =>
 });
 
 app.MapGet("/", () => {
-	string html = "PublicDomainPulp is a website for hosting visual novel transformation (pulpifications) of public domain (and creative commons) fiction books. The current catalog:<br><ul>";
+	string html = "<head><title>Public Domain Pulp</title></head><body>";
+	html += "PublicDomainPulp is a website for hosting visual novel transformation (pulpifications) of public domain (and creative commons) fiction books. The current catalog:<br><ul>";
 	html += string.Join("<br>", visualPulps.Values.Select(vp => $"<li><a href='/vn/{vp.DirName}/'>{vp.DirName}</a></li>"));
 	html += "</ul>";
 	return Results.Text(html, "text/html; charset=utf-8", Encoding.UTF8, 200);
@@ -45,12 +48,11 @@ app.MapGet("/vn/{book}/images/{image}.webp", (string book, string image) =>
 		return Results.NotFound();
 	}
 
-	string path = Path.GetFullPath(Path.Combine("..", "VisualPulps", pulp.DirName, "images", image + ".webp"));
+	string path = Path.Combine(baseDirectory, "VisualPulps", pulp.DirName, "images", image + ".webp");
 
 	return Results.File(path, "image/webp");
 });
 
 app.Run();
-
 
 public readonly record struct VisualPulp(string DirName, string Html);
