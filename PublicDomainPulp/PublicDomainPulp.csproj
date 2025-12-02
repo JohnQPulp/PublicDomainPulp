@@ -5,4 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Pulp.PublicDomainPulp</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pulpifier\Pulpifier\Pulpifier.csproj" />
+  </ItemGroup>
 </Project>

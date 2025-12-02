@@ -1,0 +1,3 @@
+[submodule "Pulpifier"]
+	path = Pulpifier
+	url = https://github.com/JohnQPulp/Pulpifier

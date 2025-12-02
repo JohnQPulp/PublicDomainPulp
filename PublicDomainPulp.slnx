@@ -1,3 +1,6 @@
 <Solution>
   <Project Path="PublicDomainPulp/PublicDomainPulp.csproj" />
+  <Project Path="Pulpifier/Pulpifier.Tests/Pulpifier.Tests.csproj" />
+  <Project Path="Pulpifier/Pulpifier/Pulpifier.csproj" />
+  <Project Path="Pulpifier/PulpifierCLI/PulpifierCLI.csproj" />
 </Solution>
