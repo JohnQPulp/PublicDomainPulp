@@ -34,7 +34,7 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.MapGet("/", () => {
-	string html = "<head><title>Public Domain Pulp</title><link href='/assets/style.css' rel='stylesheet'></head><body>";
+	string html = "<head><title>Public Domain Pulp</title><link rel='icon' type='image/x-icon' href='/assets/favicon.ico'><link href='/assets/style.css' rel='stylesheet'></head><body>";
 	html += "PublicDomainPulp is a website for hosting visual novel transformation (pulpifications) of public domain (and creative commons) fiction books. The current catalog:<br><ul>";
 	html += string.Join("<br>", visualPulps.Values.Select(vp => $"<li><a href='/vn/{vp.DirName}/'>{vp.DirName}</a></li>"));
 	html += "</ul>";
