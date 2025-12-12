@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Net.Http.Headers;
 using Pulp.Pulpifier;
 
@@ -26,8 +27,14 @@ app.Use((context, next) =>
 	return next();
 });
 
+app.UseStaticFiles(new StaticFileOptions
+{
+	FileProvider = new PhysicalFileProvider(Path.Combine(baseDirectory, "PublicDomainPulp", "assets")),
+	RequestPath = "/assets"
+});
+
 app.MapGet("/", () => {
-	string html = "<head><title>Public Domain Pulp</title></head><body>";
+	string html = "<head><title>Public Domain Pulp</title><link href='/assets/style.css' rel='stylesheet'></head><body>";
 	html += "PublicDomainPulp is a website for hosting visual novel transformation (pulpifications) of public domain (and creative commons) fiction books. The current catalog:<br><ul>";
 	html += string.Join("<br>", visualPulps.Values.Select(vp => $"<li><a href='/vn/{vp.DirName}/'>{vp.DirName}</a></li>"));
 	html += "</ul>";
