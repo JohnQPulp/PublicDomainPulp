@@ -4,6 +4,7 @@ namespace Pulp.PublicDomainPulp;
 
 internal static class Helpers {
 	public static readonly string HeadHtml = ReadResource("head.html");
+	public static readonly string VNBodyHtml = ReadResource("vn-body.html");
 	
 	public static string ReadResource(string name)
 	{

@@ -17,7 +17,7 @@ foreach (string dir in Directory.GetDirectories(Path.Combine(baseDirectory, "Vis
 	string rawText = File.ReadAllText(Path.Combine(dir, "book.txt"));
 	string pulpText = File.ReadAllText(Path.Combine(dir, "pulp.txt"));
 
-	string html = Helpers.HeadHtml + Compiler.BuildHtml(rawText, pulpText);
+	string html = Helpers.HeadHtml + Helpers.VNBodyHtml + Compiler.BuildHtml(rawText, pulpText);
 
 	visualPulps.Add(name, new(name, html));
 }

@@ -10,5 +10,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="head.html" />
+    <EmbeddedResource Include="vn-body.html" />
   </ItemGroup>
 </Project>
