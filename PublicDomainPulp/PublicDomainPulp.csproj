@@ -8,4 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Pulpifier\Pulpifier\Pulpifier.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="head.html" />
+  </ItemGroup>
 </Project>

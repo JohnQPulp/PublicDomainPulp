@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Net.Http.Headers;
+using Pulp.PublicDomainPulp;
 using Pulp.Pulpifier;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,7 @@ foreach (string dir in Directory.GetDirectories(Path.Combine(baseDirectory, "Vis
 	string rawText = File.ReadAllText(Path.Combine(dir, "book.txt"));
 	string pulpText = File.ReadAllText(Path.Combine(dir, "pulp.txt"));
 
-	string html = Compiler.BuildHtml(rawText, pulpText);
+	string html = Helpers.HeadHtml + Compiler.BuildHtml(rawText, pulpText);
 
 	visualPulps.Add(name, new(name, html));
 }
@@ -34,7 +35,7 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.MapGet("/", () => {
-	string html = "<head><title>Public Domain Pulp</title><link rel='icon' type='image/x-icon' href='/assets/favicon.ico'><link href='/assets/style.css' rel='stylesheet'></head><body>";
+	string html = Helpers.HeadHtml;
 	html += "PublicDomainPulp is a website for hosting visual novel transformation (pulpifications) of public domain (and creative commons) fiction books. The current catalog:<br><ul>";
 	html += string.Join("<br>", visualPulps.Values.Select(vp => $"<li><a href='/vn/{vp.DirName}/'>{vp.DirName}</a></li>"));
 	html += "</ul>";
