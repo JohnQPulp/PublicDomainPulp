@@ -9,6 +9,7 @@
   max-width: 120em;
   transform: translateX(-50%);
   left: 50%;
+  align-items: center
 }
 #button-bar > button:first-child {
   margin-left: 0.5em;
@@ -24,10 +25,43 @@
   margin-left: auto;
   margin-right: 0.5em;
 }
+#copytext {
+  display: none;
+  font-size: 1.25em;
+  background-color: #f8efd4f0;
+  padding: 0 5px;
+  border-radius: 5px;
+}
+#copytext.visible {
+  display: initial;
+}
 </style>
+<script>
+function menuClick() {
+  
+} 
+function bookmarkClick() {
+  
+}
+function copyClick() {
+  const copytext = document.getElementById('copytext');
+  copytext.classList.toggle('visible', true);
+  setTimeout(() => copytext.classList.toggle('visible', false), 1000);
+
+  const url = new URL(window.location.href);
+  url.search = "";
+  url.searchParams.set("p", (pos * 3).toString());
+  const finalUrl = url.toString();
+  navigator.clipboard.writeText(finalUrl);
+}
+function homeClick() {
+  window.location.href = '/';
+}
+</script>
 <div id="button-bar">
-    <button title="Toggle Menu Overlay">≣</button>
-    <button title="Bookmark Current Line">☆</button>
-    <button title="Copy Link to Current Line">🔗</button>
-    <button title="Exit Visual Novel to Home Page" onclick="window.location.href = '/'">🏠</button>
+    <button title="Toggle Menu Overlay" onclick="menuClick()">≣</button>
+    <button title="Bookmark Current Line" onclick="bookmarkClick()">☆</button>
+    <button title="Copy Link to Current Line" onclick="copyClick()">🔗</button>
+    <span id="copytext">Link Copied</span>
+    <button title="Exit Visual Novel to Home Page" onclick="homeClick()">🏠</button>
 </div>
