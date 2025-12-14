@@ -84,6 +84,12 @@
 #menu-bookmarks button:first-child {
   margin-right: 5px;
 }
+#bookmarkBtn::after {
+  content: '☆';
+}
+#bookmarkBtn.bookmarked::after {
+  content: '★';
+}
 </style>
 <script>
 function createLineButtons(i) {
@@ -113,6 +119,10 @@ function populateBookmarks() {
     return `<li><span>${createLineButtons(p)}: ${line}</span></li>`
   }).join("\n");
 }
+function updateBookmarkBtn() {
+  const bookmarkBtn = document.getElementById("bookmarkBtn");
+  bookmarkBtn.classList.toggle("bookmarked", bookmarks.indexOf(pos) !== -1);
+}
 function bookmarkClick() {
   const index = bookmarks.indexOf(pos);
   if (index === -1) {
@@ -122,7 +132,11 @@ function bookmarkClick() {
   }
   bookmarks.sort((a, b) => a - b);
   populateBookmarks();
+  updateBookmarkBtn();
   localStorage.setItem("b", JSON.stringify(bookmarks));
+}
+function handlePosUpdate() {
+  updateBookmarkBtn();
 }
 window.addEventListener("load", e => {
   populateBookmarks();
@@ -161,7 +175,7 @@ function homeClick() {
 </script>
 <div id="button-bar">
     <button title="Toggle Menu Overlay" onclick="menuClick()">≣</button>
-    <button title="Bookmark Current Line" onclick="bookmarkClick()">☆</button>
+    <button title="Bookmark Current Line" onclick="bookmarkClick()" id="bookmarkBtn"></button>
     <button title="Copy Link to Current Line" onclick="copyClick(pos)">🔗</button>
     <span id="copytext">Link to Line Copied</span>
     <button title="Exit Visual Novel to Home Page" onclick="homeClick()">🏠</button>
