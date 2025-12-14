@@ -9,7 +9,7 @@
     <ProjectReference Include="..\Pulpifier\Pulpifier\Pulpifier.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="head.html" />
-    <EmbeddedResource Include="vn-body.html" />
+    <EmbeddedResource Include="snippets\head.html" />
+    <EmbeddedResource Include="snippets\vn-body.html" />
   </ItemGroup>
 </Project>
