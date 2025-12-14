@@ -44,7 +44,7 @@
   left: 10vw;
   width: 80vw;
   height: 100vh;
-  opacity: 90%;
+  opacity: 95%;
   display: none;
   z-index: 8;
   flex-direction: row;
@@ -68,6 +68,10 @@
 }
 #menu-bookmarks {
   flex-grow: 1;
+  padding-right: 5px;
+}
+#menu ul {
+  padding-left: 2em;
 }
 #menu li {
   margin-bottom: 3px;
@@ -77,13 +81,25 @@
   gap: 5px;
   align-items: center;
 }
+#menu-bookmarks button:first-child {
+  margin-right: 5px;
+}
 </style>
 <script>
 function createLineButtons(i) {
   return `<button onclick="setPos(${i})">Line ${i}</button><button onclick="copyClick(${i})">🔗</button>`;
 }
+let menuOpen = false;
 function menuClick() {
-  document.getElementById("menu").classList.toggle("visible");
+  if (menuOpen) {
+    document.getElementById("menu").classList.toggle("visible", false);
+    menuOpen = false;
+    scrollEnabled = true;
+  } else {
+    document.getElementById("menu").classList.toggle("visible", true);
+    menuOpen = true;
+    scrollEnabled = false;
+  }
 }
 let bookmarks = [];
 const bookmarksString = localStorage.getItem("b");
