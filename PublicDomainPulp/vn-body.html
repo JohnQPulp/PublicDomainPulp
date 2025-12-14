@@ -87,6 +87,12 @@
 #menu-bookmarks button:first-child {
   margin-right: 5px;
 }
+#menuBtn::after {
+  content: '≣';
+}
+#menuBtn.menuOpen::after {
+  content: '✕';
+}
 #bookmarkBtn::after {
   content: '☆';
 }
@@ -102,10 +108,12 @@ let menuOpen = false;
 function menuClick() {
   if (menuOpen) {
     document.getElementById("menu").classList.toggle("visible", false);
+    document.getElementById("menuBtn").classList.toggle("menuOpen", false);
     menuOpen = false;
     scrollEnabled = true;
   } else {
     document.getElementById("menu").classList.toggle("visible", true);
+    document.getElementById("menuBtn").classList.toggle("menuOpen", true);
     menuOpen = true;
     scrollEnabled = false;
   }
@@ -177,7 +185,7 @@ function homeClick() {
 }
 </script>
 <div id="button-bar">
-    <button title="Toggle Menu Overlay" onclick="menuClick()">≣</button>
+    <button title="Toggle Menu Overlay" onclick="menuClick()" id="menuBtn"></button>
     <button title="Bookmark Current Line" onclick="bookmarkClick()" id="bookmarkBtn"></button>
     <button title="Copy Link to Current Line" onclick="copyClick(pos)">🔗</button>
     <span id="copytext">Link to Line Copied</span>
