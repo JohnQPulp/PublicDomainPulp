@@ -37,14 +37,65 @@
 #copytext.visible {
   display: initial;
 }
+#menu {
+  background-color: #f8efd4f0;
+  position: absolute;
+  top: 0;
+  left: 10vw;
+  width: 80vw;
+  height: 100vh;
+  opacity: 90%;
+  display: flex;
+  flex-direction: row;
+  z-index: 0;
+  box-sizing: border-box;
+  padding: 1vh 1vw;
+  mask-composite: intersect;
+  mask-image: linear-gradient(to left, transparent, black 1vw), linear-gradient(to right, transparent, black 1vw);
+}
+#menu.visible {
+  z-index: 8;
+}
+#menu > div {
+  margin: 0 10px;
+}
+#menu h2 {
+  text-align: center;
+}
+#menu-bookmarks {
+  flex-grow: 1;
+}
 </style>
 <script>
 function menuClick() {
-  
-} 
-function bookmarkClick() {
-  
+  document.getElementById("menu").classList.toggle("visible");
 }
+let bookmarks = [];
+const bookmarksString = localStorage.getItem("b");
+if (bookmarksString) {
+  bookmarks = JSON.parse(bookmarksString);
+}
+function populateBookmarks() {
+  const bookmarksList = document.querySelector("#menu-bookmarks > ul");
+  bookmarksList.innerHTML = bookmarks.map(p => {
+    const line = htmlArr[p].replace(/<p class='e'>.*?<\/p>/g, "").replace(/<b class='speaker'>.*?<\/b>/g, "");
+    return `<li><a href="javascript:setPos(${p})">Line ${p}</a>: ${line.slice(5, line.length - 6)}</li>`
+  }).join("\n");
+}
+function bookmarkClick() {
+  const index = bookmarks.indexOf(pos);
+  if (index === -1) {
+    bookmarks.push(pos);
+  } else {
+    bookmarks.splice(index, 1);
+  }
+  bookmarks.sort((a, b) => a - b);
+  populateBookmarks();
+  localStorage.setItem("b", JSON.stringify(bookmarks));
+}
+window.addEventListener("load", e => {
+  populateBookmarks();
+});
 function copyClick() {
   const copytext = document.getElementById('copytext');
   copytext.classList.toggle('visible', true);
@@ -63,6 +114,21 @@ function homeClick() {
     <button title="Toggle Menu Overlay" onclick="menuClick()">≣</button>
     <button title="Bookmark Current Line" onclick="bookmarkClick()">☆</button>
     <button title="Copy Link to Current Line" onclick="copyClick()">🔗</button>
-    <span id="copytext">Link Copied</span>
+    <span id="copytext">Link to Current Line Copied</span>
     <button title="Exit Visual Novel to Home Page" onclick="homeClick()">🏠</button>
+</div>
+<div id="menu">
+    <div id="menu-toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li>I<ul><li>I</li><li>II</li></ul></li>
+            <li>II<ul><li>I</li><li>II</li></ul></li>
+        </ul>
+    </div>
+    <div id="menu-bookmarks">
+        <h2>Bookmarks</h2>
+        <ul>
+            
+        </ul>
+    </div>
 </div>
