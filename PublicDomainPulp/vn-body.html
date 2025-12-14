@@ -45,16 +45,16 @@
   width: 80vw;
   height: 100vh;
   opacity: 90%;
-  display: flex;
+  display: none;
+  z-index: 8;
   flex-direction: row;
-  z-index: 0;
   box-sizing: border-box;
   padding: 1vh 1vw;
   mask-composite: intersect;
   mask-image: linear-gradient(to left, transparent, black 1vw), linear-gradient(to right, transparent, black 1vw);
 }
 #menu.visible {
-  z-index: 8;
+  display: flex;
 }
 #menu > div {
   margin: 0 10px;
