@@ -52,18 +52,15 @@ app.MapGet("/vn/{book}/pulp.html", (string book) =>
 	return Results.Text(pulp.Html, "text/html; charset=utf-8", Encoding.UTF8, 200);
 });
 
-app.MapGet("/vn/{book}/images/{image}.webp", async (HttpContext context) =>
+app.MapGet("/vn/{book}/images/{image}.webp", async (string book, string image, HttpContext context) =>
 {
-	string book = context.Request.RouteValues["book"] as string;
-	string image = context.Request.RouteValues["image"] as string;
-
 	if (visualPulps.TryGetValue(book, out VisualPulp pulp)) {
 		context.Response.ContentType = "image/webp";
 		string path = Path.Combine(baseDirectory, "VisualPulps", pulp.DirName, "images", image + ".webp");
 
 		try {
 			context.Response.StatusCode = 200;
-			context.Response.Headers.CacheControl = "public, max-age=604800";
+			context.Response.Headers.CacheControl = "public, max-age=604800, immutable";
 			await context.Response.SendFileAsync(path);
 			return Results.Empty;
 		} catch (FileNotFoundException) { }

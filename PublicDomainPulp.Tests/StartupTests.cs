@@ -30,7 +30,7 @@ public class StartupTests {
 		res.AssertContentType("image/webp", false);
 
 		string cacheControl = res.Headers.CacheControl.ToString();
-		Assert.AreEqual($"public, max-age={60 * 60 * 24 * 7}", cacheControl);
+		Assert.AreEqual($"public, max-age={60 * 60 * 24 * 7}, immutable", cacheControl);
 	}
 	
 	[TestMethod]
