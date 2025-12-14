@@ -109,8 +109,8 @@ if (bookmarksString) {
 function populateBookmarks() {
   const bookmarksList = document.querySelector("#menu-bookmarks > ul");
   bookmarksList.innerHTML = bookmarks.map(p => {
-    const line = htmlArr[p].replace(/<p class='e'>.*?<\/p>/g, "").replace(/<b class='speaker'>.*?<\/b>/g, "");
-    return `<li><span>${createLineButtons(p)}: ${line.slice(5, line.length - 6)}</span></li>`
+    const line = htmlArr[p].replace(/<p class='e'>.*?<\/p>/g, "").replace(/<b class='speaker'>.*?<\/b>/g, "").replace(/<.*?>/g, "");
+    return `<li><span>${createLineButtons(p)}: ${line}</span></li>`
   }).join("\n");
 }
 function bookmarkClick() {
