@@ -1,0 +1,101 @@
+#button-bar {
+  position: absolute;
+  bottom: 0.25em;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  white-space: nowrap;
+  max-width: 120em;
+  transform: translateX(-50%);
+  left: 50%;
+  align-items: center;
+  font-family: "Noto Sans", sans-serif;
+}
+#button-bar > button:first-child {
+  margin-left: 0.5em;
+}
+#button-bar > button {
+  font-size: 1.25em;
+  margin-right: 0.5em;
+  opacity: 90%;
+  filter: grayscale(1);
+  padding: 1px 3px;
+  font-family: "DejaVu Sans", sans-serif;
+}
+#button-bar > button:last-child {
+  float: right;
+  margin-left: auto;
+  margin-right: 0.5em;
+}
+#copytext {
+  display: none;
+  font-size: 1.25em;
+  padding: 0 10px;
+  background: linear-gradient(to right, transparent, #f8efd4f0 9px, #f8efd4f0 calc(100% - 9px), transparent);
+}
+#copytext.visible {
+  display: initial;
+}
+#menu {
+  background-color: #f8efd4f0;
+  position: absolute;
+  top: 0;
+  left: 10vw;
+  width: 80vw;
+  height: 100vh;
+  opacity: 95%;
+  display: none;
+  z-index: 8;
+  flex-direction: row;
+  box-sizing: border-box;
+  padding: 1vh 1vw;
+}
+#menu button {
+  white-space: nowrap;
+}
+#menu.visible {
+  display: flex;
+}
+#menu > div {
+  margin: 0 10px 50px;
+  overflow-y: scroll;
+}
+#menu h2 {
+  text-align: center;
+}
+#menu-toc {
+  min-width: 30%;
+}
+#menu-bookmarks {
+  flex-grow: 1;
+  padding-right: 5px;
+}
+#menu ul {
+  padding-left: 2em;
+}
+#menu #menu-toc > ul {
+  padding-left: 0;
+}
+#menu li {
+  margin-bottom: 3px;
+}
+#menu-toc li > span {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+#menu-bookmarks button:first-child {
+  margin-right: 5px;
+}
+#menuBtn::after {
+  content: '≣';
+}
+#menuBtn.menuOpen::after {
+  content: '✕';
+}
+#bookmarkBtn::after {
+  content: '☆';
+}
+#bookmarkBtn.bookmarked::after {
+  content: '★';
+}
