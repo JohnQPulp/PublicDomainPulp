@@ -9,23 +9,8 @@ using Pulp.Pulpifier;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 WebApplication app = builder.Build();
 
-Dictionary<string, VisualPulp> visualPulps = new(StringComparer.OrdinalIgnoreCase);
-
 string baseDirectory = Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().IndexOf("/PublicDomainPulp/", StringComparison.Ordinal)) + "/PublicDomainPulp";
-
-foreach (string dir in Directory.GetDirectories(Path.Combine(baseDirectory, "VisualPulps"))) {
-	string name = Path.GetFileName(dir);
-
-	string metadataJson = File.ReadAllText(Path.Combine(dir, "metadata.json"));
-	Metadata metadata = Metadata.Parse(metadataJson);
-	
-	string rawText = File.ReadAllText(Path.Combine(dir, "book.txt"));
-	string pulpText = File.ReadAllText(Path.Combine(dir, "pulp.txt"));
-
-	string html = Helpers.HeadHtml + Helpers.VNBodyHtml + Compiler.BuildHtml(rawText, pulpText);
-
-	visualPulps.Add(name, new(name, metadata, html));
-}
+Dictionary<string, VisualNovel> visualPulps = Helpers.BuildVisualNovels(baseDirectory);
 
 app.Use((context, next) =>
 {
@@ -39,35 +24,19 @@ app.UseStaticFiles(new StaticFileOptions
 	RequestPath = "/assets"
 });
 
+string homeHtml = Helpers.BuildHomePage(visualPulps);
 app.MapGet("/", () => {
-	string homeHtml = Helpers.HeadHtml + Helpers.HomeBodyHtml;
+	return Results.Text(homeHtml, "text/html; charset=utf-8", Encoding.UTF8, 200);
+});
 
-	StringBuilder html = new();
-	foreach (VisualPulp pulp in visualPulps.Values) {
-		html.Append("<div class='pulpcard'>");
-		html.Append($"<h3><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
-		html.Append("<div><div>");
-		html.Append($"<h3><a href='/vn/{pulp.DirName}/pulp.html'>Read Online</a></h3>");
-		html.Append($"<p>{pulp.Metadata.Blurb}</p>");
-		html.Append($"<p class='small'>See the <a href='{pulp.Metadata.Repo}'>JohnQPulp/{pulp.DirName} Github repository</a> for offline downloading and issue reporting.</p>");
-		html.Append($"<p class='small center'><a href='{pulp.Metadata.Source}'>Epub Source</a>");
-		foreach (KeyValuePair<string, string> kvp in pulp.Metadata.Links) {
-			html.Append($" • <a href='{kvp.Value}'>{kvp.Key}</a>");
-		}
-		html.Append("</p>");
-		html.Append($"<img src='/vn/{pulp.DirName}/images/c-author.webp'>");
-		html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.webp'>");
-		html.Append("</div></div>");
-	}
-
-	string finalHtml = homeHtml.Replace("<div id='content'></div>", $"<div id='content'>{html}</div>");
-	
-	return Results.Text(finalHtml, "text/html; charset=utf-8", Encoding.UTF8, 200);
+string aboutHtml = Helpers.BuildAboutPage();
+app.MapGet("/about", () => {
+	return Results.Text(aboutHtml, "text/html; charset=utf-8", Encoding.UTF8, 200);
 });
 
 app.MapGet("/vn/{book}/pulp.html", (string book) =>
 {
-	if (!visualPulps.TryGetValue(book, out VisualPulp pulp)) {
+	if (!visualPulps.TryGetValue(book, out VisualNovel pulp)) {
 		return Results.NotFound();
 	}
 	return Results.Text(pulp.Html, "text/html; charset=utf-8", Encoding.UTF8, 200);
@@ -75,7 +44,7 @@ app.MapGet("/vn/{book}/pulp.html", (string book) =>
 
 app.MapGet("/vn/{book}/images/{image}.webp", async (string book, string image, HttpContext context) =>
 {
-	if (visualPulps.TryGetValue(book, out VisualPulp pulp)) {
+	if (visualPulps.TryGetValue(book, out VisualNovel pulp)) {
 		context.Response.ContentType = "image/webp";
 		string path = Path.Combine(baseDirectory, "VisualPulps", pulp.DirName, "images", image + ".webp");
 
@@ -92,5 +61,3 @@ app.MapGet("/vn/{book}/images/{image}.webp", async (string book, string image, H
 });
 
 app.Run();
-
-public readonly record struct VisualPulp(string DirName, Metadata Metadata, string Html);

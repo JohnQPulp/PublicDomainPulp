@@ -5,8 +5,10 @@ namespace Pulp.PublicDomainPulp.Tests;
 [TestClass]
 public class StartupTests {
 	[TestMethod]
-	public async Task Root_200() {
-		HttpResponseMessage res = await TestApp.Client.GetAsync("/");
+	[DataRow("/")]
+	[DataRow("/about")]
+	public async Task HomePages_200(string page) {
+		HttpResponseMessage res = await TestApp.Client.GetAsync(page);
 		res.EnsureSuccessStatusCode();
 		res.AssertContentType("text/html", true);
 		await res.AssertHasTitle();
