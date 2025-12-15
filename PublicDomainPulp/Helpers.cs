@@ -10,7 +10,7 @@ internal static class Helpers {
 	public static readonly string HeadHtml = ReadResource("snippets.head.html");
 	public static readonly string VNBodyHtml = ReadResource("snippets.vn-body.html");
 	public static readonly string HomeBodyHtml = ReadResource("snippets.home-body.html");
-	
+
 	public static string ReadResource(string name)
 	{
 		Assembly asm = Assembly.GetExecutingAssembly();
@@ -34,7 +34,7 @@ internal static class Helpers {
 			html.Append("<div class='pulpcard'>");
 			html.Append($"<h3><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
 			html.Append("<div><div>");
-			html.Append($"<h3><a href='/vn/{pulp.DirName}/pulp.html'>Read Online</a></h3>");
+			html.Append($"<h3><a href='/vn/{pulp.DirName}/pulp.html'>Read Online</a> ({pulp.Metadata.Words.ToString("N0")} words)</h3>");
 			html.Append($"<p>{pulp.Metadata.Blurb}</p>");
 			html.Append($"<p class='small'>See the <a href='{pulp.Metadata.Repo}'>JohnQPulp/{pulp.DirName} Github repository</a> for offline downloading and issue reporting.</p>");
 			html.Append($"<p class='small center'><a href='{pulp.Metadata.Source}'>Epub Source</a>");
@@ -51,8 +51,8 @@ internal static class Helpers {
 
 	public static string BuildAboutPage() {
 		StringBuilder html = new();
-		html.Append("<style>#nav-about { text-decoration: underline !important; }</style>");
-		html.Append("<p>Public Domain Pulp is a site for creating visual novels out of public domain texts (and perhaps creative commons texts too).");
+		html.Append("<style>#nav-about { text-decoration: underline !important; }\n#content p { max-width: 60em; margin: 20px auto; }</style>");
+		html.Append("<p>Public Domain Pulp is a site for creating visual novels out of public domain texts (and perhaps creative commons texts too). ");
 		html.Append("The goal is to eventually create visual novels out of most all famous public domain texts.</p>");
 		return BuildContentPage(html.ToString());
 	}
@@ -65,7 +65,7 @@ internal static class Helpers {
 
 			string metadataJson = File.ReadAllText(Path.Combine(dir, "metadata.json"));
 			Metadata metadata = Metadata.Parse(metadataJson);
-	
+
 			string rawText = File.ReadAllText(Path.Combine(dir, "book.txt"));
 			string pulpText = File.ReadAllText(Path.Combine(dir, "pulp.txt"));
 
@@ -73,7 +73,7 @@ internal static class Helpers {
 
 			visualPulps.Add(name, new(name, metadata, html));
 		}
-		
+
 		return visualPulps;
 	}
 }
