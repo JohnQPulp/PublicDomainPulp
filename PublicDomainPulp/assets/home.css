@@ -9,6 +9,9 @@ body {
   overflow-x: hidden;
   background-color: #f0ddb6;
   font-family: "Noto Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .title {
@@ -55,6 +58,7 @@ body {
 #content {
   width: 90vw;
   padding: 0 5vw;
+  flex-grow: 1;
 }
 
 .pulpcard {
