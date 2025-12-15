@@ -16,12 +16,15 @@ string baseDirectory = Directory.GetCurrentDirectory().Substring(0, Directory.Ge
 foreach (string dir in Directory.GetDirectories(Path.Combine(baseDirectory, "VisualPulps"))) {
 	string name = Path.GetFileName(dir);
 
+	string metadataJson = File.ReadAllText(Path.Combine(dir, "metadata.json"));
+	Metadata metadata = Metadata.Parse(metadataJson);
+	
 	string rawText = File.ReadAllText(Path.Combine(dir, "book.txt"));
 	string pulpText = File.ReadAllText(Path.Combine(dir, "pulp.txt"));
 
 	string html = Helpers.HeadHtml + Helpers.VNBodyHtml + Compiler.BuildHtml(rawText, pulpText);
 
-	visualPulps.Add(name, new(name, html));
+	visualPulps.Add(name, new(name, metadata, html));
 }
 
 app.Use((context, next) =>
@@ -37,11 +40,15 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.MapGet("/", () => {
-	string html = Helpers.HeadHtml;
-	html += "PublicDomainPulp is a website for hosting visual novel transformation (pulpifications) of public domain (and creative commons) fiction books. The current catalog:<br><ul>";
-	html += string.Join("<br>", visualPulps.Values.Select(vp => $"<li><a href='/vn/{vp.DirName}/pulp.html'>{vp.DirName}</a></li>"));
+	string homeHtml = Helpers.HeadHtml + Helpers.HomeBodyHtml;
+	
+	string html = "PublicDomainPulp is a website for hosting visual novel transformation (pulpifications) of public domain (and creative commons) fiction books. The current catalog:<br><ul>";
+	html += string.Join("<br>", visualPulps.Values.Select(vp => $"<li><a href='/vn/{vp.DirName}/pulp.html'>{vp.Metadata.Title}</a> by {vp.Metadata.Author}<img src='/vn/{vp.DirName}/images/preview.webp' /></li>"));
 	html += "</ul>";
-	return Results.Text(html, "text/html; charset=utf-8", Encoding.UTF8, 200);
+
+	string finalHtml = homeHtml.Replace("<div id='content'></div>", $"<div id='content'>{html}</div>");
+	
+	return Results.Text(finalHtml, "text/html; charset=utf-8", Encoding.UTF8, 200);
 });
 
 app.MapGet("/vn/{book}/pulp.html", (string book) =>
@@ -72,4 +79,4 @@ app.MapGet("/vn/{book}/images/{image}.webp", async (string book, string image, H
 
 app.Run();
 
-public readonly record struct VisualPulp(string DirName, string Html);
+public readonly record struct VisualPulp(string DirName, Metadata Metadata, string Html);

@@ -1,0 +1,52 @@
+html, body {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  width: 100vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #f0ddb6;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.fadebar {
+  width: 90vw;
+  background: linear-gradient(to right, transparent, #f8efd4f0 10%, #f8efd4f0 90%, transparent 100%);
+  padding: 0 5vw;
+  display: flex;
+}
+
+#nav {
+  margin-top: 1em;
+}
+
+#footer {
+  margin-bottom: 1em;
+  text-align: center;
+  justify-content: center;
+}
+
+#nav > h2 {
+  padding: 0 1em;
+}
+
+#nav > h2 > a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#nav > h2:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#nav > h2:last-child {
+  margin-left: auto;
+}
+
+#content {
+  width: 90vw;
+  padding: 0 5vw;
+}

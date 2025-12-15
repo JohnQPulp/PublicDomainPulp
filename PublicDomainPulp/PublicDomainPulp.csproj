@@ -11,5 +11,6 @@
   <ItemGroup>
     <EmbeddedResource Include="snippets\head.html" />
     <EmbeddedResource Include="snippets\vn-body.html" />
+    <EmbeddedResource Include="snippets\home-body.html" />
   </ItemGroup>
 </Project>
