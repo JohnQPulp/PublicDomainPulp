@@ -36,7 +36,7 @@ app.Use(async (context, next) =>
 	Debug.Assert(!context.Response.Headers.ContainsKey(HeaderNames.Server));
 	Debug.Assert(!context.Response.Headers.ContainsKey(HeaderNames.XPoweredBy));
 
-	Debug.Assert(context.Response.ContentLength == 0 || context.Response.Headers.ContainsKey(HeaderNames.ContentType));
+	Debug.Assert(context.Response.StatusCode != 200 || context.Response.ContentLength == 0 || context.Response.Headers.ContainsKey(HeaderNames.ContentType));
 });
 
 app.UseStaticFiles(new StaticFileOptions

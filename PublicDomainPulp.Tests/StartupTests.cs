@@ -25,8 +25,19 @@ public class StartupTests {
 		res.AssertContentType("text/html", true);
 		await res.AssertHasTitle();
 
-		string  content = await res.Content.ReadAsStringAsync();
+		string content = await res.Content.ReadAsStringAsync();
 		Assert.Contains("404 Not Found", content);
+	}
+
+	[TestMethod]
+	[DataRow("/foo.json")]
+	[DataRow("/vn/CupOfGold/pulp.css")]
+	[DataRow("/assets/favicon.icon")]
+	[DataRow("/assets/home.scss")]
+	public async Task BadFiles_404(string page) {
+		HttpResponseMessage res = await TestApp.Client.GetAsync(page);
+		Assert.AreEqual(HttpStatusCode.NotFound, res.StatusCode);
+		res.AssertEmpty();
 	}
 
 	[TestMethod]
