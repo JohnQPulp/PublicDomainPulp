@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
@@ -17,10 +18,25 @@ WebApplication app = builder.Build();
 string baseDirectory = Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().IndexOf("/PublicDomainPulp/", StringComparison.Ordinal)) + "/PublicDomainPulp";
 Dictionary<string, VisualNovel> visualPulps = Helpers.BuildVisualNovels(baseDirectory);
 
-app.Use((context, next) =>
+app.Use(async (context, next) =>
 {
+	context.Response.Headers[HeaderNames.CacheControl] = "no-store";
 	context.Response.Headers[HeaderNames.XContentTypeOptions] = "nosniff";
-	return next();
+
+	await next.Invoke();
+
+	Debug.Assert(context.Response.Headers[HeaderNames.XContentTypeOptions] == "nosniff");
+
+	Debug.Assert(context.Response.Headers.ContainsKey(HeaderNames.CacheControl));
+	Debug.Assert(!context.Response.Headers.ContainsKey(HeaderNames.ETag));
+	Debug.Assert(!context.Response.Headers.ContainsKey(HeaderNames.LastModified));
+	Debug.Assert(!context.Response.Headers.ContainsKey(HeaderNames.Expires));
+	Debug.Assert(!context.Response.Headers.ContainsKey(HeaderNames.Pragma));
+
+	Debug.Assert(!context.Response.Headers.ContainsKey(HeaderNames.Server));
+	Debug.Assert(!context.Response.Headers.ContainsKey(HeaderNames.XPoweredBy));
+
+	Debug.Assert(context.Response.ContentLength == 0 || context.Response.Headers.ContainsKey(HeaderNames.ContentType));
 });
 
 app.UseStaticFiles(new StaticFileOptions
@@ -32,6 +48,12 @@ app.UseStaticFiles(new StaticFileOptions
 			[".css"] = "text/css; charset=utf-8",
 			[".js"] = "application/javascript; charset=utf-8"
 		}
+	},
+	OnPrepareResponse = ctx => {
+		HttpResponse res = ctx.Context.Response;
+		res.Headers.Remove(HeaderNames.ETag);
+		res.Headers.Remove(HeaderNames.LastModified);
+		res.Headers.CacheControl = "public, max-age=3600, immutable";
 	}
 });
 
