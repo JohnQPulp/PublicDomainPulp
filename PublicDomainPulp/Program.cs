@@ -41,10 +41,24 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.MapGet("/", () => {
 	string homeHtml = Helpers.HeadHtml + Helpers.HomeBodyHtml;
-	
-	string html = "PublicDomainPulp is a website for hosting visual novel transformation (pulpifications) of public domain (and creative commons) fiction books. The current catalog:<br><ul>";
-	html += string.Join("<br>", visualPulps.Values.Select(vp => $"<li><a href='/vn/{vp.DirName}/pulp.html'>{vp.Metadata.Title}</a> by {vp.Metadata.Author}<img src='/vn/{vp.DirName}/images/preview.webp' /></li>"));
-	html += "</ul>";
+
+	StringBuilder html = new();
+	foreach (VisualPulp pulp in visualPulps.Values) {
+		html.Append("<div class='pulpcard'>");
+		html.Append($"<h3><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
+		html.Append("<div><div>");
+		html.Append($"<h3><a href='/vn/{pulp.DirName}/pulp.html'>Read Online</a></h3>");
+		html.Append($"<p>{pulp.Metadata.Blurb}</p>");
+		html.Append($"<p>Github link: <a href='{pulp.Metadata.Source}'>{pulp.Metadata.Source}</a></p>");
+		html.Append("<p>External Links:</p><ul>");
+		foreach (string link in pulp.Metadata.Links) {
+			html.Append($"<li><a href='{link}'>{link}</a></li>");
+		}
+		html.Append("</ul>");
+		html.Append($"<img src='/vn/{pulp.DirName}/images/c-author.webp'>");
+		html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.webp'>");
+		html.Append("</div></div>");
+	}
 
 	string finalHtml = homeHtml.Replace("<div id='content'></div>", $"<div id='content'>{html}</div>");
 	

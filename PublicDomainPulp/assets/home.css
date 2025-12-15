@@ -11,6 +11,12 @@ body {
   font-family: "Noto Sans", sans-serif;
 }
 
+.title {
+  width: 100vw;
+  text-align: center;
+  margin: 0;
+}
+
 .fadebar {
   width: 90vw;
   background: linear-gradient(to right, transparent, #f8efd4f0 10%, #f8efd4f0 90%, transparent 100%);
@@ -19,7 +25,7 @@ body {
 }
 
 #nav {
-  margin-top: 1em;
+  
 }
 
 #footer {
@@ -49,4 +55,40 @@ body {
 #content {
   width: 90vw;
   padding: 0 5vw;
+}
+
+.pulpcard {
+  width: 100%;
+  margin: 1em 0;
+  overflow: hidden;
+  border-bottom: 1px solid black;
+}
+
+.pulpcard > h3 {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
+
+.pulpcard > div {
+  display: flex;
+  align-items: flex-start;
+}
+
+.pulpcard > div > div {
+  width: 30%;
+  position: relative;
+}
+
+.pulpcard > div > div > h3 {
+  text-align: center;
+}
+
+.pulpcard > div > div > img {
+  width: 100%;
+  position: absolute;
+}
+
+.pulpcard > div > img {
+  width: 70%;
 }
