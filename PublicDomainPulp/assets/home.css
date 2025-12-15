@@ -92,3 +92,11 @@ body {
 .pulpcard > div > img {
   width: 70%;
 }
+
+.pulpcard p.small {
+  font-size: 0.9em;
+}
+
+.pulpcard p.center {
+  text-align: center;
+}

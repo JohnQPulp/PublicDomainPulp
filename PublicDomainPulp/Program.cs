@@ -49,12 +49,12 @@ app.MapGet("/", () => {
 		html.Append("<div><div>");
 		html.Append($"<h3><a href='/vn/{pulp.DirName}/pulp.html'>Read Online</a></h3>");
 		html.Append($"<p>{pulp.Metadata.Blurb}</p>");
-		html.Append($"<p>Github link: <a href='{pulp.Metadata.Source}'>{pulp.Metadata.Source}</a></p>");
-		html.Append("<p>External Links:</p><ul>");
-		foreach (string link in pulp.Metadata.Links) {
-			html.Append($"<li><a href='{link}'>{link}</a></li>");
+		html.Append($"<p class='small'>See the <a href='{pulp.Metadata.Repo}'>JohnQPulp/{pulp.DirName} Github repository</a> for offline downloading and issue reporting.</p>");
+		html.Append($"<p class='small center'><a href='{pulp.Metadata.Source}'>Epub Source</a>");
+		foreach (KeyValuePair<string, string> kvp in pulp.Metadata.Links) {
+			html.Append($" • <a href='{kvp.Value}'>{kvp.Key}</a>");
 		}
-		html.Append("</ul>");
+		html.Append("</p>");
 		html.Append($"<img src='/vn/{pulp.DirName}/images/c-author.webp'>");
 		html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.webp'>");
 		html.Append("</div></div>");

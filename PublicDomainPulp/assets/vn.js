@@ -43,7 +43,7 @@ function bookmarkClick() {
   updateBookmarkBtn();
   localStorage.setItem("b", JSON.stringify(bookmarks));
 }
-function handlePosUpdate() {
+window["handlePosUpdate"] = function () {
   updateBookmarkBtn();
 }
 window.addEventListener("load", e => {
