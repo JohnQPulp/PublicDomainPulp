@@ -20,6 +20,12 @@ internal static class AssertHelpers {
 			}
 		}
 
+		public async Task AssertEmpty() {
+			Assert.AreEqual(0, res.Content.Headers.ContentLength);
+			byte[] body = await res.Content.ReadAsByteArrayAsync();
+			Assert.IsEmpty(body);
+		}
+
 		public async Task AssertHasTitle() {
 			string body = await res.Content.ReadAsStringAsync();
 			Assert.IsTrue(Regex.IsMatch(body, "<title>.+</title>"), "Expected body content to have a populated title tag.");

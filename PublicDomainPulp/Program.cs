@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Net.Http.Headers;
 using Pulp.PublicDomainPulp;
@@ -21,25 +22,32 @@ app.Use((context, next) =>
 app.UseStaticFiles(new StaticFileOptions
 {
 	FileProvider = new PhysicalFileProvider(Path.Combine(baseDirectory, "PublicDomainPulp", "assets")),
-	RequestPath = "/assets"
+	RequestPath = "/assets",
+	ContentTypeProvider = new FileExtensionContentTypeProvider {
+		Mappings = {
+			[".css"] = "text/css; charset=utf-8",
+			[".js"] = "application/javascript; charset=utf-8"
+		}
+	}
 });
 
 string homeHtml = Helpers.BuildHomePage(visualPulps);
 app.MapGet("/", () => {
-	return Results.Text(homeHtml, "text/html; charset=utf-8", Encoding.UTF8, 200);
+	return Helpers.HtmlResult(homeHtml);
 });
 
 string aboutHtml = Helpers.BuildAboutPage();
 app.MapGet("/about", () => {
-	return Results.Text(aboutHtml, "text/html; charset=utf-8", Encoding.UTF8, 200);
+	return Helpers.HtmlResult(aboutHtml);
 });
 
+string notFoundHtml = Helpers.BuildContentPage("<h2>404 Not Found</h2>");
 app.MapGet("/vn/{book}/pulp.html", (string book) =>
 {
 	if (!visualPulps.TryGetValue(book, out VisualNovel pulp)) {
-		return Results.NotFound();
+		return Helpers.HtmlResult(notFoundHtml, 404);
 	}
-	return Results.Text(pulp.Html, "text/html; charset=utf-8", Encoding.UTF8, 200);
+	return Helpers.HtmlResult(pulp.Html);
 });
 
 app.MapGet("/vn/{book}/images/{image}.webp", async (string book, string image, HttpContext context) =>
@@ -58,6 +66,11 @@ app.MapGet("/vn/{book}/images/{image}.webp", async (string book, string image, H
 
 	context.Response.StatusCode = 404;
 	return Results.Empty;
+});
+
+app.MapFallback(() =>
+{
+	return Helpers.HtmlResult(notFoundHtml, 404);
 });
 
 app.Run();

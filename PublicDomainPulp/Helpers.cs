@@ -19,6 +19,10 @@ internal static class Helpers {
 		return reader.ReadToEnd();
 	}
 
+	public static IResult HtmlResult(string html, int statusCode = 200) {
+		return Results.Text(html, "text/html; charset=utf-8", Encoding.UTF8, statusCode);
+	}
+
 	public static string BuildContentPage(string html) {
 		return (HeadHtml + HomeBodyHtml).Replace("<div id='content'></div>", $"<div id='content'>{html}</div>");
 	}
