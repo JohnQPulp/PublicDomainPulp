@@ -25,6 +25,7 @@ internal static class Helpers {
 
 	public static string BuildHomePage(Dictionary<string, VisualNovel> visualNovels) {
 		StringBuilder html = new();
+		html.Append("<style>#nav-home { text-decoration: underline !important; }</style>");
 		foreach (VisualNovel pulp in visualNovels.Values) {
 			html.Append("<div class='pulpcard'>");
 			html.Append($"<h3><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
@@ -46,6 +47,7 @@ internal static class Helpers {
 
 	public static string BuildAboutPage() {
 		StringBuilder html = new();
+		html.Append("<style>#nav-about { text-decoration: underline !important; }</style>");
 		html.Append("<p>Public Domain Pulp is a site for creating visual novels out of public domain texts (and perhaps creative commons texts too).");
 		html.Append("The goal is to eventually create visual novels out of most all famous public domain texts.</p>");
 		return BuildContentPage(html.ToString());
