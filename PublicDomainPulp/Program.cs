@@ -46,7 +46,7 @@ app.MapGet("/about", () => {
 });
 
 string notFoundHtml = Helpers.BuildContentPage("<h2>404 Not Found</h2>");
-app.MapGet("/vn/{book}/pulp.html", (string book) =>
+app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/pulp.html", (string book) =>
 {
 	if (!visualPulps.TryGetValue(book, out VisualNovel pulp)) {
 		return Helpers.HtmlResult(notFoundHtml, 404);
@@ -54,7 +54,7 @@ app.MapGet("/vn/{book}/pulp.html", (string book) =>
 	return Helpers.HtmlResult(pulp.Html);
 });
 
-app.MapGet("/vn/{book}/images/{image}.webp", async (string book, string image, HttpContext context) =>
+app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/images/{image:regex(^[a-z0-9-]{{1,100}}$)}.webp", async (string book, string image, HttpContext context) =>
 {
 	if (visualPulps.TryGetValue(book, out VisualNovel pulp)) {
 		context.Response.ContentType = "image/webp";
