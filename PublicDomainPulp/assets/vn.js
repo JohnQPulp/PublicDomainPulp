@@ -16,10 +16,6 @@ function menuClick() {
   }
 }
 let bookmarks = [];
-const bookmarksString = localStorage.getItem("b");
-if (bookmarksString) {
-  bookmarks = JSON.parse(bookmarksString);
-}
 function populateBookmarks() {
   const bookmarksList = document.querySelector("#menu-bookmarks > ul");
   bookmarksList.innerHTML = bookmarks.map(p => {
@@ -41,12 +37,16 @@ function bookmarkClick() {
   bookmarks.sort((a, b) => a - b);
   populateBookmarks();
   updateBookmarkBtn();
-  localStorage.setItem("b", JSON.stringify(bookmarks));
+  localStorage.setItem(getLocalStorageKey('b'), JSON.stringify(bookmarks));
 }
 window["handlePosUpdate"] = function () {
   updateBookmarkBtn();
 }
 window.addEventListener("load", e => {
+  const bookmarksString = localStorage.getItem(getLocalStorageKey('b'));
+  if (bookmarksString) {
+    bookmarks = JSON.parse(bookmarksString);
+  }
   populateBookmarks();
   const tocList = document.querySelector("#menu-toc > ul");
   let level = 1;

@@ -71,7 +71,7 @@ internal static class Helpers {
 			string rawText = File.ReadAllText(Path.Combine(dir, "book.txt"));
 			string pulpText = File.ReadAllText(Path.Combine(dir, "pulp.txt"));
 
-			string html = Helpers.HeadHtml + Helpers.VNBodyHtml + Compiler.BuildHtml(rawText, pulpText);
+			string html = Helpers.HeadHtml + Helpers.VNBodyHtml + $"<script>window['bookId'] = '{name}';</script>" + Compiler.BuildHtml(rawText, pulpText);
 
 			visualPulps.Add(name, new(name, metadata, html));
 		}
