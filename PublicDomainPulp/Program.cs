@@ -57,17 +57,19 @@ app.UseStaticFiles(new StaticFileOptions
 		HttpResponse res = ctx.Context.Response;
 		res.Headers.Remove(HeaderNames.ETag);
 		res.Headers.Remove(HeaderNames.LastModified);
-		res.Headers.CacheControl = "public, max-age=3600, immutable";
+		Helpers.AppendCacheControl(ctx.Context, TimeSpan.FromDays(1));
 	}
 });
 
 byte[] homeHtml = Helpers.BuildHomePage(visualPulps);
-app.MapGet("/", () => {
+app.MapGet("/", (HttpContext context) => {
+	Helpers.AppendCacheControl(context, TimeSpan.FromDays(1));
 	return Helpers.HtmlResult(homeHtml);
 });
 
 byte[] aboutHtml = Helpers.BuildAboutPage();
-app.MapGet("/about", () => {
+app.MapGet("/about", (HttpContext context) => {
+	Helpers.AppendCacheControl(context, TimeSpan.FromDays(1));
 	return Helpers.HtmlResult(aboutHtml);
 });
 
@@ -85,7 +87,7 @@ app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/pulp.html", (string book, Http
 		context.Response.Headers.Vary = "Accept-Encoding";
 		html = pulp.BrotliHtml;
 	}
-	context.Response.Headers.CacheControl = "public, max-age=3600, immutable";
+	Helpers.AppendCacheControl(context, TimeSpan.FromDays(7));
 	return Helpers.HtmlResult(html);
 });
 
@@ -97,7 +99,7 @@ app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/images/{image:regex(^[a-z0-9-]
 
 		try {
 			context.Response.StatusCode = 200;
-			context.Response.Headers.CacheControl = "public, max-age=604800, immutable";
+			Helpers.AppendCacheControl(context, TimeSpan.FromDays(30));
 			await context.Response.SendFileAsync(path);
 			return Results.Empty;
 		} catch (FileNotFoundException) { }

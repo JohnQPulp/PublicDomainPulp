@@ -16,6 +16,9 @@ public class StartupTests {
 		res.EnsureSuccessStatusCode();
 		res.AssertContentType("text/html", true);
 		await res.AssertHasTitle();
+
+		string cacheControl = res.Headers.CacheControl.ToString();
+		Assert.AreEqual($"public, max-age={60 * 60 * 24}, immutable", cacheControl);
 	}
 
 	[TestMethod]
@@ -63,7 +66,7 @@ public class StartupTests {
 		res.AssertContentType(contentType, shouldHaveUtf8Charset);
 
 		string cacheControl = res.Headers.CacheControl.ToString();
-		Assert.AreEqual($"public, max-age={60 * 60}, immutable", cacheControl);
+		Assert.AreEqual($"public, max-age={60 * 60 * 24}, immutable", cacheControl);
 	}
 
 	[TestMethod]
@@ -89,7 +92,7 @@ public class StartupTests {
 		await res.AssertHasTitle();
 
 		string cacheControl = res.Headers.CacheControl.ToString();
-		Assert.AreEqual($"public, max-age={60 * 60}, immutable", cacheControl);
+		Assert.AreEqual($"public, max-age={60 * 60 * 24 * 7}, immutable", cacheControl);
 	}
 
 	[TestMethod]
@@ -125,7 +128,7 @@ public class StartupTests {
 		res.AssertContentType("image/webp", false);
 
 		string cacheControl = res.Headers.CacheControl.ToString();
-		Assert.AreEqual($"public, max-age={60 * 60 * 24 * 7}, immutable", cacheControl);
+		Assert.AreEqual($"public, max-age={60 * 60 * 24 * 30}, immutable", cacheControl);
 
 		byte[] bytes =  await res.Content.ReadAsByteArrayAsync();
 		byte[] expected = "WEBP"u8.ToArray();

@@ -24,6 +24,10 @@ internal static class Helpers {
 		return Results.Text(bytes, "text/html; charset=utf-8", statusCode);
 	}
 
+	public static void AppendCacheControl(HttpContext context, TimeSpan timespan) {
+		context.Response.Headers.CacheControl = $"public, max-age={(int)timespan.TotalSeconds}, immutable";
+	}
+
 	public static byte[] BuildContentPage(string html) {
 		return Encoding.UTF8.GetBytes((HeadHtml + HomeBodyHtml).Replace("<div id='content'></div>", $"<div id='content'>{html}</div>"));
 	}
