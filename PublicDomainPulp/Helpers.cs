@@ -35,7 +35,9 @@ internal static class Helpers {
 			html.Append($"<h3><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
 			html.Append("<div><div>");
 			html.Append($"<h3><a href='/vn/{pulp.DirName}/pulp.html'>Read Online</a> ({pulp.Metadata.Words.ToString("N0")} words)</h3>");
-			html.Append($"<p>{pulp.Metadata.Blurb}</p>");
+			foreach (string line in pulp.Metadata.Blurb.Split('\n')) {
+				html.Append($"<p class='indented'>{line}</p>");
+			}
 			html.Append($"<p class='small'>See the <a href='{pulp.Metadata.Repo}'>JohnQPulp/{pulp.DirName} Github repository</a> for offline downloading and issue reporting.</p>");
 			html.Append($"<p class='small center'><a href='{pulp.Metadata.Source}'>Epub Source</a>");
 			foreach (KeyValuePair<string, string> kvp in pulp.Metadata.Links) {

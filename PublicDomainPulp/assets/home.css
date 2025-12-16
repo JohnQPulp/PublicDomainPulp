@@ -79,6 +79,7 @@ body {
 .pulpcard > div {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
 }
 
 .pulpcard > div > div {
@@ -96,11 +97,16 @@ body {
 }
 
 .pulpcard > div > img {
-  width: 70%;
+  width: 69%;
 }
 
 .pulpcard p.small {
   font-size: 0.9em;
+}
+
+.pulpcard p.indented {
+  text-indent: 2em;
+  margin: 0;
 }
 
 .pulpcard p.center {
