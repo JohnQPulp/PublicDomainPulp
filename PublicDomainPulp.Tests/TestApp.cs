@@ -1,4 +1,6 @@
+using System.IO.Compression;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc.Testing;
 
@@ -8,6 +10,23 @@ internal class TestApp : WebApplicationFactory<Program> {
 	private static readonly TestApp Instance = new();
 
 	public static HttpClient Client => Instance.CreateClient();
+}
+
+internal static class TestHelpers {
+	public static async Task<string> GetText(HttpResponseMessage res) {
+		if (string.IsNullOrEmpty(res.Content.Headers.ContentEncoding.SingleOrDefault())) {
+			return await res.Content.ReadAsStringAsync();
+		}
+
+		byte[] bytes = await res.Content.ReadAsByteArrayAsync();
+		using MemoryStream input = new(bytes);
+		using MemoryStream output = new();
+		using (BrotliStream brotli = new(input, CompressionMode.Decompress))
+		{
+			brotli.CopyTo(output);
+		}
+		return Encoding.UTF8.GetString(output.ToArray());
+	}
 }
 
 internal static class AssertHelpers {
@@ -27,7 +46,7 @@ internal static class AssertHelpers {
 		}
 
 		public async Task AssertHasTitle() {
-			string body = await res.Content.ReadAsStringAsync();
+			string body = await TestHelpers.GetText(res);
 			Assert.IsTrue(Regex.IsMatch(body, "<title>.+</title>"), "Expected body content to have a populated title tag.");
 		}
 	}

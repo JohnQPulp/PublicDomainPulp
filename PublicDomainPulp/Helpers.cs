@@ -1,10 +1,11 @@
+using System.IO.Compression;
 using System.Reflection;
 using System.Text;
 using Pulp.Pulpifier;
 
 namespace Pulp.PublicDomainPulp;
 
-public readonly record struct VisualNovel(string DirName, Metadata Metadata, byte[] Html);
+public readonly record struct VisualNovel(string DirName, Metadata Metadata, byte[] Html, byte[] BrotliHtml);
 
 internal static class Helpers {
 	public static readonly string HeadHtml = ReadResource("snippets.head.html");
@@ -74,9 +75,19 @@ internal static class Helpers {
 			string html = Helpers.HeadHtml + Helpers.VNBodyHtml + $"<script>window['bookId'] = '{name}';</script>" + Compiler.BuildHtml(rawText, pulpText);
 			byte[] bytes = Encoding.UTF8.GetBytes(html);
 
-			visualPulps.Add(name, new(name, metadata, bytes));
+			visualPulps.Add(name, new(name, metadata, bytes, Compress(bytes)));
 		}
 
 		return visualPulps;
+	}
+
+	private static byte[] Compress(byte[] input)
+	{
+		using MemoryStream output = new();
+		using (BrotliStream brotli = new(output, CompressionLevel.SmallestSize, leaveOpen: true))
+		{
+			brotli.Write(input, 0, input.Length);
+		}
+		return output.ToArray();
 	}
 }

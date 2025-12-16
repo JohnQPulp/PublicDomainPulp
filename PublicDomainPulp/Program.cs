@@ -14,12 +14,12 @@ WebApplication app = builder.Build();
 string baseDirectory = Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().IndexOf("/PublicDomainPulp/", StringComparison.Ordinal)) + "/PublicDomainPulp";
 Dictionary<string, VisualNovel> visualPulps = Helpers.BuildVisualNovels(baseDirectory);
 
-app.Use(async (context, next) =>
+app.Use(async (HttpContext context, RequestDelegate next) =>
 {
 	context.Response.Headers[HeaderNames.CacheControl] = "no-store";
 	context.Response.Headers[HeaderNames.XContentTypeOptions] = "nosniff";
 
-	await next.Invoke();
+	await next(context);
 
 	Debug.Assert(context.Response.Headers[HeaderNames.XContentTypeOptions] == "nosniff");
 
@@ -33,6 +33,8 @@ app.Use(async (context, next) =>
 	Debug.Assert(!context.Response.Headers.ContainsKey(HeaderNames.XPoweredBy));
 
 	Debug.Assert(context.Response.StatusCode != 200 || context.Response.ContentLength == 0 || context.Response.Headers.ContainsKey(HeaderNames.ContentType));
+
+	Debug.Assert(!context.Response.Headers.ContainsKey(HeaderNames.ContentEncoding) || context.Response.Headers.Vary == "Accept-Encoding");
 });
 
 app.UseStaticFiles(new StaticFileOptions
@@ -64,12 +66,21 @@ app.MapGet("/about", () => {
 });
 
 byte[] notFoundHtml = Helpers.BuildContentPage("<h2>404 Not Found</h2>");
-app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/pulp.html", (string book) =>
+app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/pulp.html", (string book, HttpContext context) =>
 {
 	if (!visualPulps.TryGetValue(book, out VisualNovel pulp)) {
 		return Helpers.HtmlResult(notFoundHtml, 404);
 	}
-	return Helpers.HtmlResult(pulp.Html);
+
+	byte[] html = pulp.Html;
+	string acceptEncoding = context.Request.Headers.AcceptEncoding.ToString();
+	if (acceptEncoding.Contains("br") || acceptEncoding.Contains("*")) {
+		context.Response.Headers.ContentEncoding = "br";
+		context.Response.Headers.Vary = "Accept-Encoding";
+		html = pulp.BrotliHtml;
+	}
+	context.Response.Headers.CacheControl = "public, max-age=3600, immutable";
+	return Helpers.HtmlResult(html);
 });
 
 app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/images/{image:regex(^[a-z0-9-]{{1,100}}$)}.webp", async (string book, string image, HttpContext context) =>

@@ -1,4 +1,6 @@
+using System.IO.Compression;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace Pulp.PublicDomainPulp.Tests;
@@ -54,11 +56,52 @@ public class StartupTests {
 	}
 
 	[TestMethod]
-	public async Task VN_200() {
-		HttpResponseMessage res = await TestApp.Client.GetAsync("/vn/cupofgold/pulp.html");
+	[DataRow(null, null)]
+	[DataRow("", null)]
+	[DataRow("gzip", null)]
+	[DataRow("gzip, br", "br")]
+	[DataRow("gzip, br;q=0.5, deflate", "br")]
+	[DataRow("*", "br")]
+	public async Task VN_200(string? acceptEncoding, string? contentEncoding) {
+		HttpRequestMessage request = new(
+			HttpMethod.Get,
+			"/vn/cupofgold/pulp.html"
+		);
+		if (acceptEncoding != null) {
+			request.Headers.Add("Accept-Encoding", acceptEncoding);
+		}
+		HttpResponseMessage res = await TestApp.Client.SendAsync(request);
 		res.EnsureSuccessStatusCode();
 		res.AssertContentType("text/html", true);
+
+		Assert.AreEqual(contentEncoding, res.Content.Headers.ContentEncoding.SingleOrDefault());
 		await res.AssertHasTitle();
+
+		string cacheControl = res.Headers.CacheControl.ToString();
+		Assert.AreEqual($"public, max-age={60 * 60}, immutable", cacheControl);
+	}
+
+	[TestMethod]
+	public async Task VN_Compresses() {
+		HttpRequestMessage request = new(
+			HttpMethod.Get,
+			"/vn/cupofgold/pulp.html"
+		);
+		HttpResponseMessage res = await TestApp.Client.SendAsync(request);
+		int length1 = (int)res.Content.Headers.ContentLength;
+		string html1 = await TestHelpers.GetText(res);
+
+		request = new(
+			HttpMethod.Get,
+			"/vn/cupofgold/pulp.html"
+		);
+		request.Headers.Add("Accept-Encoding", "br");
+		res = await TestApp.Client.SendAsync(request);
+		int length2 = (int)res.Content.Headers.ContentLength;
+		string html2 = await TestHelpers.GetText(res);
+
+		Assert.IsGreaterThan(length2, length1);
+		Assert.AreEqual(html1, html2);
 	}
 
 	[TestMethod]
