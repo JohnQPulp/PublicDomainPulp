@@ -101,9 +101,12 @@ app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/images/{image:regex(^[a-z0-9-]
 	return Results.Empty;
 });
 
-app.MapFallback(() =>
+app.MapFallback((HttpContext context) =>
 {
-	return Helpers.HtmlResult(notFoundHtml, 404);
+	if (HttpMethods.IsGet(context.Request.Method)) {
+		return Helpers.HtmlResult(notFoundHtml, 404);
+	}
+	return Results.NotFound();
 });
 
 app.Run();

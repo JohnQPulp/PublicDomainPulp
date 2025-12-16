@@ -19,6 +19,17 @@ public class StartupTests {
 	}
 
 	[TestMethod]
+	public async Task StupidMethods_404() {
+		HttpMethod[] methods = [HttpMethod.Post, HttpMethod.Put, HttpMethod.Delete, HttpMethod.Head, HttpMethod.Options, HttpMethod.Connect, HttpMethod.Patch, HttpMethod.Trace, HttpMethod.Query];
+		foreach (HttpMethod method in methods) {
+			HttpRequestMessage request = new(method, "/");
+			HttpResponseMessage res = await TestApp.Client.SendAsync(request);
+			Assert.AreEqual(HttpStatusCode.NotFound, res.StatusCode);
+			res.AssertEmpty();
+		}
+	}
+
+	[TestMethod]
 	[DataRow("/foo")]
 	[DataRow("/vn/foo/pulp.html")]
 	public async Task BadPages_404(string page) {
