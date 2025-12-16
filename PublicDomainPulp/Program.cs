@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Net.Http.Headers;
@@ -35,6 +36,11 @@ app.Use(async (HttpContext context, RequestDelegate next) =>
 	Debug.Assert(context.Response.StatusCode != 200 || context.Response.ContentLength == 0 || context.Response.Headers.ContainsKey(HeaderNames.ContentType));
 
 	Debug.Assert(!context.Response.Headers.ContainsKey(HeaderNames.ContentEncoding) || context.Response.Headers.Vary == "Accept-Encoding");
+});
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+	ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 });
 
 app.UseStaticFiles(new StaticFileOptions
