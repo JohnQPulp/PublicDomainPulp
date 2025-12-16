@@ -1,6 +1,6 @@
 [submodule "Pulpifier"]
 	path = Pulpifier
-	url = git@github.com:JohnQPulp/Pulpifier.git
+	url = https://github.com/JohnQPulp/Pulpifier
 [submodule "VisualPulps/CupOfGold"]
 	path = VisualPulps/CupOfGold
-	url = git@github.com:JohnQPulp/CupOfGold.git
+	url = https://github.com/JohnQPulp/CupOfGold
