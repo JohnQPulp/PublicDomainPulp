@@ -4,7 +4,7 @@ using Pulp.Pulpifier;
 
 namespace Pulp.PublicDomainPulp;
 
-public readonly record struct VisualNovel(string DirName, Metadata Metadata, string Html);
+public readonly record struct VisualNovel(string DirName, Metadata Metadata, byte[] Html);
 
 internal static class Helpers {
 	public static readonly string HeadHtml = ReadResource("snippets.head.html");
@@ -19,15 +19,15 @@ internal static class Helpers {
 		return reader.ReadToEnd();
 	}
 
-	public static IResult HtmlResult(string html, int statusCode = 200) {
-		return Results.Text(html, "text/html; charset=utf-8", Encoding.UTF8, statusCode);
+	public static IResult HtmlResult(byte[] bytes, int statusCode = 200) {
+		return Results.Text(bytes, "text/html; charset=utf-8", statusCode);
 	}
 
-	public static string BuildContentPage(string html) {
-		return (HeadHtml + HomeBodyHtml).Replace("<div id='content'></div>", $"<div id='content'>{html}</div>");
+	public static byte[] BuildContentPage(string html) {
+		return Encoding.UTF8.GetBytes((HeadHtml + HomeBodyHtml).Replace("<div id='content'></div>", $"<div id='content'>{html}</div>"));
 	}
 
-	public static string BuildHomePage(Dictionary<string, VisualNovel> visualNovels) {
+	public static byte[] BuildHomePage(Dictionary<string, VisualNovel> visualNovels) {
 		StringBuilder html = new();
 		html.Append("<style>#nav-home { text-decoration: underline !important; }</style>");
 		foreach (VisualNovel pulp in visualNovels.Values) {
@@ -51,7 +51,7 @@ internal static class Helpers {
 		return BuildContentPage(html.ToString());
 	}
 
-	public static string BuildAboutPage() {
+	public static byte[] BuildAboutPage() {
 		StringBuilder html = new();
 		html.Append("<style>#nav-about { text-decoration: underline !important; }\n#content p { max-width: 60em; margin: 20px auto; }</style>");
 		html.Append("<p>Public Domain Pulp is a site for creating visual novels out of public domain texts (and perhaps creative commons texts too). ");
@@ -72,8 +72,9 @@ internal static class Helpers {
 			string pulpText = File.ReadAllText(Path.Combine(dir, "pulp.txt"));
 
 			string html = Helpers.HeadHtml + Helpers.VNBodyHtml + $"<script>window['bookId'] = '{name}';</script>" + Compiler.BuildHtml(rawText, pulpText);
+			byte[] bytes = Encoding.UTF8.GetBytes(html);
 
-			visualPulps.Add(name, new(name, metadata, html));
+			visualPulps.Add(name, new(name, metadata, bytes));
 		}
 
 		return visualPulps;

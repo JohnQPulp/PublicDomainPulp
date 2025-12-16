@@ -1,12 +1,8 @@
 using System.Diagnostics;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Text;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Net.Http.Headers;
 using Pulp.PublicDomainPulp;
-using Pulp.Pulpifier;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureKestrel(options =>
@@ -57,17 +53,17 @@ app.UseStaticFiles(new StaticFileOptions
 	}
 });
 
-string homeHtml = Helpers.BuildHomePage(visualPulps);
+byte[] homeHtml = Helpers.BuildHomePage(visualPulps);
 app.MapGet("/", () => {
 	return Helpers.HtmlResult(homeHtml);
 });
 
-string aboutHtml = Helpers.BuildAboutPage();
+byte[] aboutHtml = Helpers.BuildAboutPage();
 app.MapGet("/about", () => {
 	return Helpers.HtmlResult(aboutHtml);
 });
 
-string notFoundHtml = Helpers.BuildContentPage("<h2>404 Not Found</h2>");
+byte[] notFoundHtml = Helpers.BuildContentPage("<h2>404 Not Found</h2>");
 app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/pulp.html", (string book) =>
 {
 	if (!visualPulps.TryGetValue(book, out VisualNovel pulp)) {
