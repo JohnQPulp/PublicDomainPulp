@@ -25,8 +25,9 @@ function bookmarkClick() {
   updateBookmarkBtn();
   localStorage.setItem(getLocalStorageKey('b'), JSON.stringify(bookmarks));
 }
-window["handlePosUpdate"] = function () {
+window["handlePosUpdate"] = function() {
   updateBookmarkBtn();
+  document.getElementById("linecount").innerText = "Line " + pos + "/" + (htmlArr.length - 1);
 }
 window.addEventListener("load", e => {
   const bookmarksString = localStorage.getItem(getLocalStorageKey('b'));
