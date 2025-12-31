@@ -8,9 +8,12 @@ namespace Pulp.PublicDomainPulp;
 public readonly record struct VisualNovel(string DirName, Metadata Metadata, byte[] Html, byte[] BrotliHtml);
 
 internal static class Helpers {
-	public static readonly string HeadHtml = ReadResource("snippets.head.html");
-	public static readonly string VNBodyHtml = ReadResource("snippets.vn-body.html");
-	public static readonly string HomeBodyHtml = ReadResource("snippets.home-body.html");
+	private static readonly string HeaderHtml = ReadResource("snippets.header.html");
+	private static readonly string FooterHtml = ReadResource("snippets.footer.html");
+	private static readonly string VNBodyHtml = ReadResource("snippets.vn-body.html");
+	private static readonly string HomeCss = ReadResource("snippets.home.css");
+	private static readonly string VNCss = ReadResource("snippets.vn.css");
+	private static readonly string VNJs = ReadResource("snippets.vn.js");
 
 	public static string ReadResource(string name)
 	{
@@ -28,8 +31,14 @@ internal static class Helpers {
 		context.Response.Headers.CacheControl = $"public, max-age={(int)timespan.TotalSeconds}, immutable";
 	}
 
-	public static byte[] BuildContentPage(string html) {
-		return Encoding.UTF8.GetBytes((HeadHtml + HomeBodyHtml).Replace("<div id='content'></div>", $"<div id='content'>{html}</div>"));
+	public static byte[] BuildContentPage(string html, string title = "Public Domain Pulp") {
+		StringBuilder sb = BuildHead(title, [HomeCss], []);
+		sb.Append(HeaderHtml);
+		sb.Append("<div id='content'>");
+		sb.Append(html);
+		sb.Append("</div>");
+		sb.Append(FooterHtml);
+		return GetPageBytes(sb);
 	}
 
 	public static byte[] BuildHomePage(Dictionary<string, VisualNovel> visualNovels) {
@@ -61,7 +70,7 @@ internal static class Helpers {
 		html.Append("<style>#nav-about { text-decoration: underline !important; }\n#content p { max-width: 60em; margin: 20px auto; }</style>");
 		html.Append("<p>Public Domain Pulp is a site for creating visual novels out of public domain texts (and perhaps creative commons texts too). ");
 		html.Append("The goal is to eventually create visual novels out of most all famous public domain texts.</p>");
-		return BuildContentPage(html.ToString());
+		return BuildContentPage(html.ToString(), "About: Public Domain Pulp");
 	}
 
 	public static Dictionary<string, VisualNovel> BuildVisualNovels(string baseDirectory) {
@@ -76,13 +85,43 @@ internal static class Helpers {
 			string rawText = File.ReadAllText(Path.Combine(dir, "book.txt"));
 			string pulpText = File.ReadAllText(Path.Combine(dir, "pulp.txt"));
 
-			string html = Helpers.HeadHtml + Helpers.VNBodyHtml + $"<script>window['bookId'] = '{name}';</script>" + Compiler.BuildHtml(rawText, pulpText);
-			byte[] bytes = Encoding.UTF8.GetBytes(html);
+			StringBuilder sb = BuildHead(metadata.ShortTitle + ": The Visual Novel", [VNCss], [VNJs]);
+			sb.Append(Helpers.VNBodyHtml);
+			sb.Append($"<script>window['bookId'] = '{name}';</script>");
+			sb.Append(Compiler.BuildHtml(rawText, pulpText));
+			byte[] bytes = GetPageBytes(sb);
 
 			visualPulps.Add(name, new(name, metadata, bytes, Compress(bytes)));
 		}
 
 		return visualPulps;
+	}
+
+	private static StringBuilder BuildHead(string title, string[] styles, string[] scripts) {
+		StringBuilder sb = new();
+		sb.Append("<!DOCTYPE html>");
+		sb.Append("<html>");
+		sb.Append("<head>");
+		sb.Append("<title>" + title + "</title>");
+		sb.Append("<link rel='icon' type='image/x-icon' href='/assets/favicon.ico'>");
+		foreach (string style in styles) {
+			sb.Append("<style>");
+			sb.Append(style);
+			sb.Append("</style>");
+		}
+		foreach (string script in scripts) {
+			sb.Append("<script>");
+			sb.Append(script);
+			sb.Append("</script>");
+		}
+		sb.Append("</head>");
+		sb.Append("<body>");
+		return sb;
+	}
+
+	private static byte[] GetPageBytes(StringBuilder sb) {
+		sb.Append("</body></html>");
+		return Encoding.UTF8.GetBytes(sb.ToString());
 	}
 
 	private static byte[] Compress(byte[] input)

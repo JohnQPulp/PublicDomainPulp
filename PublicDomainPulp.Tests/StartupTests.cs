@@ -58,8 +58,6 @@ public class StartupTests {
 
 	[TestMethod]
 	[DataRow("/assets/favicon.ico", "image/x-icon", false)]
-	[DataRow("/assets/home.css", "text/css", true)]
-	[DataRow("/assets/vn.js", "application/javascript", true)]
 	public async Task Assets_200(string path, string contentType, bool shouldHaveUtf8Charset) {
 		HttpResponseMessage res = await TestApp.Client.GetAsync(path);
 		res.EnsureSuccessStatusCode();
