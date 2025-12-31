@@ -4,3 +4,6 @@
 [submodule "VisualPulps/CupOfGold"]
 	path = VisualPulps/CupOfGold
 	url = https://github.com/JohnQPulp/CupOfGold
+[submodule "CreativeCommonsContent"]
+	path = CreativeCommonsContent
+	url = https://github.com/JohnQPulp/CreativeCommonsContent.git
