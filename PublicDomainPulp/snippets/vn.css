@@ -1,14 +1,23 @@
+#vn-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+#vn-header > * {
+  width: 30%;
+  text-align: center;
+}
+main {
+  display: flex;
+  flex-direction: column-reverse;
+}
 #button-bar {
-  position: absolute;
-  bottom: 0.25em;
-  z-index: 10;
   width: 100%;
   display: flex;
   white-space: nowrap;
-  max-width: 120em;
-  transform: translateX(-50%);
-  left: 50%;
   align-items: center;
+  justify-content: center;
   font-family: "Noto Sans", sans-serif;
 }
 #button-bar > button:first-child {
@@ -37,28 +46,17 @@
   display: initial;
 }
 #menu {
-  background-color: #f8efd4f0;
-  position: absolute;
-  top: 0;
-  left: 10vw;
   width: 80vw;
-  height: 100vh;
-  opacity: 95%;
-  display: none;
-  z-index: 8;
+  display: flex;
   flex-direction: row;
   box-sizing: border-box;
-  padding: 1vh 1vw;
+  margin: 10px 10vw;
 }
 #menu button {
   white-space: nowrap;
 }
-#menu.visible {
-  display: flex;
-}
 #menu > div {
   margin: 0 10px 50px;
-  overflow-y: scroll;
 }
 #menu h2 {
   text-align: center;
@@ -86,12 +84,6 @@
 }
 #menu-bookmarks button:first-child {
   margin-right: 5px;
-}
-#menuBtn::after {
-  content: '≣';
-}
-#menuBtn.menuOpen::after {
-  content: '✕';
 }
 #bookmarkBtn::after {
   content: '☆';

@@ -87,10 +87,16 @@ internal static class Helpers {
 			string rawText = File.ReadAllText(Path.Combine(dir, "book.txt"));
 			string pulpText = File.ReadAllText(Path.Combine(dir, "pulp.txt"));
 
-			StringBuilder sb = BuildHead(metadata.ShortTitle + ": The Visual Novel", [VNCss], [VNJs]);
-			sb.Append(Helpers.VNBodyHtml);
+			string title = metadata.ShortTitle + ": The Visual Novel";
+			StringBuilder sb = BuildHead(title, [HomeCss, VNCss], [VNJs]);
+			sb.Append(HeaderHtml);
 			sb.Append($"<script>window['bookId'] = '{name}';</script>");
+			sb.Append($"<div id='vn-header'><p><b>To Go Back:</b><br>Click/tap left half of VN<br>OR<br>Left arrow key<br>OR<br>Shift+scroll (up)</p><h1>{title}</h1><p><b>To Advance:</b><br>Click/tap right half of VN<br>OR<br>Right arrow key<br>OR<br>Shift+scroll (down)</p></div>");
+			sb.Append("<main>");
+			sb.Append(Helpers.VNBodyHtml);
 			sb.Append(Compiler.BuildHtml(rawText, pulpText));
+			sb.Append("</main>");
+			sb.Append(FooterHtml);
 			byte[] bytes = GetPageBytes(sb);
 
 			visualPulps.Add(name, new(name, metadata, bytes, Compress(bytes)));

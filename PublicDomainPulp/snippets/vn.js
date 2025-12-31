@@ -1,20 +1,6 @@
 function createLineButtons(i) {
   return `<button onclick="setPos(${i})">Line ${i}</button><button onclick="copyClick(${i})">🔗</button>`;
 }
-let menuOpen = false;
-function menuClick() {
-  if (menuOpen) {
-    document.getElementById("menu").classList.toggle("visible", false);
-    document.getElementById("menuBtn").classList.toggle("menuOpen", false);
-    menuOpen = false;
-    scrollEnabled = true;
-  } else {
-    document.getElementById("menu").classList.toggle("visible", true);
-    document.getElementById("menuBtn").classList.toggle("menuOpen", true);
-    menuOpen = true;
-    scrollEnabled = false;
-  }
-}
 let bookmarks = [];
 function populateBookmarks() {
   const bookmarksList = document.querySelector("#menu-bookmarks > ul");
