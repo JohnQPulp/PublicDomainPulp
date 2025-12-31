@@ -39,6 +39,15 @@ internal static class AssertHelpers {
 			}
 		}
 
+		public void AssertCacheControl(string expected) {
+			string cacheControl = res.Headers.CacheControl.ToString();
+#if DEBUG
+			Assert.AreEqual("no-store", cacheControl);
+#else
+			Assert.AreEqual(expected, cacheControl);
+#endif
+		}
+
 		public async Task AssertEmpty() {
 			Assert.AreEqual(0, res.Content.Headers.ContentLength);
 			byte[] body = await res.Content.ReadAsByteArrayAsync();

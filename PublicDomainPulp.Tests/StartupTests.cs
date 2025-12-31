@@ -16,9 +16,7 @@ public class StartupTests {
 		res.EnsureSuccessStatusCode();
 		res.AssertContentType("text/html", true);
 		await res.AssertHasTitle();
-
-		string cacheControl = res.Headers.CacheControl.ToString();
-		Assert.AreEqual($"public, max-age={60 * 60 * 24}, immutable", cacheControl);
+		res.AssertCacheControl($"public, max-age={60 * 60 * 24}, immutable");
 	}
 
 	[TestMethod]
@@ -62,9 +60,7 @@ public class StartupTests {
 		HttpResponseMessage res = await TestApp.Client.GetAsync(path);
 		res.EnsureSuccessStatusCode();
 		res.AssertContentType(contentType, shouldHaveUtf8Charset);
-
-		string cacheControl = res.Headers.CacheControl.ToString();
-		Assert.AreEqual($"public, max-age={60 * 60 * 24}, immutable", cacheControl);
+		res.AssertCacheControl($"public, max-age={60 * 60 * 24}, immutable");
 	}
 
 	[TestMethod]
@@ -88,9 +84,7 @@ public class StartupTests {
 
 		Assert.AreEqual(contentEncoding, res.Content.Headers.ContentEncoding.SingleOrDefault());
 		await res.AssertHasTitle();
-
-		string cacheControl = res.Headers.CacheControl.ToString();
-		Assert.AreEqual($"public, max-age={60 * 60 * 24 * 7}, immutable", cacheControl);
+		res.AssertCacheControl($"public, max-age={60 * 60 * 24 * 7}, immutable");
 	}
 
 	[TestMethod]
@@ -124,9 +118,7 @@ public class StartupTests {
 		HttpResponseMessage res = await TestApp.Client.GetAsync("/vn/cupofgold/images/" + image);
 		res.EnsureSuccessStatusCode();
 		res.AssertContentType("image/webp", false);
-
-		string cacheControl = res.Headers.CacheControl.ToString();
-		Assert.AreEqual($"public, max-age={60 * 60 * 24 * 30}, immutable", cacheControl);
+		res.AssertCacheControl($"public, max-age={60 * 60 * 24 * 30}, immutable");
 
 		byte[] bytes =  await res.Content.ReadAsByteArrayAsync();
 		byte[] expected = "WEBP"u8.ToArray();
