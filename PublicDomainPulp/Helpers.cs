@@ -106,6 +106,7 @@ internal static class Helpers {
 		sb.Append("<head>");
 		sb.Append("<title>" + title + "</title>");
 		sb.Append("<link rel='icon' type='image/x-icon' href='/assets/favicon.ico'>");
+		sb.Append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
 		foreach (string style in styles) {
 			sb.Append("<style>");
 			sb.Append(style);
