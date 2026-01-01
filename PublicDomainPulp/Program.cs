@@ -14,6 +14,7 @@ WebApplication app = builder.Build();
 
 string baseDirectory = Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().IndexOf("/PublicDomainPulp/", StringComparison.Ordinal)) + "/PublicDomainPulp";
 Dictionary<string, VisualNovel> visualPulps = Helpers.BuildVisualNovels(baseDirectory);
+Dictionary<string, BlogPage> blogPages = Helpers.BuildBlogPages(baseDirectory);
 
 app.Use(async (HttpContext context, RequestDelegate next) =>
 {
@@ -61,7 +62,7 @@ app.UseStaticFiles(new StaticFileOptions
 	}
 });
 
-byte[] homeHtml = Helpers.BuildHomePage(visualPulps);
+byte[] homeHtml = Helpers.BuildHomePage(visualPulps, blogPages);
 app.MapGet("/", (HttpContext context) => {
 	Helpers.AppendCacheControl(context, TimeSpan.FromDays(1));
 	return Helpers.HtmlResult(homeHtml);
@@ -74,19 +75,23 @@ app.MapGet("/about", (HttpContext context) => {
 });
 
 byte[] notFoundHtml = Helpers.BuildContentPage("<h2>404 Not Found</h2>");
+app.MapGet("/blog/{date:regex(\\d{{4}}-\\d{{2}}-\\d{{2}})}", (string date, HttpContext context) => {
+	if (!blogPages.TryGetValue(date, out BlogPage blogPage)) {
+		return Helpers.HtmlResult(notFoundHtml, 404);
+	}
+
+	byte[] html = Helpers.SelectCompressionAndAppendHeaders(context, blogPage.Html, blogPage.BrotliHtml);
+	Helpers.AppendCacheControl(context, TimeSpan.FromDays(7));
+	return Helpers.HtmlResult(html);
+});
+
 app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/pulp.html", (string book, HttpContext context) =>
 {
 	if (!visualPulps.TryGetValue(book, out VisualNovel pulp)) {
 		return Helpers.HtmlResult(notFoundHtml, 404);
 	}
 
-	byte[] html = pulp.Html;
-	string acceptEncoding = context.Request.Headers.AcceptEncoding.ToString();
-	if (acceptEncoding.Contains("br") || acceptEncoding.Contains("*")) {
-		context.Response.Headers.ContentEncoding = "br";
-		context.Response.Headers.Vary = "Accept-Encoding";
-		html = pulp.BrotliHtml;
-	}
+	byte[] html = Helpers.SelectCompressionAndAppendHeaders(context, pulp.Html, pulp.BrotliHtml);
 	Helpers.AppendCacheControl(context, TimeSpan.FromDays(7));
 	return Helpers.HtmlResult(html);
 });

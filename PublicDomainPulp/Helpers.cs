@@ -1,11 +1,14 @@
 using System.IO.Compression;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using Pulp.Pulpifier;
 
 namespace Pulp.PublicDomainPulp;
 
 public readonly record struct VisualNovel(string DirName, Metadata Metadata, byte[] Html, byte[] BrotliHtml);
+
+public readonly record struct BlogPage(string Title, DateOnly Date, byte[] Html, byte[] BrotliHtml);
 
 internal static class Helpers {
 	private static readonly string HeaderHtml = ReadResource("snippets.header.html");
@@ -33,6 +36,16 @@ internal static class Helpers {
 #endif
 	}
 
+	public static byte[] SelectCompressionAndAppendHeaders(HttpContext context, byte[] uncompressed, byte[] compressed) {
+		string acceptEncoding = context.Request.Headers.AcceptEncoding.ToString();
+		if (acceptEncoding.Contains("br") || acceptEncoding.Contains("*")) {
+			context.Response.Headers.ContentEncoding = "br";
+			context.Response.Headers.Vary = "Accept-Encoding";
+			return compressed;
+		}
+		return uncompressed;
+	}
+
 	public static byte[] BuildContentPage(string html, string title = "Public Domain Pulp") {
 		StringBuilder sb = BuildHead(title, [HomeCss], []);
 		sb.Append(HeaderHtml);
@@ -43,9 +56,10 @@ internal static class Helpers {
 		return GetPageBytes(sb);
 	}
 
-	public static byte[] BuildHomePage(Dictionary<string, VisualNovel> visualNovels) {
+	public static byte[] BuildHomePage(Dictionary<string, VisualNovel> visualNovels, Dictionary<string, BlogPage> blogPages) {
 		StringBuilder html = new();
 		html.Append("<style>#nav-home { text-decoration: underline !important; }</style>");
+
 		foreach (VisualNovel pulp in visualNovels.Values) {
 			html.Append("<div class='pulpcard'>");
 			html.Append($"<h3><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
@@ -64,6 +78,11 @@ internal static class Helpers {
 			html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.webp'>");
 			html.Append("</div></div>");
 		}
+
+		foreach (KeyValuePair<string, BlogPage> kvp in blogPages) {
+			html.Append($"<div><h2><a href='/blog/{kvp.Key}'>{kvp.Value.Title}</a> <small>{kvp.Value.Date}</small></h2></div>");
+		}
+
 		return BuildContentPage(html.ToString());
 	}
 
@@ -73,6 +92,25 @@ internal static class Helpers {
 		html.Append("<p>Public Domain Pulp is a site for creating visual novels out of public domain texts (and perhaps creative commons texts too). ");
 		html.Append("The goal is to eventually create visual novels out of most all famous public domain texts.</p>");
 		return BuildContentPage(html.ToString(), "About: Public Domain Pulp");
+	}
+
+	public static Dictionary<string, BlogPage> BuildBlogPages(string baseDirectory) {
+		Dictionary<string, BlogPage> blogPages = new();
+
+		foreach (string file in Directory.GetFiles(Path.Combine(baseDirectory, "CreativeCommonsContent", "blog"), "*.html")) {
+			string name = Path.GetFileName(file);
+			if (!Regex.IsMatch(name, @"^\d{4}-\d{2}-\d{2} .+\.html$")) throw new Exception("Unexpected blog name.");
+
+			DateOnly date = DateOnly.Parse(name[0..10]);
+			string title = name[11..^5];
+
+			string text = File.ReadAllText(file);
+			byte[] bytes = BuildContentPage(text, title);
+
+			blogPages.Add(date.ToString("yyyy-MM-dd"), new(title, date, bytes, Compress(bytes)));
+		}
+
+		return blogPages;
 	}
 
 	public static Dictionary<string, VisualNovel> BuildVisualNovels(string baseDirectory) {

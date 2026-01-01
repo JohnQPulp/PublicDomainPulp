@@ -33,6 +33,7 @@ public class StartupTests {
 	[TestMethod]
 	[DataRow("/foo")]
 	[DataRow("/vn/foo/pulp.html")]
+	[DataRow("/blog/2025-12-31")]
 	public async Task BadPages_404(string page) {
 		HttpResponseMessage res = await TestApp.Client.GetAsync(page);
 		Assert.AreEqual(HttpStatusCode.NotFound, res.StatusCode);
@@ -83,6 +84,15 @@ public class StartupTests {
 		res.AssertContentType("text/html", true);
 
 		Assert.AreEqual(contentEncoding, res.Content.Headers.ContentEncoding.SingleOrDefault());
+		await res.AssertHasTitle();
+		res.AssertCacheControl($"public, max-age={60 * 60 * 24 * 7}, immutable");
+	}
+
+	[TestMethod]
+	public async Task Blog_200() {
+		HttpResponseMessage res = await TestApp.Client.GetAsync("/blog/2026-01-01");
+		res.EnsureSuccessStatusCode();
+		res.AssertContentType("text/html", true);
 		await res.AssertHasTitle();
 		res.AssertCacheControl($"public, max-age={60 * 60 * 24 * 7}, immutable");
 	}
