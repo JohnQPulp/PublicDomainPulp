@@ -14,6 +14,10 @@ body {
   min-height: 100vh;
 }
 
+.center {
+  text-align: center;
+}
+
 .title {
   width: 100vw;
   text-align: center;
@@ -60,6 +64,20 @@ body {
   padding: 0 5vw;
   flex-grow: 1;
   overflow-x: auto;
+}
+
+#blog {
+  width: 100%;
+  max-width: 50em;
+  margin: 0 auto;
+}
+
+#bloghead {
+  margin-bottom: 0;
+}
+
+#blogsubhead {
+  margin-top: 0;
 }
 
 .pulpcard {

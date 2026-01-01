@@ -80,7 +80,7 @@ internal static class Helpers {
 		}
 
 		foreach (KeyValuePair<string, BlogPage> kvp in blogPages) {
-			html.Append($"<div><h2><a href='/blog/{kvp.Key}'>{kvp.Value.Title}</a> <small>{kvp.Value.Date}</small></h2></div>");
+			html.Append($"<div><h2><a href='/blog/{kvp.Key}'>{kvp.Value.Title}</a> <small>{kvp.Value.Date.ToString("MMM dd, yyyy").ToUpper()}</small></h2></div>");
 		}
 
 		return BuildContentPage(html.ToString());
@@ -104,8 +104,13 @@ internal static class Helpers {
 			DateOnly date = DateOnly.Parse(name[0..10]);
 			string title = name[11..^5];
 
-			string text = File.ReadAllText(file);
-			byte[] bytes = BuildContentPage(text, title);
+			StringBuilder sb = new();
+			sb.Append("<div id='blog'>");
+			sb.Append($"<h1 id='bloghead' class='center'>{title}</h1>");
+			sb.Append($"<h3 id='blogsubhead' class='center'><small>{date.ToString("MMM dd, yyyy").ToUpper()}</small></h3>");
+			sb.Append(File.ReadAllText(file));
+			sb.Append("</div>");
+			byte[] bytes = BuildContentPage(sb.ToString(), title);
 
 			blogPages.Add(date.ToString("yyyy-MM-dd"), new(title, date, bytes, Compress(bytes)));
 		}
