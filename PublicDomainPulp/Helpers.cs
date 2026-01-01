@@ -50,7 +50,7 @@ internal static class Helpers {
 			html.Append("<div class='pulpcard'>");
 			html.Append($"<h3><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
 			html.Append("<div><div>");
-			html.Append($"<h3><a href='/vn/{pulp.DirName}/pulp.html'>Read Online</a> ({pulp.Metadata.Words.ToString("N0")} words)</h3>");
+			html.Append($"<h3><a href='/vn/{pulp.DirName}/pulp.html'>Read <i>{pulp.Metadata.VNTitle}</i></a> ({pulp.Metadata.Words.ToString("N0")} words)</h3>");
 			foreach (string line in pulp.Metadata.Blurb.Split('\n')) {
 				html.Append($"<p class='indented'>{line}</p>");
 			}
@@ -87,11 +87,10 @@ internal static class Helpers {
 			string rawText = File.ReadAllText(Path.Combine(dir, "book.txt"));
 			string pulpText = File.ReadAllText(Path.Combine(dir, "pulp.txt"));
 
-			string title = metadata.ShortTitle + ": The Visual Novel";
-			StringBuilder sb = BuildHead(title, [HomeCss, VNCss], [VNJs]);
+			StringBuilder sb = BuildHead(metadata.VNTitle, [HomeCss, VNCss], [VNJs]);
 			sb.Append(HeaderHtml);
 			sb.Append($"<script>window['bookId'] = '{name}';</script>");
-			sb.Append($"<div id='vn-header'><p><b>To Go Back:</b><br>Click/tap left half of VN<br>OR<br>Left arrow key<br>OR<br>Shift+scroll (up)</p><h1>{title}</h1><p><b>To Advance:</b><br>Click/tap right half of VN<br>OR<br>Right arrow key<br>OR<br>Shift+scroll (down)</p></div>");
+			sb.Append($"<div id='vn-header'><p><b>To Go Back:</b><br>Click/tap left half of VN<br>OR<br>Left arrow key<br>OR<br>Shift+scroll (up)</p><h1>{metadata.VNTitle}</h1><p><b>To Advance:</b><br>Click/tap right half of VN<br>OR<br>Right arrow key<br>OR<br>Shift+scroll (down)</p></div>");
 			sb.Append("<main>");
 			sb.Append(Helpers.VNBodyHtml);
 			sb.Append(Compiler.BuildHtml(rawText, pulpText));
