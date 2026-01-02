@@ -62,6 +62,18 @@ app.UseStaticFiles(new StaticFileOptions
 	}
 });
 
+app.UseStaticFiles(new StaticFileOptions
+{
+	FileProvider = new PhysicalFileProvider(Path.Combine(baseDirectory, "CreativeCommonsContent", "images")),
+	RequestPath = "/images",
+	OnPrepareResponse = ctx => {
+		HttpResponse res = ctx.Context.Response;
+		res.Headers.Remove(HeaderNames.ETag);
+		res.Headers.Remove(HeaderNames.LastModified);
+		Helpers.AppendCacheControl(ctx.Context, TimeSpan.FromDays(30));
+	}
+});
+
 byte[] homeHtml = Helpers.BuildHomePage(visualPulps, blogPages);
 app.MapGet("/", (HttpContext context) => {
 	Helpers.AppendCacheControl(context, TimeSpan.FromDays(1));
