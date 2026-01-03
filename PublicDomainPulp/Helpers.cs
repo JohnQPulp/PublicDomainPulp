@@ -103,6 +103,7 @@ internal static class Helpers {
 
 			DateOnly date = DateOnly.Parse(name[0..10]);
 			string title = name[11..^5];
+			title = Regex.Replace(title, "Prose Roundup: ([^\\\"\\(]+) ", "Prose Roundup: <i>$1</i> ");
 
 			StringBuilder sb = new();
 			sb.Append("<div id='blog'>");

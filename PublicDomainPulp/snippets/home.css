@@ -81,6 +81,21 @@ body {
   display: block;
 }
 
+#blog blockquote {
+  white-space: pre-wrap;
+  border-left: 3px solid gray;
+  padding-left: 15px;
+  margin: 35px 0 15px;
+}
+
+#blog h4 {
+  margin-top: 50px;
+}
+
+#blog p {
+
+}
+
 #bloghead {
   margin-bottom: 0;
 }
