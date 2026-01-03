@@ -57,12 +57,19 @@ internal static class Helpers {
 	}
 
 	public static byte[] BuildHomePage(Dictionary<string, VisualNovel> visualNovels, Dictionary<string, BlogPage> blogPages) {
-		StringBuilder html = new();
-		html.Append("<style>#nav-home { text-decoration: underline !important; }</style>");
+		StringBuilder sb = new();
+		sb.Append("<style>#nav-home { text-decoration: underline !important; }</style>");
+
+		List<Tuple<DateOnly, string>> posts = new();
+		foreach (KeyValuePair<string, BlogPage> kvp in blogPages) {
+			string html = $"<div><h3 class='posttitle'><small>{kvp.Value.Date.ToString("MMM dd, yyyy").ToUpper()}</small><br><a href='/blog/{kvp.Key}'>{kvp.Value.Title}</a></h3></div>";
+			posts.Add(new Tuple<DateOnly, string>(kvp.Value.Date, html));
+		}
 
 		foreach (VisualNovel pulp in visualNovels.Values) {
+			StringBuilder html = new();
 			html.Append("<div class='pulpcard'>");
-			html.Append($"<h3><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
+			html.Append($"<h3><small>{pulp.Metadata.PulpDate.ToString("MMM dd, yyyy").ToUpper()}</small><br><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
 			html.Append("<div><div>");
 			html.Append($"<h3><a href='/vn/{pulp.DirName}/pulp.html'>Read <i>{pulp.Metadata.VNTitle}</i></a> ({pulp.Metadata.Words.ToString("N0")} words)</h3>");
 			foreach (string line in pulp.Metadata.Blurb.Split('\n')) {
@@ -77,13 +84,14 @@ internal static class Helpers {
 			html.Append($"<img src='/vn/{pulp.DirName}/images/c-author.webp'>");
 			html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.webp'>");
 			html.Append("</div></div>");
+			posts.Add(new Tuple<DateOnly, string>(pulp.Metadata.PulpDate, html.ToString()));
 		}
 
-		foreach (KeyValuePair<string, BlogPage> kvp in blogPages) {
-			html.Append($"<div><h2><a href='/blog/{kvp.Key}'>{kvp.Value.Title}</a> <small>{kvp.Value.Date.ToString("MMM dd, yyyy").ToUpper()}</small></h2></div>");
+		foreach (Tuple<DateOnly, string> post in posts.OrderBy(p => p.Item1).Reverse()) {
+			sb.Append(post.Item2);
 		}
 
-		return BuildContentPage(html.ToString());
+		return BuildContentPage(sb.ToString());
 	}
 
 	public static byte[] BuildAboutPage() {
