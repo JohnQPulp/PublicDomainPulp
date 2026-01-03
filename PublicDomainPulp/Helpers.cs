@@ -60,6 +60,8 @@ internal static class Helpers {
 		StringBuilder sb = new();
 		sb.Append("<style>#nav-home { text-decoration: underline !important; }</style>");
 
+		sb.Append("<h2 class='center'><u>Latest Visual Novels and Blog Posts</u></h2>");
+
 		List<Tuple<DateOnly, string>> posts = new();
 		foreach (KeyValuePair<string, BlogPage> kvp in blogPages) {
 			string html = $"<div><h3 class='posttitle'><small>{kvp.Value.Date.ToString("MMM dd, yyyy").ToUpper()}</small><br><a href='/blog/{kvp.Key}'>{kvp.Value.Title}</a></h3></div>";
