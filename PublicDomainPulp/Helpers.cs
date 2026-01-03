@@ -66,7 +66,7 @@ internal static class Helpers {
 			html.Append("<div><div>");
 			html.Append($"<h3><a href='/vn/{pulp.DirName}/pulp.html'>Read <i>{pulp.Metadata.VNTitle}</i></a> ({pulp.Metadata.Words.ToString("N0")} words)</h3>");
 			foreach (string line in pulp.Metadata.Blurb.Split('\n')) {
-				html.Append($"<p class='indented'>{line}</p>");
+				html.Append($"<p class='indented'>{BookTag.FormatText(line)}</p>");
 			}
 			html.Append($"<p class='small'>See the <a href='{pulp.Metadata.Repo}'>JohnQPulp/{pulp.DirName} Github repository</a> for offline downloading and issue reporting.</p>");
 			html.Append($"<p class='small center'><a href='{pulp.Metadata.Source}'>Epub Source</a>");
@@ -103,13 +103,20 @@ internal static class Helpers {
 
 			DateOnly date = DateOnly.Parse(name[0..10]);
 			string title = name[11..^5];
-			title = Regex.Replace(title, "Prose Roundup: ([^\\\"\\(]+) ", "Prose Roundup: <i>$1</i> ");
+			bool isProseRoundup = false;
+			title = Regex.Replace(title, "Prose Roundup: ([^\\\"\\(]+) ", m => {
+				isProseRoundup = true;
+				return $"Prose Roundup: <i>{m.Groups[1].Value}</i> ";
+			});
 
 			StringBuilder sb = new();
 			sb.Append("<div id='blog'>");
 			sb.Append($"<h1 id='bloghead' class='center'>{title}</h1>");
 			sb.Append($"<h3 id='blogsubhead' class='center'><small>{date.ToString("MMM dd, yyyy").ToUpper()}</small></h3>");
-			sb.Append(File.ReadAllText(file));
+			if (isProseRoundup) {
+				sb.Append("<p><small>Prose roundups are posts where I run through the noteworthy snippets of books and short stories not yet in the public domain (that therefore can't be made into visual novels yet). The snippets are listed chronologically, grouped by chapters, <b>and may contain spoilers up to their respective locations in their works</b>.</small></p>");
+			}
+			sb.Append(BookTag.FormatText(File.ReadAllText(file)));
 			sb.Append("</div>");
 			byte[] bytes = BuildContentPage(sb.ToString(), title);
 

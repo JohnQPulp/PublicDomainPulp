@@ -83,9 +83,9 @@ body {
 
 #blog blockquote {
   white-space: pre-wrap;
-  border-left: 3px solid gray;
+  border-left: 4px solid #a08a6d;
   padding-left: 15px;
-  margin: 35px 0 15px;
+  margin: 35px 0 15px 25px;
 }
 
 #blog h4 {
