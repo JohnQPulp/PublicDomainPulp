@@ -32,7 +32,7 @@ public class StartupTests {
 
 	[TestMethod]
 	[DataRow("/foo")]
-	[DataRow("/vn/foo/pulp.html")]
+	[DataRow("/vn/foo")]
 	[DataRow("/blog/2025-12-31")]
 	public async Task BadPages_404(string page) {
 		HttpResponseMessage res = await TestApp.Client.GetAsync(page);
@@ -46,7 +46,10 @@ public class StartupTests {
 
 	[TestMethod]
 	[DataRow("/foo.json")]
+	[DataRow("/vn/CupOfGold.css")]
+	[DataRow("/vn/CupOfGold.html")]
 	[DataRow("/vn/CupOfGold/pulp.css")]
+	[DataRow("/vn/CupOfGold/pulp.html")]
 	[DataRow("/assets/favicon.icon")]
 	[DataRow("/assets/home.scss")]
 	public async Task BadFiles_404(string page) {
@@ -74,7 +77,7 @@ public class StartupTests {
 	public async Task VN_200(string? acceptEncoding, string? contentEncoding) {
 		HttpRequestMessage request = new(
 			HttpMethod.Get,
-			"/vn/cupofgold/pulp.html"
+			"/vn/cupofgold"
 		);
 		if (acceptEncoding != null) {
 			request.Headers.Add("Accept-Encoding", acceptEncoding);
@@ -101,7 +104,7 @@ public class StartupTests {
 	public async Task VN_Compresses() {
 		HttpRequestMessage request = new(
 			HttpMethod.Get,
-			"/vn/cupofgold/pulp.html"
+			"/vn/CupOfGold"
 		);
 		HttpResponseMessage res = await TestApp.Client.SendAsync(request);
 		int length1 = (int)res.Content.Headers.ContentLength;
@@ -109,7 +112,7 @@ public class StartupTests {
 
 		request = new(
 			HttpMethod.Get,
-			"/vn/cupofgold/pulp.html"
+			"/vn/CupOfGold"
 		);
 		request.Headers.Add("Accept-Encoding", "br");
 		res = await TestApp.Client.SendAsync(request);

@@ -97,7 +97,7 @@ app.MapGet("/blog/{date:regex(\\d{{4}}-\\d{{2}}-\\d{{2}})}", (string date, HttpC
 	return Helpers.HtmlResult(html);
 });
 
-app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/pulp.html", (string book, HttpContext context) =>
+app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}", (string book, HttpContext context) =>
 {
 	if (!visualPulps.TryGetValue(book, out VisualNovel pulp)) {
 		return Helpers.HtmlResult(notFoundHtml, 404);
