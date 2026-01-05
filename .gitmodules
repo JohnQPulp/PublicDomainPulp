@@ -7,3 +7,6 @@
 [submodule "CreativeCommonsContent"]
 	path = CreativeCommonsContent
 	url = https://github.com/JohnQPulp/CreativeCommonsContent.git
+[submodule "VisualPulps/TheThirtyNineSteps"]
+	path = VisualPulps/TheThirtyNineSteps
+	url = https://github.com/JohnQPulp/TheThirtyNineSteps
