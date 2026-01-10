@@ -80,6 +80,11 @@ body {
   line-height: 1.6;
 }
 
+#blog h2 {
+  margin-top: 35px;
+  margin-bottom: 15px;
+}
+
 #blog img {
   max-width: 100%;
   max-height: 50vh;

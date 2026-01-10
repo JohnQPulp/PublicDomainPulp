@@ -96,12 +96,10 @@ internal static class Helpers {
 		return BuildContentPage(sb.ToString());
 	}
 
-	public static byte[] BuildAboutPage() {
-		StringBuilder html = new();
-		html.Append("<style>#nav-about { text-decoration: underline !important; }\n#content p { max-width: 60em; margin: 20px auto; }</style>");
-		html.Append("<p>Public Domain Pulp is a site for creating visual novels out of public domain texts (and perhaps creative commons texts too). ");
-		html.Append("The goal is to eventually create visual novels out of most all famous public domain texts.</p>");
-		return BuildContentPage(html.ToString(), "About: Public Domain Pulp");
+	public static byte[] BuildAboutPage(string baseDirectory) {
+		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "about.html");
+		string html = BookTag.FormatText(File.ReadAllText(path));
+		return BuildContentPage(html, "About Public Domain Pulp");
 	}
 
 	public static Dictionary<string, BlogPage> BuildBlogPages(string baseDirectory) {

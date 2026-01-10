@@ -80,7 +80,7 @@ app.MapGet("/", (HttpContext context) => {
 	return Helpers.HtmlResult(homeHtml);
 });
 
-byte[] aboutHtml = Helpers.BuildAboutPage();
+byte[] aboutHtml = Helpers.BuildAboutPage(baseDirectory);
 app.MapGet("/about", (HttpContext context) => {
 	Helpers.AppendCacheControl(context, TimeSpan.FromDays(1));
 	return Helpers.HtmlResult(aboutHtml);
