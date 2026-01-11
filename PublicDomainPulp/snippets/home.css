@@ -157,9 +157,8 @@ body {
   font-size: 0.9em;
 }
 
-.pulpcard p.indented {
-  text-indent: 2em;
-  margin: 0;
+.pulpcard p.blurb {
+  line-height: 1.6;
 }
 
 .pulpcard p.center {
