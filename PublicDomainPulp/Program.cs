@@ -76,7 +76,7 @@ app.UseStaticFiles(new StaticFileOptions
 
 byte[] homeHtml = Helpers.BuildHomePage(visualPulps, blogPages);
 app.MapGet("/", (HttpContext context) => {
-	Helpers.AppendCacheControl(context, TimeSpan.FromDays(1));
+	Helpers.AppendCacheControl(context, TimeSpan.FromHours(1));
 	return Helpers.HtmlResult(homeHtml);
 });
 

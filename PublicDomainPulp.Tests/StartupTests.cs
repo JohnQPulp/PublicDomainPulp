@@ -8,15 +8,15 @@ namespace Pulp.PublicDomainPulp.Tests;
 [TestClass]
 public class StartupTests {
 	[TestMethod]
-	[DataRow("/")]
-	[DataRow("/about")]
-	[DataRow("/About")]
-	public async Task HomePages_200(string page) {
+	[DataRow("/", 60 * 60)]
+	[DataRow("/about", 60 * 60 * 24)]
+	[DataRow("/About", 60 * 60 * 24)]
+	public async Task HomePages_200(string page, int cacheSeconds) {
 		HttpResponseMessage res = await TestApp.Client.GetAsync(page);
 		res.EnsureSuccessStatusCode();
 		res.AssertContentType("text/html", true);
 		await res.AssertHasTitle();
-		res.AssertCacheControl($"public, max-age={60 * 60 * 24}, immutable");
+		res.AssertCacheControl($"public, max-age={cacheSeconds}, immutable");
 	}
 
 	[TestMethod]
