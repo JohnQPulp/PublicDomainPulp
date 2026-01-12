@@ -14,6 +14,11 @@ body {
   min-height: 100vh;
 }
 
+hr {
+  border: 0;
+  border-top: 1px solid black !important;
+}
+
 .center {
   text-align: center;
 }
@@ -46,7 +51,7 @@ body {
 }
 
 #nav {
-
+  margin-top: 2px;
 }
 
 #footer {
