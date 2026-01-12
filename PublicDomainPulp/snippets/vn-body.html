@@ -9,6 +9,11 @@
     </div>
 </div>
 <div id="button-bar">
+    <label for="fontInput">Font Size:</label>
+    <input id="fontInput" type="range" min="20" max="400" value="150" oninput="setFontSize(this.value)">
+    <button onclick="document.getElementById('fontInput').value = 150;setFontSize(150)">Reset Font Size</button>
+</div>
+<div id="button-bar">
     <span id="linecount"></span>
     <button title="Bookmark Current Line" onclick="bookmarkClick()" id="bookmarkBtn"></button>
     <button title="Copy Link to Current Line" onclick="copyClick(event, pos)" class="copyLinkBtn"></button>

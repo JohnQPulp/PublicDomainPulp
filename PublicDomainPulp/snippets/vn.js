@@ -63,6 +63,6 @@ function copyClick(e, i) {
   url.searchParams.set("l", i.toString());
   navigator.clipboard.writeText(url.toString());
 }
-function homeClick() {
-  window.location.href = '/';
+function setFontSize(fontNumber) {
+  document.getElementById("app").style.setProperty('--vnFontSize', Math.floor(fontNumber / 100) + '.' + (Math.floor(fontNumber / 10) % 10) + (fontNumber % 10) + "vh");
 }
