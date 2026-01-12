@@ -149,7 +149,7 @@ internal static class Helpers {
 			StringBuilder sb = BuildHead(metadata.VNTitle, [HomeCss, VNCss], [VNJs], $"/vn/{name}/");
 			sb.Append(HeaderHtml);
 			sb.Append($"<script>window['bookId'] = '{name}';</script>");
-			sb.Append("<div id='vn-header'><p><b>To Go Back:</b><br>Click/tap left half of VN<br>OR<br>Left arrow key<br>OR<br>Shift+scroll (up)</p>");
+			sb.Append("<div id='vn-header' class='smargin'><p><b>To Go Back:</b><br>Click/tap left half of VN<br>OR<br>Left arrow key<br>OR<br>Shift+scroll (up)</p>");
 			sb.Append($"<div id='vn-header-mid'><h1><i>{metadata.VNTitle}</i></h1><h4>{metadata.Author} • {metadata.Year} • {metadata.Words:N0} Words</h4><h4><a href='{metadata.Repo}'>Github</a>");
 			foreach (KeyValuePair<string, string> kvp in metadata.Links) {
 				sb.Append($" • <a href='{kvp.Value}'>{kvp.Key}</a>");
