@@ -65,7 +65,8 @@ main {
   text-align: center;
 }
 #menu-toc {
-  min-width: 30%;
+  flex: 0 0 auto;
+  max-width: 50%;
 }
 #menu-bookmarks {
   flex-grow: 1;
@@ -84,6 +85,9 @@ main {
   display: flex;
   gap: 5px;
   align-items: center;
+}
+#menu-toc li > span > b {
+  flex-grow: 1;
 }
 #menu-bookmarks button:first-child {
   margin-right: 5px;
