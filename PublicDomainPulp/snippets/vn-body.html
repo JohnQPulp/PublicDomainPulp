@@ -4,13 +4,12 @@
         <ul></ul>
     </div>
     <div id="menu-bookmarks">
-        <h2>Bookmarks</h2>
+        <h2>Highlights</h2>
         <ul></ul>
     </div>
 </div>
 <div id="button-bar">
-    <button title="Bookmark Current Line" onclick="bookmarkClick()" id="bookmarkBtn"></button>
-    <button title="Copy Link to Current Line" onclick="copyClick(pos)">🔗 Copy Link to Current Line</button>
-    <span id="copytext">Link to Line Copied</span>
     <span id="linecount"></span>
+    <button title="Bookmark Current Line" onclick="bookmarkClick()" id="bookmarkBtn"></button>
+    <button title="Copy Link to Current Line" onclick="copyClick(event, pos)" class="copyLinkBtn"></button>
 </div>

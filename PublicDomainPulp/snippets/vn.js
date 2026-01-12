@@ -1,5 +1,5 @@
 function createLineButtons(i) {
-  return `<button onclick="setPos(${i})">Line ${i}</button><button onclick="copyClick(${i})">🔗</button>`;
+  return `<button onclick="setPos(${i})">Line ${i}</button><button class='copyLinkBtn' onclick="copyClick(event, ${i})"></button>`;
 }
 let bookmarks = [];
 function populateBookmarks() {
@@ -54,10 +54,9 @@ window.addEventListener("load", e => {
   ulHtml += "</ul>";
   tocList.innerHTML = ulHtml;
 });
-function copyClick(i) {
-  const copytext = document.getElementById('copytext');
-  copytext.classList.toggle('visible', true);
-  setTimeout(() => copytext.classList.toggle('visible', false), 1000);
+function copyClick(e, i) {
+  e.target.classList.toggle('copied', true);
+  setTimeout(() => e.target.classList.toggle('copied', false), 1000);
 
   const url = new URL(window.location.href);
   url.search = "";
