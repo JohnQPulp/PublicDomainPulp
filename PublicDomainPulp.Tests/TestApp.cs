@@ -41,9 +41,7 @@ internal static class AssertHelpers {
 
 		public void AssertCacheControl(string expected) {
 			string cacheControl = res.Headers.CacheControl.ToString();
-#if DEBUG
-			Assert.AreEqual("no-store", cacheControl);
-#else
+#if !DEBUG
 			Assert.AreEqual(expected, cacheControl);
 #endif
 		}

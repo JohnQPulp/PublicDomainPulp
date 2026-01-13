@@ -31,9 +31,11 @@ internal static class Helpers {
 	}
 
 	public static void AppendCacheControl(HttpContext context, TimeSpan timespan) {
-#if !DEBUG
-		context.Response.Headers.CacheControl = $"public, max-age={(int)timespan.TotalSeconds}, immutable";
+#if DEBUG
+		if (!context.Request.Path.ToString().EndsWith(".webp")) return;
 #endif
+
+		context.Response.Headers.CacheControl = $"public, max-age={(int)timespan.TotalSeconds}, immutable";
 	}
 
 	public static byte[] SelectCompressionAndAppendHeaders(HttpContext context, byte[] uncompressed, byte[] compressed) {
