@@ -36,6 +36,10 @@ main {
   font-size: 1.25em;
   flex-wrap: wrap;
 }
+#progress {
+  width: 120%;
+  margin-left: -10%;
+}
 #button-bar > * {
   font-size: 1em;
 }
