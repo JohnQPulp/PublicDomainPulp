@@ -11,6 +11,15 @@
 #vn-header-mid > * {
   margin: 7px 0;
 }
+#warning {
+  font-size: 2em;
+  display: none;
+}
+@media (orientation: portrait) {
+  #warning {
+    display: block;
+  }
+}
 main {
   display: flex;
   flex-direction: column-reverse;

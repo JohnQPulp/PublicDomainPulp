@@ -158,6 +158,7 @@ internal static class Helpers {
 			}
 			sb.Append($"</h4><small>(This visual novel's text is unmodified from its original <a href='{metadata.Source}'>Standard Ebooks .epub source</a>.)</small></div>");
 			sb.Append("<p><b>To Advance:</b><br>Click/tap right half of VN<br>OR<br>Right arrow key<br>OR<br>Shift+scroll (down)</p></div>");
+			sb.Append("<h1 id='warning' class='title'>Switch to landscape for the best VN-reading experience.</h1>");
 			sb.Append("<main>");
 			sb.Append(Helpers.VNBodyHtml);
 			sb.Append(Compiler.BuildHtml(rawText, pulpText));
