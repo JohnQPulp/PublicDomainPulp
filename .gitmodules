@@ -10,3 +10,6 @@
 [submodule "VisualPulps/TheThirtyNineSteps"]
 	path = VisualPulps/TheThirtyNineSteps
 	url = https://github.com/JohnQPulp/TheThirtyNineSteps
+[submodule "VisualPulps/PuddnheadWilson"]
+	path = VisualPulps/PuddnheadWilson
+	url = https://github.com/JohnQPulp/PuddnheadWilson
