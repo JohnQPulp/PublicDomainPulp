@@ -2,7 +2,6 @@ html, body {
   margin: 0px;
   padding: 0px;
 }
-
 body {
   width: 100%;
   overflow-y: auto;
@@ -13,29 +12,24 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
-
 hr {
   border: 0;
   border-top: 1px solid black !important;
 }
-
 .center {
   text-align: center;
 }
-
 .title {
   width: 100%;
   text-align: center;
   margin: 0;
 }
-
 .fadebar {
   width: 90vw;
   background: linear-gradient(to right, transparent, #f8efd4f0 10%, #f8efd4f0 90%, transparent 100%);
   padding: 0 5vw;
   display: flex;
 }
-
 @media (width <= 1234px) {
   .smargin {
     width: 100% !important;
@@ -49,49 +43,40 @@ hr {
     margin-right: auto !important;
   }
 }
-
 .right {
   margin-left: auto;
 }
-
 #nav {
   margin-top: 2px;
 }
-
 #footer {
   margin-bottom: 1em;
   margin-top: 20px;
   text-align: center;
   justify-content: center;
 }
-
 #nav > h2 {
   padding: 0 1em;
   font-size: min(1.5em, 3vw);
 }
-
 #nav > h2 > a {
   text-decoration: none;
   color: inherit;
 }
-
 #nav > h2:hover {
   text-decoration: underline;
   cursor: pointer;
 }
-
 #content {
   width: 90vw;
   margin: 0 5vw;
   flex-grow: 1;
   overflow-x: auto;
 }
-
 .posttitle {
   text-align: center;
   margin-bottom: 40px;
 }
-
 #blog {
   width: 100%;
   max-width: 45em;
@@ -99,96 +84,75 @@ hr {
   font-size: 1.1em;
   line-height: 1.6;
 }
-
 #blog h2 {
   margin-top: 35px;
   margin-bottom: 15px;
 }
-
 #blog img {
   max-width: 100%;
   max-height: 50vh;
   margin: 0 auto;
   display: block;
 }
-
 #blog blockquote {
   white-space: pre-wrap;
   border-left: 4px solid #a08a6d;
   padding-left: 15px;
   margin: 35px 0 15px 25px;
 }
-
 #blog h4 {
   margin-top: 50px;
 }
-
-#blog p {
-
-}
-
 #bloghead {
   margin-bottom: 0;
 }
-
 #blogsubhead {
   margin-top: 0;
 }
-
 #prosehead {
   border-bottom: 1px solid black;
   border-top: 1px solid black;
   padding-bottom: 5px;
 }
-
 .pulpcard {
   width: 100%;
   overflow: hidden;
   border-bottom: 1px solid black;
   margin: 1em 0 40px;
 }
-
 .pulpcard > h3 {
   width: 100%;
   text-align: center;
   margin: 0;
 }
-
 .pulpcard > div {
   display: flex;
   align-items: stretch;
   justify-content: space-between;
 }
-
 .pulpcard > div > div {
   min-width: calc(max(30%, 20em));
   padding-bottom: 200px;
   position: relative;
 }
-
 .pulpcard > div > div > h3 {
   text-align: center;
 }
-
 .pulpcard > div > div > img {
   width: 100%;
   position: absolute;
 }
-
 .pulpcard > div > img {
   min-width: calc(max(69%, 32em));
   object-fit: cover;
   object-position: left center;
 }
-
 .pulpcard p.small {
   font-size: 0.9em;
 }
-
 .pulpcard p.blurb {
   line-height: 1.6;
 }
-
 .pulpcard p.center {
   text-align: center;
 }
