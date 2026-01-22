@@ -76,14 +76,14 @@ internal static class Helpers {
 
 		List<Tuple<DateOnly, string>> posts = new();
 		foreach (KeyValuePair<string, BlogPage> kvp in blogPages) {
-			string html = $"<div><h3 class='posttitle'><small>{kvp.Value.Date.ToString("MMM dd, yyyy").ToUpper()}</small><br><a href='/blog/{kvp.Key}'>{kvp.Value.Title}</a></h3></div>";
+			string html = $"<div><h3 class='posttitle'><small class='upper'>{kvp.Value.Date.ToString("MMM dd, yyyy")}</small><br><a href='/blog/{kvp.Key}'>{kvp.Value.Title}</a></h3></div>";
 			posts.Add(new Tuple<DateOnly, string>(kvp.Value.Date, html));
 		}
 
 		foreach (VisualNovel pulp in visualNovels.Values) {
 			StringBuilder html = new();
 			html.Append("<div class='pulpcard'>");
-			html.Append($"<h3><small>{pulp.Metadata.PulpDate.ToString("MMM dd, yyyy").ToUpper()}</small><br><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
+			html.Append($"<h3><small class='upper'>{pulp.Metadata.PulpDate.ToString("MMM dd, yyyy")}</small><br><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
 			html.Append("<div><div>");
 			html.Append($"<h3><a href='/vn/{pulp.DirName}'>Read <i>{pulp.Metadata.VNTitle}</i></a> ({pulp.Metadata.Words.ToString("N0")}&nbsp;words)</h3>");
 			foreach (string line in pulp.Metadata.Blurb.Split('\n')) {
@@ -125,10 +125,10 @@ internal static class Helpers {
 		foreach (VisualNovel vn in vns) {
 			sb.Append("<tr>");
 			sb.Append($"<td><i><a href='/vn/{vn.DirName}'>{vn.Metadata.Title}</a></i></td>");
-			sb.Append($"<td>{vn.Metadata.Author}</td>");
+			sb.Append($"<td>{vn.Metadata.Author.Replace(" ", "&nbsp;")}</td>");
 			sb.Append($"<td>{vn.Metadata.Year}</td>");
 			sb.Append($"<td>{vn.Metadata.Words:N0}</td>");
-			sb.Append($"<td>{vn.Metadata.PulpDate:yyyy-MM-dd}</td>");
+			sb.Append($"<td class='upper'>{vn.Metadata.PulpDate.ToString("MMM dd, yyyy").Replace(" ", "&nbsp;")}</td>");
 			sb.Append("</tr>");
 		}
 		sb.Append("</table></div>");
@@ -140,7 +140,7 @@ internal static class Helpers {
 		foreach (BlogPage blog in blogs) {
 			sb.Append("<tr>");
 			sb.Append($"<td><a href='/blog/{blog.Date:yyyy-MM-dd}'>{blog.Title}</a></td>");
-			sb.Append($"<td>{blog.Date:yyyy-MM-dd}</td>");
+			sb.Append($"<td class='upper'>{blog.Date.ToString("MMM dd, yyyy").Replace(" ", "&nbsp;")}</td>");
 			sb.Append("</tr>");
 		}
 		sb.Append("</table></div>");
@@ -172,7 +172,7 @@ internal static class Helpers {
 			StringBuilder sb = new();
 			sb.Append("<div id='blog'>");
 			sb.Append($"<h1 id='bloghead' class='center'>{formattedTitle}</h1>");
-			sb.Append($"<h3 id='blogsubhead' class='center'><small>{date.ToString("MMM dd, yyyy").ToUpper()}</small></h3>");
+			sb.Append($"<h3 id='blogsubhead' class='center'><small class='upper'>{date.ToString("MMM dd, yyyy")}</small></h3>");
 			if (isProseRoundup) {
 				sb.Append("<p id='prosehead'><small>Prose roundups are posts where I run through the noteworthy snippets of books and short stories not yet in the public domain (that therefore can't be made into visual novels yet). The snippets are listed chronologically, grouped by chapters, <b>and may contain spoilers up to their respective locations in their works</b>.</small></p>");
 			}

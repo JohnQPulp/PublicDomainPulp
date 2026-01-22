@@ -156,3 +156,6 @@ hr {
 .pulpcard p.center {
   text-align: center;
 }
+.upper {
+  font-variant: small-caps;
+}
