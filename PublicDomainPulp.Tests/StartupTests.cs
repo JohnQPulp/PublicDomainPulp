@@ -11,6 +11,10 @@ public class StartupTests {
 	[DataRow("/", 60 * 60)]
 	[DataRow("/about", 60 * 60 * 24)]
 	[DataRow("/About", 60 * 60 * 24)]
+	[DataRow("/catalog", 60 * 60)]
+	[DataRow("/Catalog", 60 * 60)]
+	[DataRow("/contact", 60 * 60 * 24)]
+	[DataRow("/Contact", 60 * 60 * 24)]
 	public async Task HomePages_200(string page, int cacheSeconds) {
 		HttpResponseMessage res = await TestApp.Client.GetAsync(page);
 		res.EnsureSuccessStatusCode();

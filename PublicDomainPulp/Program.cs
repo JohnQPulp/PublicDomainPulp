@@ -74,17 +74,10 @@ app.UseStaticFiles(new StaticFileOptions
 	}
 });
 
-byte[] homeHtml = Helpers.BuildHomePage(visualPulps, blogPages);
-app.MapGet("/", (HttpContext context) => {
-	Helpers.AppendCacheControl(context, TimeSpan.FromHours(1));
-	return Helpers.HtmlResult(homeHtml);
-});
-
-byte[] aboutHtml = Helpers.BuildAboutPage(baseDirectory);
-app.MapGet("/about", (HttpContext context) => {
-	Helpers.AppendCacheControl(context, TimeSpan.FromDays(1));
-	return Helpers.HtmlResult(aboutHtml);
-});
+Helpers.MapPage(app, "/", Helpers.BuildHomePage(visualPulps, blogPages), TimeSpan.FromHours(1));
+Helpers.MapPage(app, "/catalog", Helpers.BuildCatalogPage(visualPulps, blogPages), TimeSpan.FromHours(1));
+Helpers.MapPage(app, "/about", Helpers.BuildAboutPage(baseDirectory), TimeSpan.FromDays(1));
+Helpers.MapPage(app, "/contact", Helpers.BuildContactPage(baseDirectory), TimeSpan.FromDays(1));
 
 byte[] notFoundHtml = Helpers.BuildContentPage("<h2>404 Not Found</h2>");
 app.MapGet("/blog/{date:regex(\\d{{4}}-\\d{{2}}-\\d{{2}})}", (string date, HttpContext context) => {
@@ -92,8 +85,12 @@ app.MapGet("/blog/{date:regex(\\d{{4}}-\\d{{2}}-\\d{{2}})}", (string date, HttpC
 		return Helpers.HtmlResult(notFoundHtml, 404);
 	}
 
-	byte[] html = Helpers.SelectCompressionAndAppendHeaders(context, blogPage.Html, blogPage.BrotliHtml);
 	Helpers.AppendCacheControl(context, TimeSpan.FromDays(7));
+
+	string path = $"/blog/{date}";
+	if (context.Request.Path.ToString() != path) return Results.Redirect(path, true);
+
+	byte[] html = Helpers.SelectCompressionAndAppendHeaders(context, blogPage.Html, blogPage.BrotliHtml);
 	return Helpers.HtmlResult(html);
 });
 
@@ -103,8 +100,12 @@ app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}", (string book, HttpContext co
 		return Helpers.HtmlResult(notFoundHtml, 404);
 	}
 
-	byte[] html = Helpers.SelectCompressionAndAppendHeaders(context, pulp.Html, pulp.BrotliHtml);
 	Helpers.AppendCacheControl(context, TimeSpan.FromDays(7));
+
+	string path = $"/vn/{pulp.DirName}";
+	if (context.Request.Path.ToString() != path) return Results.Redirect(path + context.Request.QueryString, true);
+
+	byte[] html = Helpers.SelectCompressionAndAppendHeaders(context, pulp.Html, pulp.BrotliHtml);
 	return Helpers.HtmlResult(html);
 });
 
@@ -112,12 +113,16 @@ app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/images/{image:regex(^[a-z0-9-]
 {
 	if (visualPulps.TryGetValue(book, out VisualNovel pulp)) {
 		context.Response.ContentType = "image/webp";
-		string path = Path.Combine(baseDirectory, "VisualPulps", pulp.DirName, "images", image + ".webp");
+		string imagePath = Path.Combine(baseDirectory, "VisualPulps", pulp.DirName, "images", image + ".webp");
 
 		try {
 			context.Response.StatusCode = 200;
 			Helpers.AppendCacheControl(context, TimeSpan.FromDays(30));
-			await context.Response.SendFileAsync(path);
+
+			string path = $"/vn/{pulp.DirName}/images/{image}.webp";
+			if (context.Request.Path.ToString() != path) return Results.Redirect(path, true);
+
+			await context.Response.SendFileAsync(imagePath);
 			return Results.Empty;
 		} catch (FileNotFoundException) { }
 	}

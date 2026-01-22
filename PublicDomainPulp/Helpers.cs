@@ -18,12 +18,22 @@ internal static class Helpers {
 	private static readonly string VNCss = ReadResource("snippets.vn.css");
 	private static readonly string VNJs = ReadResource("snippets.vn.js");
 
-	public static string ReadResource(string name)
+	private static string ReadResource(string name)
 	{
 		Assembly asm = Assembly.GetExecutingAssembly();
 		using Stream stream = asm.GetManifestResourceStream("Pulp.PublicDomainPulp." + name);
 		using StreamReader reader = new StreamReader(stream);
 		return reader.ReadToEnd();
+	}
+
+	public static void MapPage(WebApplication app, string route, byte[] page, TimeSpan cacheTime) {
+		byte[] compressedPage = Compress(page);
+		app.MapGet(route, (HttpContext context) => {
+			AppendCacheControl(context, cacheTime);
+			if (context.Request.Path.ToString() != route) return Results.Redirect(route, true);
+			byte[] html = SelectCompressionAndAppendHeaders(context, page, compressedPage);
+			return HtmlResult(html);
+		});
 	}
 
 	public static IResult HtmlResult(byte[] bytes, int statusCode = 200) {
@@ -102,6 +112,17 @@ internal static class Helpers {
 		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "about.html");
 		string html = BookTag.FormatText(File.ReadAllText(path));
 		return BuildContentPage(html, "About Public Domain Pulp");
+	}
+
+	public static byte[] BuildCatalogPage(Dictionary<string, VisualNovel> visualNovels, Dictionary<string, BlogPage> blogPages) {
+
+		return BuildContentPage("foo", "Catalog of Pulp");
+	}
+
+	public static byte[] BuildContactPage(string baseDirectory) {
+		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "contact.html");
+		string html = BookTag.FormatText(File.ReadAllText(path));
+		return BuildContentPage(html, "Contact John Q. Pulp");
 	}
 
 	public static Dictionary<string, BlogPage> BuildBlogPages(string baseDirectory) {
