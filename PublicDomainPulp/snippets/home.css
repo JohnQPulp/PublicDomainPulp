@@ -36,7 +36,9 @@ hr {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
-
+  .svisible {
+    display: none !important;
+  }
   #content {
     width: 98% !important;
     margin-left: auto !important;
@@ -77,8 +79,18 @@ hr {
   text-align: center;
   margin-bottom: 40px;
 }
+.blogwrapper {
+  display: flex;
+  gap: 5px;
+}
+.blogwrapper > div {
+  flex-grow: 1;
+}
+#b-left, #b-right {
+  background-size: 100%, 36%;
+  background-repeat: space, space;
+}
 #blog {
-  width: 100%;
   max-width: 45em;
   margin: 0 auto 20px;
   font-size: 1.1em;

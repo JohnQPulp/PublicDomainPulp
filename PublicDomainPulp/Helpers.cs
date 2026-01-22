@@ -68,6 +68,20 @@ internal static class Helpers {
 		return GetPageBytes(sb);
 	}
 
+	private static byte[] BuildBlogPage(string html, string title) {
+		StringBuilder sb = BuildHead(title, [HomeCss], []);
+		sb.Append(HeaderHtml);
+		sb.Append("<div id='content' class='blogwrapper'>");
+		sb.Append("<div id='b-left' class='svisible'></div>");
+		sb.Append("<div id='blog'>");
+		sb.Append(html);
+		sb.Append("</div>");
+		sb.Append("<div id='b-right' class='svisible'></div>");
+		sb.Append("</div>");
+		sb.Append(FooterHtml);
+		return GetPageBytes(sb);
+	}
+
 	public static byte[] BuildHomePage(Dictionary<string, VisualNovel> visualNovels, Dictionary<string, BlogPage> blogPages) {
 		StringBuilder sb = new();
 		sb.Append("<style>#nav-home { text-decoration: underline !important; }</style>");
@@ -111,7 +125,7 @@ internal static class Helpers {
 	public static byte[] BuildAboutPage(string baseDirectory) {
 		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "about.html");
 		string html = BookTag.FormatText(File.ReadAllText(path));
-		return BuildContentPage(html, "About Public Domain Pulp");
+		return BuildBlogPage(html, "About Public Domain Pulp");
 	}
 
 	public static byte[] BuildCatalogPage(Dictionary<string, VisualNovel> visualNovels, Dictionary<string, BlogPage> blogPages) {
@@ -151,7 +165,7 @@ internal static class Helpers {
 	public static byte[] BuildContactPage(string baseDirectory) {
 		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "contact.html");
 		string html = BookTag.FormatText(File.ReadAllText(path));
-		return BuildContentPage(html, "Contacting John Q. Pulp");
+		return BuildBlogPage(html, "Contacting John Q. Pulp");
 	}
 
 	public static Dictionary<string, BlogPage> BuildBlogPages(string baseDirectory) {
@@ -170,15 +184,13 @@ internal static class Helpers {
 			});
 
 			StringBuilder sb = new();
-			sb.Append("<div id='blog'>");
 			sb.Append($"<h1 id='bloghead' class='center'>{formattedTitle}</h1>");
 			sb.Append($"<h3 id='blogsubhead' class='center'><small class='upper'>{date.ToString("MMM dd, yyyy")}</small></h3>");
 			if (isProseRoundup) {
 				sb.Append("<p id='prosehead'><small>Prose roundups are posts where I run through the noteworthy snippets of books and short stories not yet in the public domain (that therefore can't be made into visual novels yet). The snippets are listed chronologically, grouped by chapters, <b>and may contain spoilers up to their respective locations in their works</b>.</small></p>");
 			}
 			sb.Append(BookTag.FormatText(File.ReadAllText(file)));
-			sb.Append("</div>");
-			byte[] bytes = BuildContentPage(sb.ToString(), title);
+			byte[] bytes = BuildBlogPage(sb.ToString(), title);
 
 			blogPages.Add(date.ToString("yyyy-MM-dd"), new(formattedTitle, date, bytes, Compress(bytes)));
 		}
