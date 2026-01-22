@@ -115,14 +115,43 @@ internal static class Helpers {
 	}
 
 	public static byte[] BuildCatalogPage(Dictionary<string, VisualNovel> visualNovels, Dictionary<string, BlogPage> blogPages) {
+		StringBuilder sb = new();
+		sb.Append("<style>#content { display: flex; font-size: 1.1em; margin-top: 40px; gap: 40px; }\ntable { border-collapse: collapse; margin: 0 auto; }\nth, td { border: 1px solid black; padding: 6px; background-color: #f8eed3; }\n#nav-catalog { text-decoration: underline !important; }</style>");
 
-		return BuildContentPage("foo", "Catalog of Pulp");
+		sb.Append("<div id='vns'><h2 class='title'>Visual Novels</h2><table>");
+		sb.Append("<tr><th>Title</th><th>Author</th><th>Year</th><th>Words</th><th>Date</th></tr>");
+		List<VisualNovel> vns = visualNovels.Values.ToList();
+		vns.Sort((a, b) => b.Metadata.PulpDate.CompareTo(a.Metadata.PulpDate));
+		foreach (VisualNovel vn in vns) {
+			sb.Append("<tr>");
+			sb.Append($"<td><i><a href='/vn/{vn.DirName}'>{vn.Metadata.Title}</a></i></td>");
+			sb.Append($"<td>{vn.Metadata.Author}</td>");
+			sb.Append($"<td>{vn.Metadata.Year}</td>");
+			sb.Append($"<td>{vn.Metadata.Words:N0}</td>");
+			sb.Append($"<td>{vn.Metadata.PulpDate:yyyy-MM-dd}</td>");
+			sb.Append("</tr>");
+		}
+		sb.Append("</table></div>");
+
+		sb.Append("<div id='blogs'><h2 class='title'>Blog Posts</h2><table>");
+		sb.Append("<tr><th>Title</th><th>Date</th></tr>");
+		List<BlogPage> blogs = blogPages.Values.ToList();
+		blogs.Sort((a, b) => b.Date.CompareTo(a.Date));
+		foreach (BlogPage blog in blogs) {
+			sb.Append("<tr>");
+			sb.Append($"<td><a href='/blog/{blog.Date:yyyy-MM-dd}'>{blog.Title}</a></td>");
+			sb.Append($"<td>{blog.Date:yyyy-MM-dd}</td>");
+			sb.Append("</tr>");
+		}
+		sb.Append("</table></div>");
+
+		return BuildContentPage(sb.ToString(), "Catalog of Pulp");
 	}
 
 	public static byte[] BuildContactPage(string baseDirectory) {
 		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "contact.html");
 		string html = BookTag.FormatText(File.ReadAllText(path));
-		return BuildContentPage(html, "Contact John Q. Pulp");
+		return BuildContentPage(html, "Contacting John Q. Pulp");
 	}
 
 	public static Dictionary<string, BlogPage> BuildBlogPages(string baseDirectory) {
