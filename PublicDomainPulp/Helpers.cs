@@ -116,7 +116,7 @@ internal static class Helpers {
 
 	public static byte[] BuildCatalogPage(Dictionary<string, VisualNovel> visualNovels, Dictionary<string, BlogPage> blogPages) {
 		StringBuilder sb = new();
-		sb.Append("<style>#content { display: flex; font-size: 1.1em; margin-top: 40px; gap: 40px; }\ntable { border-collapse: collapse; margin: 0 auto; }\nth, td { border: 1px solid black; padding: 6px; background-color: #f8eed3; }\n#nav-catalog { text-decoration: underline !important; }</style>");
+		sb.Append("<style>#content { display: flex; font-size: 1.1em; margin-top: 40px; gap: 40px; }\n#vns { min-width: 600px; }\n#blogs { min-width: 400px; }\ntable { border-collapse: collapse; margin: 0 auto; }\nth, td { border: 1px solid black; padding: 6px; background-color: #f8eed3; }\n#nav-catalog { text-decoration: underline !important; }</style>");
 
 		sb.Append("<div id='vns'><h2 class='title'>Visual Novels</h2><table>");
 		sb.Append("<tr><th>Title</th><th>Author</th><th>Year</th><th>Words</th><th>Date</th></tr>");
