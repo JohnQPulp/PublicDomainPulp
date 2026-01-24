@@ -128,12 +128,11 @@ internal static class Helpers {
 		return BuildBlogPage(html, "About Public Domain Pulp");
 	}
 
-	public static byte[] BuildCatalogPage(Dictionary<string, VisualNovel> visualNovels, Dictionary<string, BlogPage> blogPages) {
-		StringBuilder sb = new();
-		sb.Append("<style>#content { display: flex; font-size: 1.1em; margin-top: 40px; gap: 40px; }\n#vns { min-width: 600px; }\n#blogs { min-width: 400px; }\ntable { border-collapse: collapse; margin: 0 auto; }\nth, td { border: 1px solid black; padding: 6px; background-color: #f8eed3; }\n#nav-catalog { text-decoration: underline !important; }</style>");
+	public static byte[] BuildCatalogPage(string baseDirectory, Dictionary<string, VisualNovel> visualNovels, Dictionary<string, BlogPage> blogPages) {
+		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "catalog.html");
+		string html = File.ReadAllText(path);
 
-		sb.Append("<div id='vns'><h2 class='title'>Visual Novels</h2><table>");
-		sb.Append("<tr><th>Title</th><th>Author</th><th>Year</th><th>Words</th><th>Date</th></tr>");
+		StringBuilder sb = new();
 		List<VisualNovel> vns = visualNovels.Values.ToList();
 		vns.Sort((a, b) => b.Metadata.PulpDate.CompareTo(a.Metadata.PulpDate));
 		foreach (VisualNovel vn in vns) {
@@ -141,14 +140,13 @@ internal static class Helpers {
 			sb.Append($"<td><i><a href='/vn/{vn.DirName}'>{vn.Metadata.Title}</a></i></td>");
 			sb.Append($"<td>{vn.Metadata.Author.Replace(" ", "&nbsp;")}</td>");
 			sb.Append($"<td>{vn.Metadata.Year}</td>");
-			sb.Append($"<td>{vn.Metadata.Words:N0}</td>");
+			sb.Append($"<td class='tr'>{vn.Metadata.Words:N0}</td>");
 			sb.Append($"<td class='upper'>{vn.Metadata.PulpDate.ToString("MMM dd, yyyy").Replace(" ", "&nbsp;")}</td>");
 			sb.Append("</tr>");
 		}
-		sb.Append("</table></div>");
+		html = html.Replace("<!--VNs-->", sb.ToString());
+		sb.Clear();
 
-		sb.Append("<div id='blogs'><h2 class='title'>Blog Posts</h2><table>");
-		sb.Append("<tr><th>Title</th><th>Date</th></tr>");
 		List<BlogPage> blogs = blogPages.Values.ToList();
 		blogs.Sort((a, b) => b.Date.CompareTo(a.Date));
 		foreach (BlogPage blog in blogs) {
@@ -157,9 +155,9 @@ internal static class Helpers {
 			sb.Append($"<td class='upper'>{blog.Date.ToString("MMM dd, yyyy").Replace(" ", "&nbsp;")}</td>");
 			sb.Append("</tr>");
 		}
-		sb.Append("</table></div>");
+		html = html.Replace("<!--blogs-->", sb.ToString());
 
-		return BuildContentPage(sb.ToString(), "Catalog of Pulp");
+		return BuildContentPage(html, "Catalog of Pulp");
 	}
 
 	public static byte[] BuildContactPage(string baseDirectory) {
