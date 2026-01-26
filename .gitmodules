@@ -13,3 +13,6 @@
 [submodule "VisualPulps/PuddnheadWilson"]
 	path = VisualPulps/PuddnheadWilson
 	url = https://github.com/JohnQPulp/PuddnheadWilson
+[submodule "VisualPulps/TheSunAlsoRises"]
+	path = VisualPulps/TheSunAlsoRises
+	url = https://github.com/JohnQPulp/TheSunAlsoRises
