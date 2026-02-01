@@ -110,7 +110,7 @@ internal static class Helpers {
 			}
 			html.Append("</p>");
 			html.Append($"<img src='/vn/{pulp.DirName}/images/c-author.webp'>");
-			html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.webp'>");
+			html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.webp' loading='lazy'>");
 			html.Append("</div></div>");
 			posts.Add(new Tuple<DateOnly, string>(pulp.Metadata.PulpDate, html.ToString()));
 		}
