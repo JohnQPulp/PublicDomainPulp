@@ -67,3 +67,12 @@ function copyClick(e, i) {
 function setFontSize(fontNumber) {
   document.getElementById("app").style.setProperty('--vnFontSize', Math.floor(fontNumber / 100) + '.' + (Math.floor(fontNumber / 10) % 10) + (fontNumber % 10) + "vh");
 }
+function setFontSizeReally(fontNumber) {
+  document.getElementById("app").style.setProperty('--vnFontSizeReally', Math.floor(fontNumber / 100) + '.' + (Math.floor(fontNumber / 10) % 10) + (fontNumber % 10) + "em");
+}
+function setDialogueFontWeight(fontWeight) {
+  document.getElementById("app").style.setProperty('--vnDialogueFontWeight', fontWeight);
+}
+function setLineHeight(lineHeight) {
+  document.getElementById("app").style.setProperty('--vnLineHeight', Math.floor(lineHeight / 100) + '.' + (Math.floor(lineHeight / 10) % 10) + (lineHeight % 10));
+}

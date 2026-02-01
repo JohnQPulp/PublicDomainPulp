@@ -24,27 +24,27 @@ main {
   display: flex;
   flex-direction: column-reverse;
 }
-#button-bar {
+.button-bar {
   width: 96%;
   display: flex;
   white-space: nowrap;
   align-items: center;
   justify-content: center;
   font-family: "Noto Sans", sans-serif;
-  margin: 5px 2% 0;
+  margin: 5px auto 0;
   gap: 5px;
   font-size: 1.25em;
   flex-wrap: wrap;
+  max-width: 1000px;
 }
 #progress {
   width: 120%;
   margin-left: -10%;
 }
-#button-bar > * {
+.button-bar > * {
   font-size: 1em;
 }
-#fontInput {
-  max-width: 750px;
+.button-bar > input[type='range'] {
   flex-grow: 1;
 }
 #menu {
