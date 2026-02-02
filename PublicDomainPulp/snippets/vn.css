@@ -23,6 +23,12 @@
 main {
   display: flex;
   flex-direction: column-reverse;
+  --vwUnit: 0.6vw;
+  --vhUnit: 0.6vh;
+}
+#app {
+  border-radius: 12px;
+  overflow: hidden;
 }
 .button-bar {
   width: 96%;
@@ -94,10 +100,10 @@ main {
   margin-right: 5px;
 }
 #bookmarkBtn::after {
-  content: 'Add to Highlights';
+  content: 'Add to Highlights (H)';
 }
 #bookmarkBtn.bookmarked::after {
-  content: 'Remove Highlight';
+  content: 'Remove Highlight (H)';
 }
 .copyLinkBtn::after {
   content: 'Copy Link';

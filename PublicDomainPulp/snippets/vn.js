@@ -64,8 +64,40 @@ function copyClick(e, i) {
   url.searchParams.set("l", i.toString());
   navigator.clipboard.writeText(url.toString());
 }
+function toggleFullscreen() {
+  if (document.fullscreenElement) {
+    document.exitFullscreen().catch(() => {});
+  } else {
+    document.documentElement.requestFullscreen().catch(() => {});
+  }
+}
+document.addEventListener("keydown", function (e) {
+  if (e.key === "f" || e.key === "F") {
+    toggleFullscreen();
+  }
+});
+addEventListener("fullscreenchange", (event) => {
+  if (document.fullscreenElement) {
+    setWindowSize(100);
+    document.getElementById("app").style.borderRadius = "0";
+    document.getElementById("app").scrollIntoView({behavior: "instant"});
+  } else {
+    setWindowSize(60);
+    document.getElementById("app").style.borderRadius = "12px";
+  }
+});
+function setWindowSize(windowNumber) {
+  document.getElementsByTagName("main")[0].style.setProperty("--vwUnit", Math.floor(windowNumber / 100) + '.' + (Math.floor(windowNumber / 10) % 10) + (windowNumber % 10) + "vw");
+  document.getElementsByTagName("main")[0].style.setProperty("--vhUnit", Math.floor(windowNumber / 100) + '.' + (Math.floor(windowNumber / 10) % 10) + (windowNumber % 10) + "vh");
+}
+function toggleAuto() {
+
+}
+function toggleEditor() {
+
+}
 function setFontSize(fontNumber) {
-  document.getElementById("app").style.setProperty('--vnFontSize', Math.floor(fontNumber / 100) + '.' + (Math.floor(fontNumber / 10) % 10) + (fontNumber % 10) + "vh");
+  document.getElementById("app").style.setProperty('--vnFontSize', Math.floor(fontNumber / 100) + '.' + (Math.floor(fontNumber / 10) % 10) + (fontNumber % 10));
 }
 function setFontSizeReally(fontNumber) {
   document.getElementById("app").style.setProperty('--vnFontSizeReally', Math.floor(fontNumber / 100) + '.' + (Math.floor(fontNumber / 10) % 10) + (fontNumber % 10) + "em");
@@ -75,4 +107,7 @@ function setDialogueFontWeight(fontWeight) {
 }
 function setLineHeight(lineHeight) {
   document.getElementById("app").style.setProperty('--vnLineHeight', Math.floor(lineHeight / 100) + '.' + (Math.floor(lineHeight / 10) % 10) + (lineHeight % 10));
+}
+function setAutoSpeed(speed) {
+
 }
