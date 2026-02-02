@@ -23,8 +23,8 @@
 main {
   display: flex;
   flex-direction: column-reverse;
-  --vwUnit: 0.6vw;
-  --vhUnit: 0.6vh;
+  --vwUnit: min(0.8vw, 1.6vh);
+  --vhUnit: min(0.45vw, 0.9vh);
 }
 #app {
   border-radius: 12px;

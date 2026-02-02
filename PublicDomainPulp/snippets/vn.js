@@ -78,17 +78,17 @@ document.addEventListener("keydown", function (e) {
 });
 addEventListener("fullscreenchange", (event) => {
   if (document.fullscreenElement) {
-    setWindowSize(100);
+    setWindowProps("1vw", "1vh");
     document.getElementById("app").style.borderRadius = "0";
     document.getElementById("app").scrollIntoView({behavior: "instant"});
   } else {
-    setWindowSize(60);
+    setWindowProps("min(0.8vw, 1.6vh)", "min(0.45vw, 0.9vh)");
     document.getElementById("app").style.borderRadius = "12px";
   }
 });
-function setWindowSize(windowNumber) {
-  document.getElementsByTagName("main")[0].style.setProperty("--vwUnit", Math.floor(windowNumber / 100) + '.' + (Math.floor(windowNumber / 10) % 10) + (windowNumber % 10) + "vw");
-  document.getElementsByTagName("main")[0].style.setProperty("--vhUnit", Math.floor(windowNumber / 100) + '.' + (Math.floor(windowNumber / 10) % 10) + (windowNumber % 10) + "vh");
+function setWindowProps(vwUnit, vhUnit) {
+  document.getElementsByTagName("main")[0].style.setProperty("--vwUnit", vwUnit);
+  document.getElementsByTagName("main")[0].style.setProperty("--vhUnit", vhUnit);
 }
 function toggleAuto() {
 
