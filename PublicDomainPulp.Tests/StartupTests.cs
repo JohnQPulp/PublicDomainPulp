@@ -73,6 +73,36 @@ public class StartupTests {
 	}
 
 	[TestMethod]
+	[DataRow("/assets/icon-144.ico")]
+	[DataRow("/assets/favicon.png")]
+	public async Task Assets_404(string path) {
+		HttpResponseMessage res = await TestApp.Client.GetAsync(path);
+		Assert.AreEqual(HttpStatusCode.NotFound, res.StatusCode);
+		res.AssertCacheControl("no-store");
+		await res.AssertEmpty();
+	}
+
+	[TestMethod]
+	[DataRow("/images/kitten.webp", "image/webp", false)]
+	[DataRow("/images/buchan.webp", "image/webp", false)]
+	public async Task CC_Images_200(string path, string contentType, bool shouldHaveUtf8Charset) {
+		HttpResponseMessage res = await TestApp.Client.GetAsync(path);
+		res.EnsureSuccessStatusCode();
+		res.AssertContentType(contentType, shouldHaveUtf8Charset);
+		res.AssertCacheControl($"public, max-age={60 * 60 * 24}, immutable");
+	}
+
+	[TestMethod]
+	[DataRow("/images/kitten.gif")]
+	[DataRow("/images/Buchan.webp")]
+	public async Task CC_Images_200(string path) {
+		HttpResponseMessage res = await TestApp.Client.GetAsync(path);
+		Assert.AreEqual(HttpStatusCode.NotFound, res.StatusCode);
+		res.AssertCacheControl("no-store");
+		await res.AssertEmpty();
+	}
+
+	[TestMethod]
 	[DataRow(null, null)]
 	[DataRow("", null)]
 	[DataRow("gzip", null)]
