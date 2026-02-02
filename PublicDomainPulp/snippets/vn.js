@@ -28,7 +28,7 @@ function bookmarkClick() {
 window["handlePosUpdate"] = function() {
   updateBookmarkBtn();
   document.getElementById("linecount").innerHTML = "<b>Line:</b> " + pos + "/" + (htmlArr.length - 1);
-  document.getElementById("progress").value = 0.1 + pos / (htmlArr.length - 1);
+  document.getElementById("progress").value = pos / (htmlArr.length - 1);
 }
 window.addEventListener("load", e => {
   const bookmarksString = localStorage.getItem(getLocalStorageKey('b'));

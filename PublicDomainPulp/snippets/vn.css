@@ -44,8 +44,8 @@ main {
   max-width: 1000px;
 }
 #progress {
-  width: 120%;
-  margin-left: -10%;
+  align-self: center;
+  width: calc(98 * var(--vwUnit));
 }
 .button-bar > * {
   font-size: 1em;
