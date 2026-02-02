@@ -67,13 +67,21 @@ function copyClick(e, i) {
 function toggleFullscreen() {
   if (document.fullscreenElement) {
     document.exitFullscreen().catch(() => {});
+    document.getElementById("fullscreenToggle").classList.remove("btnActive");
   } else {
     document.documentElement.requestFullscreen().catch(() => {});
+    document.getElementById("fullscreenToggle").classList.add("btnActive");
   }
 }
 document.addEventListener("keydown", function (e) {
   if (e.key === "f" || e.key === "F") {
     toggleFullscreen();
+  } else if (e.key === "e" || e.key === "E") {
+    toggleEditor();
+  } else if (e.key === "h" || e.key === "H") {
+    bookmarkClick();
+  } else if (e.key === "p" || e.key === "P") {
+    toggleAuto();
   }
 });
 addEventListener("fullscreenchange", (event) => {
@@ -90,11 +98,25 @@ function setWindowProps(vwUnit, vhUnit) {
   document.getElementsByTagName("main")[0].style.setProperty("--vwUnit", vwUnit);
   document.getElementsByTagName("main")[0].style.setProperty("--vhUnit", vhUnit);
 }
+let autoplay = false;
 function toggleAuto() {
-
+  autoplay = !autoplay;
+  if (autoplay) {
+    document.getElementById("autoToggle").classList.add("btnActive");
+  } else {
+    document.getElementById("autoToggle").classList.remove("btnActive");
+  }
 }
+let notesVisible = true;
 function toggleEditor() {
-
+  notesVisible = !notesVisible;
+  if (notesVisible) {
+    document.getElementById("editorToggle").classList.add("btnActive");
+    document.getElementById("app").style.setProperty("--editorDisplay", "block");
+  } else {
+    document.getElementById("editorToggle").classList.remove("btnActive");
+    document.getElementById("app").style.setProperty("--editorDisplay", "none");
+  }
 }
 function setFontSize(fontNumber) {
   document.getElementById("app").style.setProperty('--vnFontSize', Math.floor(fontNumber / 100) + '.' + (Math.floor(fontNumber / 10) % 10) + (fontNumber % 10));

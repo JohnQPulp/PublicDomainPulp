@@ -111,3 +111,21 @@ main {
 .copyLinkBtn.copied::after {
   content: 'Copied';
 }
+#fullscreenToggle::after {
+  content: 'Enter Fullscreen (F)';
+}
+#fullscreenToggle.btnActive::after {
+  content: 'Exit Fullscreen (F)';
+}
+#autoToggle::after {
+  content: 'Start Auto-play (P)';
+}
+#autoToggle.btnActive::after {
+  content: 'Pause Auto-play (P)';
+}
+#editorToggle::after {
+  content: "Show Editor's Notes (E)";
+}
+#editorToggle.btnActive::after {
+  content: "Hide Editor's Notes (E)";
+}
