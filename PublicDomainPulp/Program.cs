@@ -128,6 +128,7 @@ app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/images/{image:regex(^[a-z0-9-]
 	}
 
 	context.Response.StatusCode = 404;
+	context.Response.Headers[HeaderNames.CacheControl] = "no-store";
 	return Results.Empty;
 });
 

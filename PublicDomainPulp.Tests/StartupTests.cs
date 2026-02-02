@@ -150,6 +150,7 @@ public class StartupTests {
 	public async Task VN_Image_404(string image) {
 		HttpResponseMessage res = await TestApp.Client.GetAsync("/vn/cupofgold/images/" + image);
 		Assert.AreEqual(HttpStatusCode.NotFound, res.StatusCode);
+		res.AssertCacheControl("no-store");
 		await res.AssertEmpty();
 	}
 }
