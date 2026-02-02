@@ -98,14 +98,25 @@ function setWindowProps(vwUnit, vhUnit) {
   document.getElementsByTagName("main")[0].style.setProperty("--vwUnit", vwUnit);
   document.getElementsByTagName("main")[0].style.setProperty("--vhUnit", vhUnit);
 }
+let autoplayCounter = 0;
 let autoplay = false;
+let autoplayDial = 100;
 function toggleAuto() {
   autoplay = !autoplay;
   if (autoplay) {
     document.getElementById("autoToggle").classList.add("btnActive");
+    autoCallback(++autoplayCounter);
   } else {
     document.getElementById("autoToggle").classList.remove("btnActive");
   }
+}
+function autoCallback(counter) {
+  setTimeout(() => {
+    if (autoplay && counter === autoplayCounter) {
+      nextPulp();
+      autoCallback(counter);
+    }
+  }, (50 + htmlArr[pos].length * 2) * Math.pow(10, 2 - autoplayDial / 100));
 }
 let notesVisible = true;
 function toggleEditor() {
@@ -131,5 +142,5 @@ function setLineHeight(lineHeight) {
   document.getElementById("app").style.setProperty('--vnLineHeight', Math.floor(lineHeight / 100) + '.' + (Math.floor(lineHeight / 10) % 10) + (lineHeight % 10));
 }
 function setAutoSpeed(speed) {
-
+  autoplayDial = speed;
 }
