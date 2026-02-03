@@ -10,27 +10,27 @@
 </div>
 <div class="button-bar">
     <label for="autoInput"><b>Auto-play Speed:</b></label>
-    <input id="autoInput" type="range" min="0" max="200" value="100" oninput="setAutoSpeed(this.value)">
+    <input id="autoInput" type="range" min="0" max="200" value="100" oninput="setAutoSpeed(parseInt(this.value))">
     <button onclick="document.getElementById('autoInput').value = 100;setAutoSpeed(100)">Reset to Default</button>
 </div>
 <div class="button-bar">
     <label for="heightInput"><b>Line Height:</b></label>
-    <input id="heightInput" type="range" min="100" max="250" value="140" oninput="setLineHeight(this.value)">
+    <input id="heightInput" type="range" min="100" max="250" value="140" oninput="setLineHeight(parseInt(this.value))">
     <button onclick="document.getElementById('heightInput').value = 140;setLineHeight(140)">Reset to Default</button>
 </div>
 <div class="button-bar">
     <label for="dialogueInput"><b>Dialogue Font Weight:</b></label>
-    <input id="dialogueInput" type="range" min="400" max="900" value="600" oninput="setDialogueFontWeight(this.value)">
+    <input id="dialogueInput" type="range" min="400" max="900" value="600" oninput="setDialogueFontWeight(parseInt(this.value))">
     <button onclick="document.getElementById('dialogueInput').value = 600;setDialogueFontWeight(600)">Reset to Default</button>
 </div>
 <div class="button-bar">
     <label for="fontReallyInput"><b>Font Size:</b></label>
-    <input id="fontReallyInput" type="range" min="20" max="250" value="105" oninput="setFontSizeReally(this.value)">
+    <input id="fontReallyInput" type="range" min="20" max="250" value="105" oninput="setFontSizeReally(parseInt(this.value))">
     <button onclick="document.getElementById('fontReallyInput').value = 105;setFontSizeReally(105)">Reset to Default</button>
 </div>
 <div class="button-bar">
     <label for="fontInput"><b>UI Scale:</b></label>
-    <input id="fontInput" type="range" min="20" max="400" value="150" oninput="setFontSize(this.value)">
+    <input id="fontInput" type="range" min="20" max="400" value="150" oninput="setFontSize(parseInt(this.value))">
     <button onclick="document.getElementById('fontInput').value = 150;setFontSize(150)">Reset to Default</button>
 </div>
 <div class="button-bar">
@@ -43,4 +43,4 @@
     <button title="Bookmark Current Line" onclick="bookmarkClick()" id="bookmarkBtn"></button>
     <button title="Copy Link to Current Line" onclick="copyClick(event, pos)" class="copyLinkBtn"></button>
 </div>
-<progress id="progress" max="1" value="0"></progress>
+<input type="range" id="progress" min="0" max="1" value="0" oninput="setPos(parseInt(this.value))">

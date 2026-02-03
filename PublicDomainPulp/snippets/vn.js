@@ -29,7 +29,7 @@ window["handlePosUpdate"] = function(isAutoNext) {
   if (autoplay && !isAutoNext) toggleAuto();
   updateBookmarkBtn();
   document.getElementById("linecount").innerHTML = "<b>Line:</b> " + pos + "/" + (htmlArr.length - 1);
-  document.getElementById("progress").value = pos / (htmlArr.length - 1);
+  document.getElementById("progress").value = pos;
 }
 window.addEventListener("load", e => {
   const bookmarksString = localStorage.getItem(getLocalStorageKey('b'));
@@ -55,6 +55,7 @@ window.addEventListener("load", e => {
   });
   ulHtml += "</ul>";
   tocList.innerHTML = ulHtml;
+  document.getElementById("progress").max = htmlArr.length - 1;
 });
 function copyClick(e, i) {
   e.target.classList.toggle('copied', true);
