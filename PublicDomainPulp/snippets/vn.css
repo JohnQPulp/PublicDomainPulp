@@ -49,12 +49,14 @@ main {
 #progress {
   align-self: center;
   width: calc(98 * var(--vwUnit));
+  accent-color: #9b7223;
 }
 .button-bar > * {
   font-size: 1em;
 }
 .button-bar > input[type='range'] {
   flex-grow: 1;
+  accent-color: #9b7223;
 }
 #menu {
   width: 80vw;
