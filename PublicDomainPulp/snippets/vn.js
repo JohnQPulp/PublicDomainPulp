@@ -125,7 +125,7 @@ function autoCallback(counter) {
       nextPulp(true);
       autoCallback(counter);
     }
-  }, (50 + htmlArr[pos].length * 2) * Math.pow(10, 2 - autoplayDial / 100));
+  }, 100 + (40 + htmlArr[pos].length * 3) * Math.pow(10, 2 - autoplayDial / 100));
 }
 let notesVisible = true;
 function toggleEditor() {
