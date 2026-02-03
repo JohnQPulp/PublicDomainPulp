@@ -28,10 +28,11 @@ hr {
   margin: 0;
 }
 .fadebar {
-  width: 90vw;
+  min-width: 60vw;
   background: linear-gradient(to right, transparent, #f8efd4f0 10%, #f8efd4f0 90%, transparent 100%);
   padding: 0 5vw;
   display: flex;
+  margin: 0 auto;
 }
 @media (width <= 1234px) {
   .smargin {
@@ -46,6 +47,9 @@ hr {
     width: 98% !important;
     margin-left: auto !important;
     margin-right: auto !important;
+  }
+  .fadebar {
+    width: 90vw !important;
   }
 }
 .right {
