@@ -1,12 +1,15 @@
 #vn-header {
-  width: 90%;
+  min-width: 80%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0 5%;
+  margin: 0 auto;
 }
 #vn-header > * {
   text-align: center;
+}
+#vn-header-mid {
+  margin: 0 5px 5px;
 }
 #vn-header-mid > * {
   margin: 7px 0;
