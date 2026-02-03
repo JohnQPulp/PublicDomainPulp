@@ -33,6 +33,12 @@ main {
   border-radius: 12px;
   overflow: hidden;
 }
+:fullscreen {
+  scrollbar-width: none;
+}
+:fullscreen::-webkit-scrollbar {
+  display: none;
+}
 .button-bar {
   width: 96%;
   display: flex;
@@ -49,14 +55,14 @@ main {
 #progress {
   align-self: center;
   width: calc(98 * var(--vwUnit));
-  accent-color: #9b7223;
+  accent-color: #bb7b00;
 }
 .button-bar > * {
   font-size: 1em;
 }
 .button-bar > input[type='range'] {
   flex-grow: 1;
-  accent-color: #9b7223;
+  accent-color: #bb7b00;
 }
 #menu {
   width: 80vw;
