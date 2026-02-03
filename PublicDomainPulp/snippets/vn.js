@@ -25,7 +25,8 @@ function bookmarkClick() {
   updateBookmarkBtn();
   localStorage.setItem(getLocalStorageKey('b'), JSON.stringify(bookmarks));
 }
-window["handlePosUpdate"] = function() {
+window["handlePosUpdate"] = function(isAutoNext) {
+  if (autoplay && !isAutoNext) toggleAuto();
   updateBookmarkBtn();
   document.getElementById("linecount").innerHTML = "<b>Line:</b> " + pos + "/" + (htmlArr.length - 1);
   document.getElementById("progress").value = pos / (htmlArr.length - 1);
@@ -121,7 +122,7 @@ function toggleAuto() {
 function autoCallback(counter) {
   setTimeout(() => {
     if (autoplay && counter === autoplayCounter) {
-      nextPulp();
+      nextPulp(true);
       autoCallback(counter);
     }
   }, (50 + htmlArr[pos].length * 2) * Math.pow(10, 2 - autoplayDial / 100));
