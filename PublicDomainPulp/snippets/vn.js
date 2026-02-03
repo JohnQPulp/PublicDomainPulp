@@ -64,14 +64,16 @@ function copyClick(e, i) {
   url.searchParams.set("l", i.toString());
   navigator.clipboard.writeText(url.toString());
 }
+let isFullscreen = false;
 function toggleFullscreen() {
-  if (document.fullscreenElement) {
-    document.exitFullscreen().catch(() => {});
+  if (isFullscreen) {
+    document.exitFullscreen().catch(exitFullscreen);
     document.getElementById("fullscreenToggle").classList.remove("btnActive");
   } else {
-    document.documentElement.requestFullscreen().catch(() => {});
+    document.documentElement.requestFullscreen().catch(enterFullscreen);
     document.getElementById("fullscreenToggle").classList.add("btnActive");
   }
+  isFullscreen = !isFullscreen;
 }
 document.addEventListener("keydown", function (e) {
   if (e.key === "f" || e.key === "F") {
@@ -86,14 +88,20 @@ document.addEventListener("keydown", function (e) {
 });
 addEventListener("fullscreenchange", (event) => {
   if (document.fullscreenElement) {
-    setWindowProps("1vw", "1vh");
-    document.getElementById("app").style.borderRadius = "0";
-    document.getElementById("app").scrollIntoView({behavior: "instant"});
+    enterFullscreen();
   } else {
-    setWindowProps("min(0.8vw, 1.6vh)", "min(0.45vw, 0.9vh)");
-    document.getElementById("app").style.borderRadius = "12px";
+    exitFullscreen();
   }
 });
+function enterFullscreen() {
+  setWindowProps("1vw", "1vh");
+  document.getElementById("app").style.borderRadius = "0";
+  document.getElementById("app").scrollIntoView({behavior: "instant"});
+}
+function exitFullscreen() {
+  setWindowProps("min(0.8vw, 1.6vh)", "min(0.45vw, 0.9vh)");
+  document.getElementById("app").style.borderRadius = "12px";
+}
 function setWindowProps(vwUnit, vhUnit) {
   document.getElementsByTagName("main")[0].style.setProperty("--vwUnit", vwUnit);
   document.getElementsByTagName("main")[0].style.setProperty("--vhUnit", vhUnit);
