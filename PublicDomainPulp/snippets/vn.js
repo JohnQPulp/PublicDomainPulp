@@ -70,12 +70,9 @@ let isFullscreen = false;
 function toggleFullscreen() {
   if (isFullscreen) {
     document.exitFullscreen().catch(exitFullscreen);
-    document.getElementById("fullscreenToggle").classList.remove("btnActive");
   } else {
     document.documentElement.requestFullscreen().catch(enterFullscreen);
-    document.getElementById("fullscreenToggle").classList.add("btnActive");
   }
-  isFullscreen = !isFullscreen;
 }
 document.addEventListener("keydown", function (e) {
   if (e.key === "f" || e.key === "F") {
@@ -94,13 +91,17 @@ addEventListener("fullscreenchange", (event) => {
   }
 });
 function enterFullscreen() {
+  isFullscreen = true;
   setWindowProps("1vw", "1vh");
   document.getElementById("app").style.borderRadius = "0";
   document.getElementById("app").scrollIntoView({behavior: "instant"});
+  document.getElementById("fullscreenToggle").classList.add("btnActive");
 }
 function exitFullscreen() {
+  isFullscreen = false;
   setWindowProps("min(0.8vw, 1.6vh)", "min(0.45vw, 0.9vh)");
   document.getElementById("app").style.borderRadius = "12px";
+  document.getElementById("fullscreenToggle").classList.remove("btnActive");
 }
 function setWindowProps(vwUnit, vhUnit) {
   document.getElementsByTagName("main")[0].style.setProperty("--vwUnit", vwUnit);
