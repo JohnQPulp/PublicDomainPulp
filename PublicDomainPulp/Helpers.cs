@@ -72,11 +72,13 @@ internal static class Helpers {
 		StringBuilder sb = BuildHead(title, [HomeCss], []);
 		sb.Append(HeaderHtml);
 		sb.Append("<div id='content' class='blogwrapper'>");
-		sb.Append("<div id='b-left' class='svisible'></div>");
+		sb.Append("<div id='b-left' class='svisible ed'></div>");
+		sb.Append("<div id='b-left' class='svisible ned'></div>");
 		sb.Append("<div id='blog'>");
 		sb.Append(html);
 		sb.Append("</div>");
-		sb.Append("<div id='b-right' class='svisible'></div>");
+		sb.Append("<div id='b-right' class='svisible ed'></div>");
+		sb.Append("<div id='b-right' class='svisible ned'></div>");
 		sb.Append("</div>");
 		sb.Append(FooterHtml);
 		return GetPageBytes(sb);
@@ -109,7 +111,8 @@ internal static class Helpers {
 				html.Append($" • <a href='{kvp.Value}'>{kvp.Key}</a>");
 			}
 			html.Append("</p>");
-			html.Append($"<img src='/vn/{pulp.DirName}/images/c-author.webp'>");
+			html.Append($"<img class='ned' src='/vn/{pulp.DirName}/images/c-author.webp'>");
+			html.Append($"<img class='ed' src='/vn/{pulp.DirName}/images/c-author-abased.webp'>");
 			html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.webp' loading='lazy'>");
 			html.Append("</div></div>");
 			posts.Add(new Tuple<DateOnly, string>(pulp.Metadata.PulpDate, html.ToString()));

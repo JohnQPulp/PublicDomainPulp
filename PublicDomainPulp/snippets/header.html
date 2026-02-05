@@ -8,3 +8,25 @@
     <h2><a href="/contact" id="nav-contact">Contact</a></h2>
     <h2><a href="https://github.com/JohnQPulp" target="_blank">Github</a></h2>
 </div>
+<script>
+let editorializing = false;
+function toggleEditorializing() {
+  editorializing = !editorializing;
+  if (editorializing) {
+    document.getElementsByTagName("body")[0].style.setProperty("--ed", "block");
+    document.getElementsByTagName("body")[0].style.setProperty("--ned", "none");
+  } else {
+    document.getElementsByTagName("body")[0].style.setProperty("--ed", "none");
+    document.getElementsByTagName("body")[0].style.setProperty("--ned", "block");
+  }
+  let button = document.getElementById("editorToggle");
+  if (button) {
+    button.classList.toggle("btnActive", editorializing);
+  }
+}
+document.addEventListener("keydown", e => {
+  if (e.key === "e" || e.key === "E") {
+    toggleEditorializing();
+  }
+});
+</script>

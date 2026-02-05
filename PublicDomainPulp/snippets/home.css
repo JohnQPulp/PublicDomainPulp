@@ -11,6 +11,14 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  --ed: none;
+  --ned: block;
+}
+.ed {
+  display: var(--ed);
+}
+.ned {
+  display: var(--ned); /* okily dokily */
 }
 hr {
   border: 0;

@@ -80,8 +80,6 @@ function toggleFullscreen() {
 document.addEventListener("keydown", function (e) {
   if (e.key === "f" || e.key === "F") {
     toggleFullscreen();
-  } else if (e.key === "e" || e.key === "E") {
-    toggleEditor();
   } else if (e.key === "h" || e.key === "H") {
     bookmarkClick();
   } else if (e.key === "p" || e.key === "P") {
@@ -128,20 +126,9 @@ function autoCallback(counter) {
     }
   }, 100 + (40 + getVisibleText().length * 3) * Math.pow(10, 2 - autoplayDial / 100));
 }
-let notesVisible = true;
-function toggleEditor() {
-  notesVisible = !notesVisible;
-  if (notesVisible) {
-    document.getElementById("editorToggle").classList.add("btnActive");
-    document.getElementById("app").style.setProperty("--editorDisplay", "block");
-  } else {
-    document.getElementById("editorToggle").classList.remove("btnActive");
-    document.getElementById("app").style.setProperty("--editorDisplay", "none");
-  }
-}
 function getVisibleText() {
   let str = htmlArr[pos];
-  if (!notesVisible) str = str.replace(/<p class='e'>.*?<\/p>/, '');
+  if (!editorializing) str = str.replace(/<p class='e'>.*?<\/p>/, '');
   return str.replace('<div>', "").replace('</div>', "");
 }
 function setFontSize(fontNumber) {
