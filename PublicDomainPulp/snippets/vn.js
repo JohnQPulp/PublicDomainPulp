@@ -75,6 +75,8 @@ function toggleFullscreen() {
   }
 }
 document.addEventListener("keydown", function (e) {
+  if (e.ctrlKey || e.metaKey) return;
+
   if (e.key === "f" || e.key === "F") {
     toggleFullscreen();
   } else if (e.key === "h" || e.key === "H") {
