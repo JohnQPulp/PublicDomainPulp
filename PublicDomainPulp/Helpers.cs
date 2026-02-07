@@ -103,7 +103,12 @@ internal static class Helpers {
 			html.Append("<div><div>");
 			html.Append($"<h3><a href='/vn/{pulp.DirName}'>Read <i>{pulp.Metadata.VNTitle}</i></a> ({pulp.Metadata.Words.ToString("N0")}&nbsp;words)</h3>");
 			foreach (string line in pulp.Metadata.Blurb.Split('\n')) {
-				html.Append($"<p class='blurb'>{BookTag.FormatText(line)}</p>");
+				html.Append($"<p class='blurb ned'>{BookTag.FormatText(line)}</p>");
+			}
+			if (pulp.Metadata.Blurb2 != null) {
+				foreach (string line in pulp.Metadata.Blurb2.Split('\n')) {
+					html.Append($"<p class='blurb ed'>{BookTag.FormatText(line)}</p>");
+				}
 			}
 			html.Append($"<p class='small'>See the <a href='{pulp.Metadata.Repo}'>JohnQPulp/{pulp.DirName} Github repository</a> for offline downloading and issue reporting.</p>");
 			html.Append($"<p class='small center'><a href='{pulp.Metadata.Source}'>Epub Source</a>");

@@ -1,6 +1,6 @@
 <h3 class="title">John Q. Pulp Presents:</h3>
 <h1 id="pulptitle" class="title upper">Public Domain Pulp</h1>
-<h3 class="title">Classic Literature as Visual&nbsp;Novels, Free&nbsp;and&nbsp;Unabridged</h3>
+<h3 class="title">Classic Literature as Visual&nbsp;Novels, Free&nbsp;and&nbsp;Unabridged<span class='edi'> and&nbsp;Editorialized</span></h3>
 <div id="nav" class="fadebar">
     <h2><a href="/" id="nav-home">Home</a></h2>
     <h2><a href="/catalog" id="nav-catalog">Catalog</a></h2>
@@ -15,9 +15,13 @@ function toggleEditorializing() {
   if (editorializing) {
     document.getElementsByTagName("body")[0].style.setProperty("--ed", "block");
     document.getElementsByTagName("body")[0].style.setProperty("--ned", "none");
+    document.getElementsByTagName("body")[0].style.setProperty("--edi", "inline");
+    document.getElementsByTagName("body")[0].style.setProperty("--nedi", "none");
   } else {
     document.getElementsByTagName("body")[0].style.setProperty("--ed", "none");
     document.getElementsByTagName("body")[0].style.setProperty("--ned", "block");
+    document.getElementsByTagName("body")[0].style.setProperty("--edi", "none");
+    document.getElementsByTagName("body")[0].style.setProperty("--nedi", "inline");
   }
   let button = document.getElementById("editorToggle");
   if (button) {

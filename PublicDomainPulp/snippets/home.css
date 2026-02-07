@@ -13,12 +13,20 @@ body {
   min-height: 100vh;
   --ed: none;
   --ned: block;
+  --edi: none;
+  --nedi: inline;
 }
 .ed {
   display: var(--ed);
 }
 .ned {
   display: var(--ned); /* okily dokily */
+}
+.edi {
+  display: var(--edi);
+}
+.nedi {
+  display: var(--nedi); /* okily dokily */
 }
 hr {
   border: 0;
