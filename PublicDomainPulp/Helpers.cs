@@ -99,7 +99,7 @@ internal static class Helpers {
 		foreach (VisualNovel pulp in visualNovels.Values) {
 			StringBuilder html = new();
 			html.Append("<div class='pulpcard'>");
-			html.Append($"<h3><small class='upper'>{pulp.Metadata.PulpDate.ToString("MMM dd, yyyy")}</small><br><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
+			html.Append($"<h3><small class='upper'>{pulp.Metadata.PulpDate.Value.ToString("MMM dd, yyyy")}</small><br><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
 			html.Append("<div><div>");
 			html.Append($"<h3><a href='/vn/{pulp.DirName}'>Read <i>{pulp.Metadata.VNTitle}</i></a> ({pulp.Metadata.Words.ToString("N0")}&nbsp;words)</h3>");
 			foreach (string line in pulp.Metadata.Blurb.Split('\n')) {
@@ -120,7 +120,7 @@ internal static class Helpers {
 			html.Append($"<img class='ed' src='/vn/{pulp.DirName}/images/c-author-abased.webp'>");
 			html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.webp' loading='lazy'>");
 			html.Append("</div></div>");
-			posts.Add(new Tuple<DateOnly, string>(pulp.Metadata.PulpDate, html.ToString()));
+			posts.Add(new Tuple<DateOnly, string>(pulp.Metadata.PulpDate.Value, html.ToString()));
 		}
 
 		foreach (Tuple<DateOnly, string> post in posts.OrderBy(p => p.Item1).Reverse()) {
@@ -142,14 +142,14 @@ internal static class Helpers {
 
 		StringBuilder sb = new();
 		List<VisualNovel> vns = visualNovels.Values.ToList();
-		vns.Sort((a, b) => b.Metadata.PulpDate.CompareTo(a.Metadata.PulpDate));
+		vns.Sort((a, b) => b.Metadata.PulpDate.Value.CompareTo(a.Metadata.PulpDate.Value));
 		foreach (VisualNovel vn in vns) {
 			sb.Append("<tr>");
 			sb.Append($"<td><i><a href='/vn/{vn.DirName}'>{vn.Metadata.Title}</a></i></td>");
 			sb.Append($"<td>{vn.Metadata.Author.Replace(" ", "&nbsp;")}</td>");
 			sb.Append($"<td>{vn.Metadata.Year}</td>");
 			sb.Append($"<td class='tr'>{vn.Metadata.Words:N0}</td>");
-			sb.Append($"<td class='upper'>{vn.Metadata.PulpDate.ToString("MMM dd, yyyy").Replace(" ", "&nbsp;")}</td>");
+			sb.Append($"<td class='upper'>{vn.Metadata.PulpDate.Value.ToString("MMM dd, yyyy").Replace(" ", "&nbsp;")}</td>");
 			sb.Append("</tr>");
 		}
 		html = html.Replace("<!--VNs-->", sb.ToString());
@@ -204,6 +204,8 @@ internal static class Helpers {
 
 			string metadataJson = File.ReadAllText(Path.Combine(dir, "metadata.json"));
 			Metadata metadata = Metadata.Parse(metadataJson);
+
+			if (metadata.PulpDate == null) continue;
 
 			string rawText = File.ReadAllText(Path.Combine(dir, "book.txt"));
 			string pulpText = File.ReadAllText(Path.Combine(dir, "pulp.txt"));
