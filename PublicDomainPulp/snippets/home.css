@@ -144,11 +144,6 @@ hr {
 #blogsubhead {
   margin-top: 0;
 }
-#prosehead {
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
-  padding-bottom: 5px;
-}
 .pulpcard {
   width: 100%;
   overflow: hidden;

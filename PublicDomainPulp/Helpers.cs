@@ -183,22 +183,14 @@ internal static class Helpers {
 
 			DateOnly date = DateOnly.Parse(name[0..10]);
 			string title = name[11..^5];
-			bool isProseRoundup = false;
-			string formattedTitle = Regex.Replace(title, "Prose Roundup: ([^\\\"\\(]+) ", m => {
-				isProseRoundup = true;
-				return $"Prose Roundup: <i>{m.Groups[1].Value}</i> ";
-			});
 
 			StringBuilder sb = new();
-			sb.Append($"<h1 id='bloghead' class='center'>{formattedTitle}</h1>");
+			sb.Append($"<h1 id='bloghead' class='center'>{title}</h1>");
 			sb.Append($"<h3 id='blogsubhead' class='center'><small class='upper'>{date.ToString("MMM dd, yyyy")}</small></h3>");
-			if (isProseRoundup) {
-				sb.Append("<p id='prosehead'><small>Prose roundups are posts where I run through the noteworthy snippets of books and short stories not yet in the public domain (that therefore can't be made into visual novels yet). The snippets are listed chronologically, grouped by chapters, <b>and may contain spoilers up to their respective locations in their works</b>.</small></p>");
-			}
 			sb.Append(BookTag.FormatText(File.ReadAllText(file)));
 			byte[] bytes = BuildBlogPage(sb.ToString(), title);
 
-			blogPages.Add(date.ToString("yyyy-MM-dd"), new(formattedTitle, date, bytes, Compress(bytes)));
+			blogPages.Add(date.ToString("yyyy-MM-dd"), new(title, date, bytes, Compress(bytes)));
 		}
 
 		return blogPages;
