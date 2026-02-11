@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Net.Http.Headers;
 using Pulp.PublicDomainPulp;
+using Pulp.Pulpifier;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureKestrel(options =>
@@ -13,7 +14,7 @@ builder.WebHost.ConfigureKestrel(options =>
 WebApplication app = builder.Build();
 
 string baseDirectory = Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().IndexOf("/PublicDomainPulp/", StringComparison.Ordinal)) + "/PublicDomainPulp";
-Dictionary<string, VisualNovel> visualPulps = Helpers.BuildVisualNovels(baseDirectory);
+(Dictionary<string, VisualNovel> visualPulps, List<Metadata> upcomings) = Helpers.BuildVisualNovels(baseDirectory);
 Dictionary<string, BlogPage> blogPages = Helpers.BuildBlogPages(baseDirectory);
 
 app.Use(async (HttpContext context, RequestDelegate next) =>
@@ -75,7 +76,7 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 Helpers.MapPage(app, "/", Helpers.BuildHomePage(visualPulps, blogPages), TimeSpan.FromHours(1));
-Helpers.MapPage(app, "/catalog", Helpers.BuildCatalogPage(baseDirectory, visualPulps, blogPages), TimeSpan.FromHours(1));
+Helpers.MapPage(app, "/catalog", Helpers.BuildCatalogPage(baseDirectory, visualPulps, upcomings, blogPages), TimeSpan.FromHours(1));
 Helpers.MapPage(app, "/about", Helpers.BuildAboutPage(baseDirectory), TimeSpan.FromDays(1));
 Helpers.MapPage(app, "/contact", Helpers.BuildContactPage(baseDirectory), TimeSpan.FromDays(1));
 

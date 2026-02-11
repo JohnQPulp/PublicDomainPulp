@@ -136,7 +136,7 @@ internal static class Helpers {
 		return BuildBlogPage(html, "About Public Domain Pulp");
 	}
 
-	public static byte[] BuildCatalogPage(string baseDirectory, Dictionary<string, VisualNovel> visualNovels, Dictionary<string, BlogPage> blogPages) {
+	public static byte[] BuildCatalogPage(string baseDirectory, Dictionary<string, VisualNovel> visualNovels, List<Metadata> upcomings, Dictionary<string, BlogPage> blogPages) {
 		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "catalog.html");
 		string html = File.ReadAllText(path);
 
@@ -153,6 +153,16 @@ internal static class Helpers {
 			sb.Append("</tr>");
 		}
 		html = html.Replace("<!--VNs-->", sb.ToString());
+		sb.Clear();
+
+		foreach (Metadata upcoming in upcomings) {
+			sb.Append("<tr>");
+			sb.Append($"<td><i>{upcoming.Title}</i></td>");
+			sb.Append($"<td>{upcoming.Author.Replace(" ", "&nbsp;")}</td>");
+			sb.Append($"<td class='tr'>{upcoming.Words:N0}</td>");
+			sb.Append("</tr>");
+		}
+		html = html.Replace("<!--upcomings-->", sb.ToString());
 		sb.Clear();
 
 		List<BlogPage> blogs = blogPages.Values.ToList();
@@ -196,8 +206,9 @@ internal static class Helpers {
 		return blogPages;
 	}
 
-	public static Dictionary<string, VisualNovel> BuildVisualNovels(string baseDirectory) {
+	public static (Dictionary<string, VisualNovel>, List<Metadata>) BuildVisualNovels(string baseDirectory) {
 		Dictionary<string, VisualNovel> visualPulps = new(StringComparer.OrdinalIgnoreCase);
+		List<Metadata> upcomings = new List<Metadata>();
 
 		foreach (string dir in Directory.GetDirectories(Path.Combine(baseDirectory, "VisualPulps"))) {
 			string name = Path.GetFileName(dir);
@@ -205,7 +216,10 @@ internal static class Helpers {
 			string metadataJson = File.ReadAllText(Path.Combine(dir, "metadata.json"));
 			Metadata metadata = Metadata.Parse(metadataJson);
 
-			if (metadata.PulpDate == null) continue;
+			if (metadata.PulpDate == null) {
+				upcomings.Add(metadata);
+				continue;
+			}
 
 			string rawText = File.ReadAllText(Path.Combine(dir, "book.txt"));
 			string pulpText = File.ReadAllText(Path.Combine(dir, "pulp.txt"));
@@ -231,7 +245,7 @@ internal static class Helpers {
 			visualPulps.Add(name, new(name, metadata, bytes, Compress(bytes)));
 		}
 
-		return visualPulps;
+		return (visualPulps, upcomings);
 	}
 
 	private static StringBuilder BuildHead(string title, string[] styles, string[] scripts, string? baseHref = null) {
