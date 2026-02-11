@@ -111,7 +111,7 @@ internal static class Helpers {
 				}
 			}
 			html.Append($"<p class='small'>See the <a href='{pulp.Metadata.Repo}'>JohnQPulp/{pulp.DirName} Github repository</a> for offline downloading and issue reporting.</p>");
-			html.Append($"<p class='small center'><a href='{pulp.Metadata.Source}'>Epub Source</a>");
+			html.Append($"<p class='small center'><a href='{pulp.Metadata.Source}'>Standard Ebooks</a>");
 			foreach (KeyValuePair<string, string> kvp in pulp.Metadata.Links) {
 				html.Append($" • <a href='{kvp.Value}'>{kvp.Key}</a>");
 			}
