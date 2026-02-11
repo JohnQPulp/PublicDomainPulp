@@ -19,3 +19,6 @@
 [submodule "VisualPulps/DrJekyllAndMrHyde"]
 	path = VisualPulps/DrJekyllAndMrHyde
 	url = https://github.com/JohnQPulp/DrJekyllAndMrHyde
+[submodule "VisualPulps/TheGreatGatsby"]
+	path = VisualPulps/TheGreatGatsby
+	url = https://github.com/JohnQPulp/TheGreatGatsby
