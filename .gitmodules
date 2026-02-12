@@ -22,3 +22,6 @@
 [submodule "VisualPulps/TheGreatGatsby"]
 	path = VisualPulps/TheGreatGatsby
 	url = https://github.com/JohnQPulp/TheGreatGatsby
+[submodule "VisualPulps/Frankenstein"]
+	path = VisualPulps/Frankenstein
+	url = https://github.com/JohnQPulp/Frankenstein
