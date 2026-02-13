@@ -38,4 +38,14 @@ dotnet build PublicDomainPulp.slnx
 dotnet run --no-build --project PublicDomainPulp --launch-profile http
 ```
 
-An even easier setup than https://github.com/standardebooks/web.git, if I do say so myself. Take *that*, [Alex Cabal](https://alexcabal.com/posts/standard-ebooks-and-classic-web-tech).
+A simple setup for a simple website. (Since if I'm stealing Standard Ebooks' texts, I might as well steal [their principles](https://alexcabal.com/posts/standard-ebooks-and-classic-web-tech) too.)
+
+#### Contributing
+
+For code changes, you *could* submit pull requests to this repo and/or the Pulpifier, although it might be better to just start with an issue. (I'm extremely opinionated on the issue of keeping things as simple as possible *from my perspective*, which I accept does not make my codebase especially comprehensible for others.)
+
+For visual novel contributions, I'm more open to any and all ideas people have for improvements, whether that be background changes, sprite changes, line-break changes, or whatever. And of course, identifying mistakes in the VNs is also welcome (e.g., incorrect speaker attributions, speaker name spelling mistakes, images inconsistent with the original text, etc). Feel free to submit issues and/or pull requests to any of the visual novel repos.
+
+For pull requests specifically, I'm working on writing up a series of blog posts documenting my full process for converting books into visual novels, which should help explain why the setup is as it is, the tooling available for making improvements, and even the information necessary for doing a VN-conversion from scratch of some as-of-yet unconverted text. Here are the current links:
+
+* [Converting Books Into Visual Novels Part 0: The pulp.txt Format](https://publicdomainpulp.com/blog/2026-02-13)
