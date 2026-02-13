@@ -6,9 +6,11 @@ This repository contains all the code and contents for running the Public Domain
 
 See https://publicdomainpulp.com/about, but the gist is that this is an open source project around transforming public domain books into visual novels.
 
-The idea is that all this great prose is just sitting out there, but only in boring standard-book form. And wouldn't it all be much more entertaining if they were visual novels instead. (Ooh, pictures!)
+The idea is that all this great prose is just sitting out there, but only in your boring, standard-book form. All those texts could be so much more entertaining if only they had pictures, too!
 
-Also, as part of the site, we do a little editorializing. (Not changing or simplifying the original writing, mind you — [that would be bad](https://www.goodreads.com/book/show/13079982-fahrenheit-451) — but just adding "helpful" editor's notes.)
+And what makes the visual novel format so great is that, unlike adaptations into movies or TV shows or graphic novels or what-have-you, the visual novel can fully retain the original prose of the converted texts — no abridging or simplifying of the source needed. You get the full literary experience, but without having to keep track of who's talking when Hemingway fails to attribute dialogue ten paragraphs in-a-row.
+
+The ultimate end goal is to have all public domain fiction books readable as visual novels, each with a corresponding open source repo that anyone can pull from and/or improve upon.
 
 #### Structure
 
