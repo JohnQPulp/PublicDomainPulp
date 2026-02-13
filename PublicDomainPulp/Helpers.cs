@@ -58,7 +58,7 @@ internal static class Helpers {
 		return uncompressed;
 	}
 
-	public static byte[] BuildContentPage(string html, string title = "Public Domain Pulp") {
+	public static byte[] BuildContentPage(string html, string title = "Public Domain Visual Novels") {
 		StringBuilder sb = BuildHead(title, [HomeCss], []);
 		sb.Append(HeaderHtml);
 		sb.Append("<div id='content'>");
