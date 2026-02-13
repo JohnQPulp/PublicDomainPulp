@@ -44,10 +44,12 @@ A simple setup for a simple website. (Since if I'm stealing Standard Ebooks' tex
 
 #### Contributing
 
-For code changes, you *could* submit pull requests to this repo and/or the Pulpifier, although it might be better to just start with an issue. (I'm extremely opinionated on the issue of keeping things as simple as possible *from my perspective*, which I accept does not make my codebase especially comprehensible for others.)
+For visual novel contributions, I'm open to any and all suggestions for improvements, whether that be background changes, sprite changes, line-break flow improvements, or what-have-you. Identifying straight-up mistakes is especially valuable, as while I try to eliminate these in the editing process, they can still crop up in the form of incorrect speaker attributions, image/text inconsistencies, speaker name spelling mistakes, and so forth.
 
-For visual novel contributions, I'm more open to any and all ideas people have for improvements, whether that be background changes, sprite changes, line-break changes, or whatever. And of course, identifying mistakes in the VNs is also welcome (e.g., incorrect speaker attributions, speaker name spelling mistakes, images inconsistent with the original text, etc). Feel free to submit issues and/or pull requests to any of the visual novel repos.
+Feel free to submit any such ideas to their associated VN repos as issues.
 
-For pull requests specifically, I'm working on writing up a series of blog posts documenting my full process for converting books into visual novels, which should help explain why the setup is as it is, the tooling available for making improvements, and even the information necessary for doing a VN-conversion from scratch of some as-of-yet unconverted text. Here are the current links:
+I'll also take a look at pull requests, though I haven't yet completed the documentation around the pulpification process and its formats and tooling. Therefore, it might be difficult to contribute changes directly, since for example, I have a whole pipeline around making the generated images consistent in style across all the sprites and backgrounds, but it's not written-up yet. But once completed, the documentation should not only explain how to make good edits to the existing VNs, but also the full process for creating VNs from books from scratch. Here are the current links:
 
 * [Converting Books Into Visual Novels Part 0: The pulp.txt Format](https://publicdomainpulp.com/blog/2026-02-13)
+
+Lastly, for code changes specifically, for this repo and/or the Pulpifier repo, I'm also open to receiving issues and/or pull requests. However, documenting a process for this is a lower priority, just because the codebases themselves are rather small and simple, and I don't anticipate a whole lot of work really needing doing. Parsing and building and then serving the visual novels is not a particularly complex problem, so it doesn't really need ongoing collaborative development.
