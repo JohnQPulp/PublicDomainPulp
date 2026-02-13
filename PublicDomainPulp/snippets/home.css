@@ -144,6 +144,13 @@ hr {
 #blogsubhead {
   margin-top: 0;
 }
+code, pre {
+  font-size: 1.1em;
+  border-radius: 6px;
+  padding: .2em .4em;
+  background-color: #f8eed3;
+  white-space: pre-wrap;
+}
 .pulpcard {
   width: 100%;
   overflow: hidden;
