@@ -10,7 +10,7 @@ The idea is that all this great prose is just sitting out there, but only in you
 
 And what makes the visual novel format so great is that, unlike adaptations into movies or TV shows or graphic novels or what-have-you, the visual novel can fully retain the original prose of the converted texts — no abridging or simplifying of the source needed. You get the full literary experience, but without having to keep track of who's talking when Hemingway fails to attribute dialogue ten paragraphs in-a-row.
 
-The ultimate end goal is to have all public domain fiction books readable as visual novels, each with a corresponding open source repo that anyone can pull from and/or improve upon.
+The ultimate end goal is to have all public domain fiction books readable as visual novels, each with a corresponding open source repo that anyone can pull from and/or improve upon. (How many books could there possibly be?)
 
 ### Structure
 
