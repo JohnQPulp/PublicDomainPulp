@@ -48,8 +48,14 @@ For visual novel contributions, I'm open to any and all suggestions for improvem
 
 Feel free to submit any such ideas to their associated VN repos as issues.
 
-I'll also take a look at pull requests, though I haven't yet completed the documentation around the pulpification process and its formats and tooling. Therefore, it might be difficult to contribute changes directly, since for example, I have a whole pipeline around making the generated images consistent in style across all the sprites and backgrounds, but it's not written-up yet. But once completed, the documentation should not only explain how to make good edits to the existing VNs, but also the full process for creating VNs from books from scratch. Here are the current links:
+I'll also take a look at pull requests, though I haven't yet completed the documentation around the pulpification process and its formats and tooling. Therefore, it might be difficult to contribute changes directly, since for example, I have a whole pipeline around making the generated images consistent in style across all the sprites and backgrounds, but it's not written-up yet. But once completed, the documentation should not only explain how to make good edits to the existing VNs, but also the full process for creating VNs from books from scratch. Here's the documentation series post list, with links to the titles that currently exist:
 
 * [Converting Books Into Visual Novels Part 0: The pulp.txt Format](https://publicdomainpulp.com/blog/2026-02-13)
+* [Converting Books Into Visual Novels Part 0.5: Creating book.txt](https://publicdomainpulp.com/blog/2026-02-14)
+* Converting Books Into Visual Novels Part 1: The First Edit — Creating the Starter pulp.txt
+* Converting Books Into Visual Novels Part 2: The Second Edit — Fully Populating pulp.txt
+* Converting Books Into Visual Novels Part 3: Character Sprite Generation
+* Converting Books Into Visual Novels Part 4: Background Generation
+* Converting Books Into Visual Novels Part 5: The Third Edit — Visualizing pulp.txt
 
 Lastly, for code changes specifically, for this repo and/or the Pulpifier repo, I'm also open to receiving issues and/or pull requests. However, documenting a process for this is a lower priority, just because the codebases themselves are rather small and simple, and I don't anticipate a whole lot of work really needing doing. Parsing and building and then serving the visual novels is not a particularly complex problem, so it doesn't really need ongoing collaborative development.
