@@ -1,8 +1,8 @@
-### Public Domain Pulp
+## Public Domain Pulp
 
 This repository contains all the code and contents for running the Public Domain Pulp website (https://publicdomainpulp.com).
 
-#### About
+### About
 
 See https://publicdomainpulp.com/about, but the gist is that this is an open source project around transforming public domain books into visual novels.
 
@@ -12,7 +12,7 @@ And what makes the visual novel format so great is that, unlike adaptations into
 
 The ultimate end goal is to have all public domain fiction books readable as visual novels, each with a corresponding open source repo that anyone can pull from and/or improve upon.
 
-#### Structure
+### Structure
 
 * `PublicDomainPulp/`: The ASP.NET/C# project that contains the middleware pipeline, routings, and web helpers.
 * `PublicDomainPulp.Tests/`: The integration tests for the website.
@@ -26,7 +26,7 @@ The ultimate end goal is to have all public domain fiction books readable as vis
     * etc
 * `CreativeCommonsContent/`: The https://github.com/JohnQPulp/CreativeCommonsFiction.git submodule containing the website's CC0 blog contents.
 
-#### Running the Site
+### Running the Site
 
 To start, ensure you have .NET/ASP.NET 10 installed: https://dotnet.microsoft.com/download
 
@@ -42,7 +42,7 @@ dotnet run --no-build --project PublicDomainPulp --launch-profile http
 
 A simple setup for a simple website. (Since if I'm stealing Standard Ebooks' texts, I might as well steal [their principles](https://alexcabal.com/posts/standard-ebooks-and-classic-web-tech) too.)
 
-#### Contributing
+### Contributing
 
 For visual novel contributions, I'm open to any and all suggestions for improvements, whether that be background changes, sprite changes, line-break flow improvements, or what-have-you. Identifying straight-up mistakes is especially valuable, as while I try to eliminate these in the editing process, they can still crop up in the form of incorrect speaker attributions, image/text inconsistencies, speaker name spelling mistakes, and so forth.
 
