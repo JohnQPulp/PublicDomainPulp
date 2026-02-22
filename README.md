@@ -1,6 +1,14 @@
 <h1 align='center'>Public Domain Pulp<br><sub>Converting Books Into Open Source Visual Novels</sub></h1>
 
-This repository contains all the code and contents for running the Public Domain Pulp website (https://publicdomainpulp.com).
+This repository contains all the code and contents for running the Public Domain Pulp website, including all the CC0-licensed visual novels themselves.
+
+![Preview](preview.webp)
+
+You can read the VNs online at https://publicdomainpulp.com (or https://publicdomainpulp.com/catalog).
+
+Or: you can read the VNs locally by building/running the site via the setup steps further below.
+
+Or: if you're just interested in learning about the process of converting books into visual novels, read down through the contributing section.
 
 ### About
 
