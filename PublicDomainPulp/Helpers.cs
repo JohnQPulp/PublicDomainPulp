@@ -68,7 +68,7 @@ internal static class Helpers {
 		return GetPageBytes(sb);
 	}
 
-	private static byte[] BuildBlogPage(string html, string title) {
+	internal static byte[] BuildBlogPage(string html, string title) {
 		StringBuilder sb = BuildHead(title, [HomeCss], []);
 		sb.Append(HeaderHtml);
 		sb.Append("<div id='content' class='blogwrapper'>");
@@ -189,10 +189,13 @@ internal static class Helpers {
 
 		foreach (string file in Directory.GetFiles(Path.Combine(baseDirectory, "CreativeCommonsContent", "blog"), "*.html")) {
 			string name = Path.GetFileName(file);
-			if (!Regex.IsMatch(name, @"^\d{4}-\d{2}-\d{2} .+\.html$")) throw new Exception("Unexpected blog name.");
+			Match match = Regex.Match(name, @"^((\d{4}-\d{2}-\d{2}) )?(.+)\.html$");
+			if (!match.Success) throw new Exception("Unexpected blog name.");
 
-			DateOnly date = DateOnly.Parse(name[0..10]);
-			string title = name[11..^5];
+			if (match.Groups[2].Value == "") continue;
+
+			string title = match.Groups[3].Value;
+			DateOnly date = DateOnly.Parse(match.Groups[2].Value);
 
 			StringBuilder sb = new();
 			sb.Append($"<h1 id='bloghead' class='center'>{title}</h1>");

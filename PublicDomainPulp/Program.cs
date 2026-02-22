@@ -95,6 +95,16 @@ app.MapGet("/blog/{date:regex(\\d{{4}}-\\d{{2}}-\\d{{2}})}", (string date, HttpC
 	return Helpers.HtmlResult(html);
 });
 
+#if DEBUG
+app.MapGet("/blog/{draft}", (string draft) => {
+	string file = Path.Combine(baseDirectory, "CreativeCommonsContent", "blog", draft + ".html");
+	if (!File.Exists(file)) {
+		return Helpers.HtmlResult(notFoundHtml, 404);
+	}
+	return Helpers.HtmlResult(Helpers.BuildBlogPage(BookTag.FormatText(File.ReadAllText(file)), draft));
+});
+#endif
+
 app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}", (string book, HttpContext context) =>
 {
 	if (!visualPulps.TryGetValue(book, out VisualNovel pulp)) {
