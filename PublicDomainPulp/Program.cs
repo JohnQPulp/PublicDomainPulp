@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
@@ -108,6 +109,18 @@ app.MapGet("/blog/{draft}", (string draft) => {
 app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}", (string book, HttpContext context) =>
 {
 	if (!visualPulps.TryGetValue(book, out VisualNovel pulp)) {
+#if DEBUG
+		try {
+			Metadata? metadata = upcomings.FirstOrDefault(m => m.Repo.Substring(m.Repo.LastIndexOf('/') + 1) == book);
+			if (metadata != null) {
+				string dir = Path.Combine(baseDirectory, "VisualPulps", book);
+				return Helpers.HtmlResult(Helpers.BuildVisualNovel(book, dir, metadata));
+			}
+		} catch (Exception e) {
+			return Helpers.HtmlResult(Helpers.BuildContentPage(e.ToString().Replace("\n", "<br>")));
+		}
+#endif
+
 		return Helpers.HtmlResult(notFoundHtml, 404);
 	}
 
