@@ -1,4 +1,4 @@
-<h1 align='center'>Public Domain Pulp<br><small>Converting Books Into Open Source Visual Novels</small></h1>
+<h1 align='center'>Public Domain Pulp<br><sub>Converting Books Into Open Source Visual Novels</sub></h1>
 
 This repository contains all the code and contents for running the Public Domain Pulp website (https://publicdomainpulp.com).
 
