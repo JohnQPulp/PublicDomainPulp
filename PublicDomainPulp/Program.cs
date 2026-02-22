@@ -80,7 +80,7 @@ Helpers.MapPage(app, "/catalog", Helpers.BuildCatalogPage(baseDirectory, visualP
 Helpers.MapPage(app, "/about", Helpers.BuildAboutPage(baseDirectory), TimeSpan.FromDays(1));
 Helpers.MapPage(app, "/contact", Helpers.BuildContactPage(baseDirectory), TimeSpan.FromDays(1));
 
-byte[] notFoundHtml = Helpers.BuildContentPage("<h2>404 Not Found</h2>");
+byte[] notFoundHtml = Helpers.BuildContentPage("<h2 class='center'>404 Not Found</h2>");
 app.MapGet("/blog/{date:regex(\\d{{4}}-\\d{{2}}-\\d{{2}})}", (string date, HttpContext context) => {
 	if (!blogPages.TryGetValue(date, out BlogPage blogPage)) {
 		return Helpers.HtmlResult(notFoundHtml, 404);
