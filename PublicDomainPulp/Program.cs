@@ -8,8 +8,7 @@ using Pulp.PublicDomainPulp;
 using Pulp.Pulpifier;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-builder.WebHost.ConfigureKestrel(options =>
-{
+builder.WebHost.ConfigureKestrel(options => {
 	options.AddServerHeader = false;
 });
 WebApplication app = builder.Build();
@@ -18,8 +17,7 @@ string baseDirectory = Directory.GetCurrentDirectory().Substring(0, Directory.Ge
 (Dictionary<string, VisualNovel> visualPulps, List<Metadata> upcomings) = Helpers.BuildVisualNovels(baseDirectory);
 Dictionary<string, BlogPage> blogPages = Helpers.BuildBlogPages(baseDirectory);
 
-app.Use(async (HttpContext context, RequestDelegate next) =>
-{
+app.Use(async (HttpContext context, RequestDelegate next) => {
 	context.Response.Headers[HeaderNames.CacheControl] = "no-store";
 	context.Response.Headers[HeaderNames.XContentTypeOptions] = "nosniff";
 
@@ -106,8 +104,7 @@ app.MapGet("/blog/{draft}", (string draft) => {
 });
 #endif
 
-app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}", (string book, HttpContext context) =>
-{
+app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}", (string book, HttpContext context) => {
 	if (!visualPulps.TryGetValue(book, out VisualNovel pulp)) {
 #if DEBUG
 		try {
@@ -133,17 +130,25 @@ app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}", (string book, HttpContext co
 	return Helpers.HtmlResult(html);
 });
 
-app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/images/{image:regex(^[a-z0-9-]{{1,100}}$)}.webp", async (string book, string image, HttpContext context) =>
-{
+app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/images/{image:regex(^[a-z0-9-]{{1,100}}$)}.webp", async (string book, string image, HttpContext context) => {
+	string? dirName = null;
+#if DEBUG
+	if (upcomings.FirstOrDefault(m => m.Repo.Substring(m.Repo.LastIndexOf('/') + 1) == book) != null) {
+		dirName = book;
+	}
+#endif
 	if (visualPulps.TryGetValue(book, out VisualNovel pulp)) {
-		context.Response.ContentType = "image/webp";
-		string imagePath = Path.Combine(baseDirectory, "VisualPulps", pulp.DirName, "images", image + ".webp");
+		dirName = pulp.DirName;
+	}
+	if (dirName != null) {
+		string path = $"/vn/{dirName}/images/{image}.webp";
+		string imagePath = Path.Combine(baseDirectory, "VisualPulps", dirName, "images", image + ".webp");
 
 		try {
 			context.Response.StatusCode = 200;
+			context.Response.ContentType = "image/webp";
 			Helpers.AppendCacheControl(context, TimeSpan.FromDays(30));
 
-			string path = $"/vn/{pulp.DirName}/images/{image}.webp";
 			if (context.Request.Path.ToString() != path) return Results.Redirect(path, true);
 
 			await context.Response.SendFileAsync(imagePath);
@@ -156,8 +161,7 @@ app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/images/{image:regex(^[a-z0-9-]
 	return Results.Empty;
 });
 
-app.MapFallback((HttpContext context) =>
-{
+app.MapFallback((HttpContext context) => {
 	if (HttpMethods.IsGet(context.Request.Method)) {
 		return Helpers.HtmlResult(notFoundHtml, 404);
 	}
