@@ -140,6 +140,9 @@ function setFontSize(fontNumber) {
 function setFontSizeReally(fontNumber) {
   document.getElementById("app").style.setProperty('--vnFontSizeReally', Math.floor(fontNumber / 100) + '.' + (Math.floor(fontNumber / 10) % 10) + (fontNumber % 10) + "em");
 }
+function setSpeakerSize(speakerSize) {
+  document.getElementById("app").style.setProperty('--speakerSize', Math.pow(2, speakerSize / 100) + "em");
+}
 function setDialogueFontWeight(fontWeight) {
   document.getElementById("app").style.setProperty('--vnDialogueFontWeight', fontWeight);
 }

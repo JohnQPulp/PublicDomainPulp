@@ -24,6 +24,11 @@
     <button onclick="document.getElementById('dialogueInput').value = 600;setDialogueFontWeight(600)">Reset to Default</button>
 </div>
 <div class="button-bar">
+    <label for="speakerInput"><b>Speaker Size:</b></label>
+    <input id="speakerInput" type="range" min="-500" max="200" value="0" oninput="setSpeakerSize(parseInt(this.value))">
+    <button onclick="document.getElementById('speakerInput').value = 0;setSpeakerSize(0)">Reset to Default</button>
+</div>
+<div class="button-bar">
     <label for="fontReallyInput"><b>Font Size:</b></label>
     <input id="fontReallyInput" type="range" min="20" max="250" value="105" oninput="setFontSizeReally(parseInt(this.value))">
     <button onclick="document.getElementById('fontReallyInput').value = 105;setFontSizeReally(105)">Reset to Default</button>
