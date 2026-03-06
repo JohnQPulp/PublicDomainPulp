@@ -248,8 +248,13 @@ internal static class Helpers {
 		sb.Append("<p><b>To Advance:</b><br>Click/tap right half of VN<br>OR<br>Right arrow key<br>OR<br>Shift+scroll (down)</p></div>");
 		sb.Append("<h1 id='warning' class='title'>Switch to landscape for the best VN-reading experience.</h1>");
 		sb.Append("<main>");
-		sb.Append(Helpers.VNBodyHtml);
-		sb.Append(Compiler.BuildHtml(rawText, pulpText));
+		sb.Append(VNBodyHtml);
+		sb.Append(Compiler.BuildHtml(rawText, pulpText, out Dictionary<string, ImageMetadata> files));
+#if DEBUG
+		foreach (KeyValuePair<string, ImageMetadata> kvp in files) {
+			if (!File.Exists(Path.Combine(dir, "images", kvp.Key + ".webp"))) throw new Exception($"Missing image: {kvp.Key}.webp");
+		}
+#endif
 		sb.Append("</main>");
 		sb.Append(FooterHtml);
 
