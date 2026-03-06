@@ -58,7 +58,7 @@ app.UseStaticFiles(new StaticFileOptions
 		HttpResponse res = ctx.Context.Response;
 		res.Headers.Remove(HeaderNames.ETag);
 		res.Headers.Remove(HeaderNames.LastModified);
-		Helpers.AppendCacheControl(ctx.Context, TimeSpan.FromDays(1));
+		Helpers.AppendCacheControl(ctx.Context, TimeSpan.FromDays(7));
 	}
 });
 
