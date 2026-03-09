@@ -251,8 +251,10 @@ internal static class Helpers {
 		sb.Append(VNBodyHtml);
 		sb.Append(Compiler.BuildHtml(rawText, pulpText, out Dictionary<string, ImageMetadata> files));
 #if DEBUG
-		foreach (KeyValuePair<string, ImageMetadata> kvp in files) {
-			if (!File.Exists(Path.Combine(dir, "images", kvp.Key + ".webp"))) throw new Exception($"Missing image: {kvp.Key}.webp");
+		if (metadata.PulpDate != null) {
+			foreach (KeyValuePair<string, ImageMetadata> kvp in files) {
+				if (!File.Exists(Path.Combine(dir, "images", kvp.Key + ".webp"))) throw new Exception($"Missing image: {kvp.Key}.webp");
+			}
 		}
 #endif
 		sb.Append("</main>");
