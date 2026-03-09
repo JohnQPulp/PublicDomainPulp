@@ -25,3 +25,6 @@
 [submodule "VisualPulps/Frankenstein"]
 	path = VisualPulps/Frankenstein
 	url = https://github.com/JohnQPulp/Frankenstein
+[submodule "VisualPulps/TheMysteriousAffairAtStyles"]
+	path = VisualPulps/TheMysteriousAffairAtStyles
+	url = https://github.com/JohnQPulp/TheMysteriousAffairAtStyles
