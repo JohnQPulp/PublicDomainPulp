@@ -83,7 +83,7 @@ public class StartupTests {
 	}
 
 	[TestMethod]
-	[DataRow("/images/kitten.webp", "image/webp", false)]
+	[DataRow("/images/palette.webp", "image/webp", false)]
 	[DataRow("/images/buchan.webp", "image/webp", false)]
 	public async Task CC_Images_200(string path, string contentType, bool shouldHaveUtf8Charset) {
 		HttpResponseMessage res = await TestApp.Client.GetAsync(path);
@@ -93,7 +93,7 @@ public class StartupTests {
 	}
 
 	[TestMethod]
-	[DataRow("/images/kitten.gif")]
+	[DataRow("/images/palette.gif")]
 	[DataRow("/images/Buchan.webp")]
 	public async Task CC_Images_200(string path) {
 		HttpResponseMessage res = await TestApp.Client.GetAsync(path);
