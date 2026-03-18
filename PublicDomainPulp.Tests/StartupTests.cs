@@ -69,7 +69,7 @@ public class StartupTests {
 		HttpResponseMessage res = await TestApp.Client.GetAsync(path);
 		res.EnsureSuccessStatusCode();
 		res.AssertContentType(contentType, shouldHaveUtf8Charset);
-		res.AssertCacheControl($"public, max-age={60 * 60 * 24}, immutable");
+		res.AssertCacheControl($"public, max-age={60 * 60 * 24 * 7}, immutable");
 	}
 
 	[TestMethod]
