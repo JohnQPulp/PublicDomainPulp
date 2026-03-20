@@ -14,7 +14,7 @@ Or: if you're just interested in learning about the process of converting books 
 
 See https://publicdomainpulp.com/about, but the gist is that this is an open source project around transforming public domain books into visual novels.
 
-The idea is that all this great prose is just sitting out there, but only in your boring, standard-book form. All those texts could be so much more entertaining if only they had pictures, too!
+The idea is that all this great prose is just sitting out there, but only in your boring, standard-book form. So why not add some pictures?
 
 And what makes the visual novel format so great is that, unlike adaptations into movies or TV shows or graphic novels or what-have-you, the visual novel can fully retain the original prose of the converted texts — no abridging or simplifying of the source needed. You get the full literary experience, but without having to keep track of who's talking when Hemingway fails to attribute dialogue ten paragraphs in-a-row.
 
@@ -52,18 +52,19 @@ A simple setup for a simple website. (Since if I'm stealing Standard Ebooks' tex
 
 ### Contributing
 
-For visual novel contributions, I'm open to any and all suggestions for improvements, whether that be background changes, sprite changes, line-break flow improvements, or what-have-you. Identifying straight-up mistakes is especially valuable, as while I try to eliminate these in the editing process, they can still crop up in the form of incorrect speaker attributions, image/text inconsistencies, speaker name spelling mistakes, and so forth.
+For visual novel contributions, I'm open to any and all suggestions for improvements, whether that be background changes, sprite changes, line-break flow improvements, or what-have-you. Identifying straight-up mistakes is especially valuable, as while I try to eliminate these in the editing process, they can still crop up in the form of incorrect speaker attributions, [image/text inconsistencies](https://publicdomainpulp.com/blog/2026-03-09), speaker name spelling mistakes, and so forth.
 
 Feel free to submit any such ideas to their associated VN repos as issues.
 
-I'll also take a look at pull requests, though I haven't yet completed the documentation around the pulpification process and its formats and tooling. Therefore, it might be difficult to contribute changes directly, since for example, I have a whole pipeline around making the generated images consistent in style across all the sprites and backgrounds, but it's not written-up yet. But once completed, the documentation should not only explain how to make good edits to the existing VNs, but also the full process for creating VNs from books from scratch. Here's the documentation series post list, with links to the titles that currently exist:
+I'll also take a look at pull requests made to the VN repos, though I haven't yet completed the documentation around the pulpification process and its formats and tooling. Therefore, it might be difficult to contribute changes directly, since for example, I have a whole pipeline around making the generated images consistent in style across all the sprites and backgrounds, but it's not written-up yet. But once completed, the documentation should not only explain how to make good edits to the existing VNs, but also the full process for creating VNs from books from scratch. Here's the documentation series post list, with links to the titles that currently exist:
 
 * [Converting Books Into Visual Novels Part 0: The pulp.txt Format](https://publicdomainpulp.com/blog/2026-02-13)
 * [Converting Books Into Visual Novels Part 0.5: Creating book.txt](https://publicdomainpulp.com/blog/2026-02-14)
-* Converting Books Into Visual Novels Part 1: The First Edit — Creating the Starter pulp.txt
+* [Converting Books Into Visual Novels Part 1: The First Edit — Creating the Starter pulp.txt](https://publicdomainpulp.com/blog/2026-03-20)
 * Converting Books Into Visual Novels Part 2: The Second Edit — Fully Populating pulp.txt
 * Converting Books Into Visual Novels Part 3: Character Sprite Generation
 * Converting Books Into Visual Novels Part 4: Background Generation
 * Converting Books Into Visual Novels Part 5: The Third Edit — Visualizing pulp.txt
 
-Lastly, for code changes specifically, for this repo and/or the Pulpifier repo, I'm also open to receiving issues and/or pull requests. However, documenting a process for this is a lower priority, just because the codebases themselves are rather small and simple, and I don't anticipate a whole lot of work really needing doing. Parsing and building and then serving the visual novels is not a particularly complex problem, so it doesn't really need ongoing collaborative development.
+As for code contributions: I'll take a look at issues or pull requests made to this repo or the Pulpifier, though I don't currently have a formal code contribution process planned out. I don't know how much ongoing code development will really be necessary, what with the visual novel formats being so relatively simple. (More features *could* be added, though I'd want to balance that out with keeping the codebase small and also spending time working on creating more VNs.)
+
