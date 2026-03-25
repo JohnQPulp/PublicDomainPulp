@@ -130,7 +130,7 @@ app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}", (string book, HttpContext co
 	return Helpers.HtmlResult(html);
 });
 
-app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/images/{image:regex(^[a-z0-9-]{{1,100}}$)}.webp", async (string book, string image, HttpContext context) => {
+app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/images/{image:regex(^[a-z0-9-]{{1,100}}\\.(webp)|(avif)$)}", async (string book, string image, HttpContext context) => {
 	string? dirName = null;
 #if DEBUG
 	if (upcomings.FirstOrDefault(m => m.Repo.Substring(m.Repo.LastIndexOf('/') + 1) == book) != null) {
@@ -141,12 +141,12 @@ app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}/images/{image:regex(^[a-z0-9-]
 		dirName = pulp.DirName;
 	}
 	if (dirName != null) {
-		string path = $"/vn/{dirName}/images/{image}.webp";
-		string imagePath = Path.Combine(baseDirectory, "VisualPulps", dirName, "images", image + ".webp");
+		string path = $"/vn/{dirName}/images/{image}";
+		string imagePath = Path.Combine(baseDirectory, "VisualPulps", dirName, "images", image);
 
 		try {
 			context.Response.StatusCode = 200;
-			context.Response.ContentType = "image/webp";
+			context.Response.ContentType = image.EndsWith('p') ? "image/webp" : "image/avif";
 			Helpers.AppendCacheControl(context, TimeSpan.FromDays(30));
 
 			if (context.Request.Path.ToString() != path) return Results.Redirect(path, true);

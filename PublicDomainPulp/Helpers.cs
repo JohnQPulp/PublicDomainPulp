@@ -42,7 +42,8 @@ internal static class Helpers {
 
 	public static void AppendCacheControl(HttpContext context, TimeSpan timespan) {
 #if DEBUG
-		if (!context.Request.Path.ToString().EndsWith(".webp")) return;
+		string path = context.Request.Path.ToString();
+		if (!(path.EndsWith(".webp") || path.EndsWith(".avif"))) return;
 #endif
 
 		context.Response.Headers.CacheControl = $"public, max-age={(int)timespan.TotalSeconds}, immutable";
