@@ -28,3 +28,6 @@
 [submodule "VisualPulps/TheMysteriousAffairAtStyles"]
 	path = VisualPulps/TheMysteriousAffairAtStyles
 	url = https://github.com/JohnQPulp/TheMysteriousAffairAtStyles
+[submodule "VisualPulps/TheSecretGarden"]
+	path = VisualPulps/TheSecretGarden
+	url = https://github.com/JohnQPulp/TheSecretGarden
