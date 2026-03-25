@@ -117,9 +117,10 @@ internal static class Helpers {
 				html.Append($" • <a href='{kvp.Value}'>{kvp.Key}</a>");
 			}
 			html.Append("</p>");
-			html.Append($"<img class='ned' src='/vn/{pulp.DirName}/images/c-author.webp'>");
-			html.Append($"<img class='ed' src='/vn/{pulp.DirName}/images/c-author-abased.webp'>");
-			html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.webp' loading='lazy'>");
+			string imageExtension = pulp.Metadata.ImageExtension;
+			html.Append($"<img class='ned' src='/vn/{pulp.DirName}/images/c-author.{imageExtension}'>");
+			html.Append($"<img class='ed' src='/vn/{pulp.DirName}/images/c-author-abased.{imageExtension}'>");
+			html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.{imageExtension}' loading='lazy'>");
 			html.Append("</div></div>");
 			posts.Add(new Tuple<DateOnly, string>(pulp.Metadata.PulpDate.Value, html.ToString()));
 		}
@@ -250,11 +251,12 @@ internal static class Helpers {
 		sb.Append("<h1 id='warning' class='title'>Switch to landscape for the best VN-reading experience.</h1>");
 		sb.Append("<main>");
 		sb.Append(VNBodyHtml);
-		sb.Append(Compiler.BuildHtml(rawText, pulpText, out Dictionary<string, ImageMetadata> files));
+		sb.Append(Compiler.BuildHtml(rawText, pulpText, out Dictionary<string, ImageMetadata> files, metadata.ImageExtension));
 #if DEBUG
 		if (metadata.PulpDate != null) {
 			foreach (KeyValuePair<string, ImageMetadata> kvp in files) {
-				if (!File.Exists(Path.Combine(dir, "images", kvp.Key + ".webp"))) throw new Exception($"Missing image: {kvp.Key}.webp");
+				string file = $"{kvp.Key}.{metadata.ImageExtension}";
+				if (!File.Exists(Path.Combine(dir, "images", file))) throw new Exception($"Missing image: {file}");
 			}
 		}
 #endif
