@@ -157,6 +157,7 @@ internal static class Helpers {
 		html = html.Replace("<!--VNs-->", sb.ToString());
 		sb.Clear();
 
+		upcomings.Sort((a, b) => a.Title.CompareTo(b.Title, StringComparison.Ordinal));
 		foreach (Metadata upcoming in upcomings) {
 			sb.Append("<tr>");
 			sb.Append($"<td><i>{upcoming.Title}</i></td>");
