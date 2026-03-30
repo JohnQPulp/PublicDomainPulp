@@ -31,3 +31,39 @@
 [submodule "VisualPulps/TheSecretGarden"]
 	path = VisualPulps/TheSecretGarden
 	url = https://github.com/JohnQPulp/TheSecretGarden
+[submodule "VisualPulps/DeadSouls"]
+	path = VisualPulps/DeadSouls
+	url = https://github.com/JohnQPulp/DeadSouls
+[submodule "VisualPulps/PrideAndPrejudice"]
+	path = VisualPulps/PrideAndPrejudice
+	url = https://github.com/JohnQPulp/PrideAndPrejudice
+[submodule "VisualPulps/WutheringHeights"]
+	path = VisualPulps/WutheringHeights
+	url = https://github.com/JohnQPulp/WutheringHeights
+[submodule "VisualPulps/ThePictureOfDorianGray"]
+	path = VisualPulps/ThePictureOfDorianGray
+	url = https://github.com/JohnQPulp/ThePictureOfDorianGray
+[submodule "VisualPulps/CrimeAndPunishment"]
+	path = VisualPulps/CrimeAndPunishment
+	url = https://github.com/JohnQPulp/CrimeAndPunishment
+[submodule "VisualPulps/TomSawyer"]
+	path = VisualPulps/TomSawyer
+	url = https://github.com/JohnQPulp/TomSawyer
+[submodule "VisualPulps/ThePrisonerOfZenda"]
+	path = VisualPulps/ThePrisonerOfZenda
+	url = https://github.com/JohnQPulp/ThePrisonerOfZenda
+[submodule "VisualPulps/TheJungle"]
+	path = VisualPulps/TheJungle
+	url = https://github.com/JohnQPulp/TheJungle
+[submodule "VisualPulps/AStudyInScarlet"]
+	path = VisualPulps/AStudyInScarlet
+	url = https://github.com/JohnQPulp/AStudyInScarlet
+[submodule "VisualPulps/TheInvisibleMan"]
+	path = VisualPulps/TheInvisibleMan
+	url = https://github.com/JohnQPulp/TheInvisibleMan
+[submodule "VisualPulps/JourneyToTheCenterOfTheEarth"]
+	path = VisualPulps/JourneyToTheCenterOfTheEarth
+	url = https://github.com/JohnQPulp/JourneyToTheCenterOfTheEarth
+[submodule "VisualPulps/Hunger"]
+	path = VisualPulps/Hunger
+	url = https://github.com/JohnQPulp/Hunger
