@@ -94,15 +94,15 @@ addEventListener("fullscreenchange", (event) => {
 });
 function enterFullscreen() {
   isFullscreen = true;
-  setWindowProps("1vw", "1vh");
-  document.getElementById("app").style.borderRadius = "0";
-  document.getElementById("app").scrollIntoView({behavior: "instant"});
+  setWindowProps("min(1vw, calc(16vh / 9))", "min(1vh, calc(9vw / 16))");
+  document.getElementById("appwrapper").classList.toggle("fullscreen", true);
+  document.getElementById("appwrapper").scrollIntoView({behavior: "instant"});
   document.getElementById("fullscreenToggle").classList.add("btnActive");
 }
 function exitFullscreen() {
   isFullscreen = false;
   setWindowProps("min(0.8vw, 1.6vh)", "min(0.45vw, 0.9vh)");
-  document.getElementById("app").style.borderRadius = "12px";
+  document.getElementById("appwrapper").classList.toggle("fullscreen", false);
   document.getElementById("fullscreenToggle").classList.remove("btnActive");
 }
 function setWindowProps(vwUnit, vhUnit) {

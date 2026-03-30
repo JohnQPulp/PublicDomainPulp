@@ -29,9 +29,18 @@ main {
   --vwUnit: min(0.8vw, 1.6vh);
   --vhUnit: min(0.45vw, 0.9vh);
 }
-#app {
-  border-radius: 12px;
+#appwrapper {
+  display: flex;
+  justify-content: center;
+}
+#appwrapper:not(.fullscreen) > #app {
   overflow: hidden;
+  border-radius: 12px;
+}
+#appwrapper.fullscreen {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
 }
 :fullscreen {
   scrollbar-width: none;
