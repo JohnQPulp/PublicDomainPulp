@@ -252,7 +252,9 @@ internal static class Helpers {
 		sb.Append("<h1 id='warning' class='title'>Switch to landscape for the best VN-reading experience.</h1>");
 		sb.Append("<main>");
 		sb.Append(VNBodyHtml);
+		sb.Append("<div id='appwrapper'>");
 		sb.Append(Compiler.BuildHtml(rawText, pulpText, out Dictionary<string, ImageMetadata> files, metadata.ImageExtension));
+		sb.Append("</div>");
 #if DEBUG
 		if (metadata.PulpDate != null) {
 			foreach (KeyValuePair<string, ImageMetadata> kvp in files) {
