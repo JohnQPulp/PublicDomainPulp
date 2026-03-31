@@ -97,7 +97,9 @@ internal static class Helpers {
 			posts.Add(new Tuple<DateOnly, string>(kvp.Value.Date, html));
 		}
 
-		foreach (VisualNovel pulp in visualNovels.Values) {
+		List<VisualNovel> visualNovelList = visualNovels.Values.OrderByDescending(vn => vn.Metadata.PulpDate).ToList();
+		string lazyIfNotFirst = string.Empty;
+		foreach (VisualNovel pulp in visualNovelList) {
 			StringBuilder html = new();
 			html.Append("<div class='pulpcard'>");
 			html.Append($"<h3><small class='upper'>{pulp.Metadata.PulpDate.Value.ToString("MMM dd, yyyy")}</small><br><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
@@ -118,14 +120,15 @@ internal static class Helpers {
 			}
 			html.Append("</p>");
 			string imageExtension = pulp.Metadata.ImageExtension;
-			html.Append($"<img class='ned' src='/vn/{pulp.DirName}/images/c-author.{imageExtension}'>");
-			html.Append($"<img class='ed' src='/vn/{pulp.DirName}/images/c-author-abased.{imageExtension}'>");
-			html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.{imageExtension}' loading='lazy'>");
+			html.Append($"<img class='ned' src='/vn/{pulp.DirName}/images/c-author.{imageExtension}' {lazyIfNotFirst}>");
+			html.Append($"<img class='ed' src='/vn/{pulp.DirName}/images/c-author-abased.{imageExtension}' loading='lazy'>");
+			html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.{imageExtension}' {lazyIfNotFirst}>");
+			lazyIfNotFirst = "loading='lazy'";
 			html.Append("</div></div>");
 			posts.Add(new Tuple<DateOnly, string>(pulp.Metadata.PulpDate.Value, html.ToString()));
 		}
 
-		foreach (Tuple<DateOnly, string> post in posts.OrderBy(p => p.Item1).Reverse()) {
+		foreach (Tuple<DateOnly, string> post in posts.OrderByDescending(p => p.Item1)) {
 			sb.Append(post.Item2);
 		}
 
