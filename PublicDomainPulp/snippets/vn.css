@@ -8,8 +8,12 @@
 #vn-header > * {
   text-align: center;
 }
+#vn-header > p {
+  flex-shrink: 0;
+  margin: 0 2px;
+}
 #vn-header-mid {
-  margin: 0 5px 5px;
+  margin: 0 3px 5px;
 }
 #vn-header-mid > * {
   margin: 7px 0;
@@ -21,6 +25,13 @@
 @media (orientation: portrait) {
   #warning {
     display: block;
+  }
+  #vn-header {
+    flex-wrap: wrap;
+  }
+  #vn-header-mid {
+    order: -1;
+    flex-basis: 100%;
   }
 }
 main {
