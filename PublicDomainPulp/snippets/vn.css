@@ -80,6 +80,12 @@ main {
   .button-bar > .resetButton::after {
     content: 'Reset';
   }
+  #menu-toc .copyLinkBtn, #menu-bookmarks .copyLinkBtn {
+    display: none;
+  }
+  #menu > #menu-toc, #menu > #menu-bookmarks {
+    margin: 0 0 50px;
+  }
 }
 #menu {
   width: 80vw;
@@ -124,8 +130,8 @@ main {
 #menu-toc li > span > b {
   flex-grow: 1;
 }
-#menu-bookmarks button:first-child {
-  margin-right: 5px;
+#menu-bookmarks button:nth-child(2) {
+  margin-left: 5px;
 }
 #bookmarkBtn::after {
   content: 'Add to Highlights (H)';
