@@ -11,32 +11,32 @@
 <div class="button-bar">
     <label for="autoInput"><b>Auto-play Speed:</b></label>
     <input id="autoInput" type="range" min="0" max="200" value="100" oninput="setAutoSpeed(parseInt(this.value))">
-    <button onclick="document.getElementById('autoInput').value = 100;setAutoSpeed(100)">Reset to Default</button>
+    <button onclick="document.getElementById('autoInput').value = 100;setAutoSpeed(100)" class="resetButton"></button>
 </div>
 <div class="button-bar">
     <label for="heightInput"><b>Line Height:</b></label>
     <input id="heightInput" type="range" min="100" max="250" value="140" oninput="setLineHeight(parseInt(this.value))">
-    <button onclick="document.getElementById('heightInput').value = 140;setLineHeight(140)">Reset to Default</button>
+    <button onclick="document.getElementById('heightInput').value = 140;setLineHeight(140)" class="resetButton"></button>
 </div>
 <div class="button-bar">
     <label for="dialogueInput"><b>Dialogue Boldness:</b></label>
     <input id="dialogueInput" type="range" min="400" max="900" value="600" oninput="setDialogueFontWeight(parseInt(this.value))">
-    <button onclick="document.getElementById('dialogueInput').value = 600;setDialogueFontWeight(600)">Reset to Default</button>
+    <button onclick="document.getElementById('dialogueInput').value = 600;setDialogueFontWeight(600)" class="resetButton"></button>
 </div>
 <div class="button-bar">
     <label for="speakerInput"><b>Speaker Size:</b></label>
     <input id="speakerInput" type="range" min="-500" max="200" value="0" oninput="setSpeakerSize(parseInt(this.value))">
-    <button onclick="document.getElementById('speakerInput').value = 0;setSpeakerSize(0)">Reset to Default</button>
+    <button onclick="document.getElementById('speakerInput').value = 0;setSpeakerSize(0)" class="resetButton"></button>
 </div>
 <div class="button-bar">
     <label for="fontReallyInput"><b>Font Size:</b></label>
     <input id="fontReallyInput" type="range" min="20" max="250" value="105" oninput="setFontSizeReally(parseInt(this.value))">
-    <button onclick="document.getElementById('fontReallyInput').value = 105;setFontSizeReally(105)">Reset to Default</button>
+    <button onclick="document.getElementById('fontReallyInput').value = 105;setFontSizeReally(105)" class="resetButton"></button>
 </div>
 <div class="button-bar">
     <label for="fontInput"><b>UI Scale:</b></label>
     <input id="fontInput" type="range" min="20" max="400" value="165" oninput="setFontSize(parseInt(this.value))">
-    <button onclick="document.getElementById('fontInput').value = 165;setFontSize(165)">Reset to Default</button>
+    <button onclick="document.getElementById('fontInput').value = 165;setFontSize(165)" class="resetButton"></button>
 </div>
 <div class="button-bar">
     <button title="Toggle Fullscreen" onclick="toggleFullscreen()" id="fullscreenToggle"></button>

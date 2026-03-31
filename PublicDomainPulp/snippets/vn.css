@@ -73,6 +73,14 @@ main {
   flex-grow: 1;
   accent-color: #453310;
 }
+.button-bar > .resetButton::after {
+  content: 'Reset to Default';
+}
+@media (orientation: portrait) {
+  .button-bar > .resetButton::after {
+    content: 'Reset';
+  }
+}
 #menu {
   width: 80vw;
   display: flex;
