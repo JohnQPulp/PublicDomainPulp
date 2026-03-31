@@ -18,16 +18,16 @@ body {
   --nedi: inline;
 }
 .ed {
-  display: var(--ed);
+  display: var(--ed) !important;
 }
 .ned {
-  display: var(--ned); /* okily dokily */
+  display: var(--ned) !important; /* okily dokily */
 }
 .edi {
-  display: var(--edi);
+  display: var(--edi) !important;
 }
 .nedi {
-  display: var(--nedi); /* okily dokily */
+  display: var(--nedi) !important; /* okily dokily */
 }
 hr {
   border: 0;
