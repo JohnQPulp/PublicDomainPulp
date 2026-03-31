@@ -69,9 +69,17 @@ function copyClick(e, i) {
 let isFullscreen = false;
 function toggleFullscreen() {
   if (isFullscreen) {
-    document.exitFullscreen().catch(exitFullscreen);
+    if (document.exitFullscreen) {
+      document.exitFullscreen().catch(exitFullscreen);
+    } else {
+      exitFullscreen();
+    }
   } else {
-    document.documentElement.requestFullscreen().catch(enterFullscreen);
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(enterFullscreen);
+    } else {
+      enterFullscreen();
+    }
   }
 }
 document.addEventListener("keydown", function (e) {
