@@ -87,8 +87,6 @@ internal static class Helpers {
 
 	public static byte[] BuildHomePage(Dictionary<string, VisualNovel> visualNovels, Dictionary<string, BlogPage> blogPages) {
 		StringBuilder sb = new();
-		sb.Append("<style>#nav-home { text-decoration: underline !important; }</style>");
-
 		sb.Append("<h2 class='center'><u>Latest Visual Novels and Blog Posts</u></h2>");
 
 		List<Tuple<DateOnly, string>> posts = new();
