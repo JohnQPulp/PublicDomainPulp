@@ -29,15 +29,50 @@ body {
 .nedi {
   display: var(--nedi) !important; /* okily dokily */
 }
+header > div {
+  display: flex;
+  justify-content: center;
+  max-height: 225px;
+  padding: 5px 0;
+}
+#logo {
+  height: 100%;
+  max-width: min(98vw, 450px);
+  width: auto;
+  padding: 5px;
+  border: 3px double black;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  background-color: #f8efd4;
+}
+#logo:hover {
+  border: 3px solid black;
+}
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 5px 40px;
+  font-size: 2em;
+  flex-wrap: wrap;
+  background-color: #f8efd4;
+  padding: 5px 0;
+  border-top: 3px double black;
+  border-bottom: 3px double black;
+}
+nav a {
+  font-family: serif;
+  text-decoration: none;
+  color: black;
+}
+nav a:hover {
+  text-decoration: underline;
+}
 hr {
   border: 0;
   border-top: 1px solid black !important;
 }
 .center {
   text-align: center;
-}
-#pulptitle {
-  line-height: 1;
 }
 .title {
   width: 100%;
@@ -72,26 +107,11 @@ hr {
 .right {
   margin-left: auto;
 }
-#nav {
-  margin-top: 2px;
-}
 #footer {
   margin-bottom: 1em;
   margin-top: 20px;
   text-align: center;
   justify-content: center;
-}
-#nav > h2 {
-  padding: 0 1em;
-  font-size: min(1.5em, 3vw);
-}
-#nav > h2 > a {
-  text-decoration: none;
-  color: inherit;
-}
-#nav > h2:hover {
-  text-decoration: underline;
-  cursor: pointer;
 }
 #content {
   width: 90vw;
