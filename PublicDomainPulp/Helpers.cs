@@ -282,7 +282,7 @@ internal static class Helpers {
 			sb.Append($"<base href='{baseHref}'>");
 		}
 		sb.Append("<link rel='icon' type='image/x-icon' href='/assets/favicon.ico'>");
-		sb.Append("<link rel='icon' type='image/png' href='/assets/icon-144.png' sizes='144x144'>");
+		sb.Append("<link rel='icon' type='image/png' href='/assets/icon-192.png' sizes='192x192'>");
 		sb.Append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
 		foreach (string style in styles) {
 			sb.Append("<style>");
