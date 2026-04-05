@@ -75,9 +75,11 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 Helpers.MapPage(app, "/", Helpers.BuildHomePage(visualPulps, blogPages), TimeSpan.FromHours(1));
-Helpers.MapPage(app, "/catalog", Helpers.BuildCatalogPage(baseDirectory, visualPulps, upcomings, blogPages), TimeSpan.FromHours(1));
+Helpers.MapPage(app, "/catalog", Helpers.BuildCatalogPage(visualPulps), TimeSpan.FromHours(1));
 Helpers.MapPage(app, "/about", Helpers.BuildAboutPage(baseDirectory), TimeSpan.FromDays(1));
 Helpers.MapPage(app, "/contact", Helpers.BuildContactPage(baseDirectory), TimeSpan.FromDays(1));
+Helpers.MapPage(app, "/blog", Helpers.BuildBlogsPage(blogPages), TimeSpan.FromHours(1));
+Helpers.MapPage(app, "/upcoming", Helpers.BuildUpcomingsPage(upcomings), TimeSpan.FromHours(1));
 
 byte[] notFoundHtml = Helpers.BuildContentPage("<h2 class='center'>404 Not Found</h2>");
 app.MapGet("/blog/{date:regex(\\d{{4}}-\\d{{2}}-\\d{{2}})}", (string date, HttpContext context) => {

@@ -87,18 +87,20 @@ internal static class Helpers {
 
 	public static byte[] BuildHomePage(Dictionary<string, VisualNovel> visualNovels, Dictionary<string, BlogPage> blogPages) {
 		StringBuilder sb = new();
-		sb.Append("<h2 class='center'><u>Latest Visual Novels and Blog Posts</u></h2>");
+		return BuildContentPage("Home Page!");
+	}
 
-		List<Tuple<DateOnly, string>> posts = new();
-		foreach (KeyValuePair<string, BlogPage> kvp in blogPages) {
-			string html = $"<div><h3 class='posttitle'><small class='upper'>{kvp.Value.Date.ToString("MMM dd, yyyy")}</small><br><a href='/blog/{kvp.Key}'>{kvp.Value.Title}</a></h3></div>";
-			posts.Add(new Tuple<DateOnly, string>(kvp.Value.Date, html));
-		}
+	public static byte[] BuildAboutPage(string baseDirectory) {
+		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "about.html");
+		string html = BookTag.FormatText(File.ReadAllText(path));
+		return BuildBlogPage(html, "About Public Domain Pulp");
+	}
 
+	public static byte[] BuildCatalogPage(Dictionary<string, VisualNovel> visualNovels) {
+		StringBuilder html = new();
 		List<VisualNovel> visualNovelList = visualNovels.Values.OrderByDescending(vn => vn.Metadata.PulpDate).ToList();
 		string lazyIfNotFirst = string.Empty;
 		foreach (VisualNovel pulp in visualNovelList) {
-			StringBuilder html = new();
 			html.Append("<div class='pulpcard'>");
 			html.Append($"<h3><small class='upper'>{pulp.Metadata.PulpDate.Value.ToString("MMM dd, yyyy")}</small><br><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
 			html.Append("<div><div>");
@@ -123,41 +125,13 @@ internal static class Helpers {
 			html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.{imageExtension}' {lazyIfNotFirst}>");
 			lazyIfNotFirst = "loading='lazy'";
 			html.Append("</div></div>");
-			posts.Add(new Tuple<DateOnly, string>(pulp.Metadata.PulpDate.Value, html.ToString()));
 		}
-
-		foreach (Tuple<DateOnly, string> post in posts.OrderByDescending(p => p.Item1)) {
-			sb.Append(post.Item2);
-		}
-
-		return BuildContentPage(sb.ToString());
+		return BuildContentPage(html.ToString(), "Catalog of Pulp");
 	}
 
-	public static byte[] BuildAboutPage(string baseDirectory) {
-		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "about.html");
-		string html = BookTag.FormatText(File.ReadAllText(path));
-		return BuildBlogPage(html, "About Public Domain Pulp");
-	}
-
-	public static byte[] BuildCatalogPage(string baseDirectory, Dictionary<string, VisualNovel> visualNovels, List<Metadata> upcomings, Dictionary<string, BlogPage> blogPages) {
-		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "catalog.html");
-		string html = File.ReadAllText(path);
-
+	public static byte[] BuildUpcomingsPage(List<Metadata> upcomings) {
 		StringBuilder sb = new();
-		List<VisualNovel> vns = visualNovels.Values.ToList();
-		vns.Sort((a, b) => b.Metadata.PulpDate.Value.CompareTo(a.Metadata.PulpDate.Value));
-		foreach (VisualNovel vn in vns) {
-			sb.Append("<tr>");
-			sb.Append($"<td><i><a href='/vn/{vn.DirName}'>{vn.Metadata.Title}</a></i></td>");
-			sb.Append($"<td>{vn.Metadata.Author.Replace(" ", "&nbsp;")}</td>");
-			sb.Append($"<td>{vn.Metadata.Year}</td>");
-			sb.Append($"<td class='tr'>{vn.Metadata.Words:N0}</td>");
-			sb.Append($"<td class='upper'>{vn.Metadata.PulpDate.Value.ToString("MMM dd, yyyy").Replace(" ", "&nbsp;")}</td>");
-			sb.Append("</tr>");
-		}
-		html = html.Replace("<!--VNs-->", sb.ToString());
-		sb.Clear();
-
+		sb.Append("<h2 class='title'><small>Upcoming Visual Novels</small></h2><table><tr><th>Title</th><th>Author</th><th>Words</th></tr>");
 		upcomings.Sort((a, b) => a.Title.CompareTo(b.Title, StringComparison.Ordinal));
 		foreach (Metadata upcoming in upcomings) {
 			sb.Append("<tr>");
@@ -166,9 +140,13 @@ internal static class Helpers {
 			sb.Append($"<td class='tr'>{upcoming.Words:N0}</td>");
 			sb.Append("</tr>");
 		}
-		html = html.Replace("<!--upcomings-->", sb.ToString());
-		sb.Clear();
+		sb.Append("</table>");
+		return BuildContentPage(sb.ToString(), "Upcoming Visual Novels");
+	}
 
+	public static byte[] BuildBlogsPage(Dictionary<string, BlogPage> blogPages) {
+		StringBuilder sb = new();
+		sb.Append("<h2 class='title'>Blog Posts</h2><table><tr><th>Title</th><th>Date</th></tr>");
 		List<BlogPage> blogs = blogPages.Values.ToList();
 		blogs.Sort((a, b) => b.Date.CompareTo(a.Date));
 		foreach (BlogPage blog in blogs) {
@@ -177,9 +155,8 @@ internal static class Helpers {
 			sb.Append($"<td class='upper'>{blog.Date.ToString("MMM dd, yyyy").Replace(" ", "&nbsp;")}</td>");
 			sb.Append("</tr>");
 		}
-		html = html.Replace("<!--blogs-->", sb.ToString());
-
-		return BuildContentPage(html, "Catalog of Pulp");
+		sb.Append("</table>");
+		return BuildContentPage(sb.ToString(), "Blogs");
 	}
 
 	public static byte[] BuildContactPage(string baseDirectory) {
