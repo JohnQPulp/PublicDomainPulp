@@ -57,16 +57,18 @@ header > div > a {
 #logo:hover {
   border: 3px solid black;
 }
-nav {
+.bar {
   display: flex;
   justify-content: center;
+  background-color: #f8efd4;
+  border-top: 3px double black;
+  border-bottom: 3px double black;
+}
+nav {
   gap: 5px 40px;
   font-size: 2em;
   flex-wrap: wrap;
-  background-color: #f8efd4;
   padding: 5px 10px;
-  border-top: 3px double black;
-  border-bottom: 3px double black;
 }
 nav a {
   font-family: serif;
@@ -88,13 +90,6 @@ hr {
   text-align: center;
   margin: 0;
 }
-.fadebar {
-  min-width: 60vw;
-  background: linear-gradient(to right, transparent, #f8efd4f0 10%, #f8efd4f0 90%, transparent 100%);
-  padding: 0 5vw;
-  display: flex;
-  margin: 0 auto;
-}
 @media (width <= 800px) {
   .ssvisible {
     display: none !important;
@@ -114,9 +109,6 @@ hr {
     margin-left: auto !important;
     margin-right: auto !important;
   }
-  .fadebar {
-    width: 90vw !important;
-  }
 }
 .right {
   margin-left: auto;
@@ -124,8 +116,13 @@ hr {
 #footer {
   margin-bottom: 1em;
   margin-top: 20px;
+  padding: 12px 10px;
   text-align: center;
-  justify-content: center;
+  gap: 8px 0;
+  flex-direction: column;
+}
+#footer p {
+  margin: 0;
 }
 #content {
   width: 90vw;
