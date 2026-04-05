@@ -32,18 +32,27 @@ body {
 header > div {
   display: flex;
   justify-content: center;
-  max-height: 225px;
-  padding: 5px 0;
+  height: min(225px, 100vw / 2);
+  align-items: flex-end;
+  padding-top: 5px;
+}
+header > div > a {
+  height: 100%;
+  padding-bottom: 5px;
+  box-sizing: border-box;
 }
 #logo {
-  height: 100%;
-  max-width: min(98vw, 450px);
+  max-height: 100%;
   width: auto;
   padding: 5px;
   border: 3px double black;
-  flex-shrink: 0;
   box-sizing: border-box;
   background-color: #f8efd4;
+  max-width: calc(100vw - 10px);
+}
+.authors-banner {
+  height: 100%;
+  width: auto;
 }
 #logo:hover {
   border: 3px solid black;
@@ -85,6 +94,11 @@ hr {
   padding: 0 5vw;
   display: flex;
   margin: 0 auto;
+}
+@media (width <= 800px) {
+  .ssvisible {
+    display: none !important;
+  }
 }
 @media (width <= 1234px) {
   .smargin {
