@@ -66,7 +66,7 @@ header > div > a {
 }
 nav {
   gap: 5px 40px;
-  font-size: 2em;
+  font-size: clamp(1em, 6vw, 2em);
   flex-wrap: wrap;
   padding: 5px 10px;
 }
