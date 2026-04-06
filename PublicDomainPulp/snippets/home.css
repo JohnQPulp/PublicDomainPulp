@@ -181,6 +181,9 @@ hr {
   margin: 0 auto;
   display: block;
 }
+.imghead {
+  margin-top: 10px !important;
+}
 #blog blockquote {
   white-space: pre-wrap;
   border-left: 4px solid #a08a6d;

@@ -98,6 +98,7 @@ internal static class Helpers {
 
 	public static byte[] BuildCatalogPage(Dictionary<string, VisualNovel> visualNovels) {
 		StringBuilder html = new();
+		html.Append("<h1 class='center'>Visual Novel Catalog</h1>");
 		List<VisualNovel> visualNovelList = visualNovels.Values.OrderByDescending(vn => vn.Metadata.PulpDate).ToList();
 		foreach (VisualNovel pulp in visualNovelList) {
 			html.Append("<div class='pulpcard'>");
