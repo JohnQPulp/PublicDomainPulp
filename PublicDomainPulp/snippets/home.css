@@ -90,6 +90,23 @@ hr {
   text-align: center;
   margin: 0;
 }
+@media (orientation: landscape) or (min-width: 1000px) {
+  .nop {
+    display: block;
+  }
+  .op {
+    display: none;
+  }
+}
+
+@media (orientation: portrait) and (max-width: 999px) {
+  .nop {
+    display: none;
+  }
+  .op {
+    display: block;
+  }
+}
 @media (width <= 800px) {
   .ssvisible {
     display: none !important;
@@ -184,6 +201,18 @@ code, pre {
   background-color: #f8eed3;
   white-space: pre-wrap;
 }
+@media (orientation: portrait) and (max-width: 999px) {
+  .pulpcard {
+    max-width: max(80vw, 750px);
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .pulpcard > div > div {
+    width: 100%;
+    min-width: unset !important;
+    padding-bottom: max(200px, 40vw) !important;
+  }
+}
 .pulpcard {
   width: 100%;
   overflow: hidden;
@@ -196,6 +225,9 @@ code, pre {
   margin: 0;
   font-size: 1.25em;
   padding-bottom: 2px;
+}
+.pulpcard > img {
+  width: 100%;
 }
 .pulpcard > div {
   display: flex;

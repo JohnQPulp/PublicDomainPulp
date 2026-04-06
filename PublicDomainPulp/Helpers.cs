@@ -103,6 +103,8 @@ internal static class Helpers {
 		foreach (VisualNovel pulp in visualNovelList) {
 			html.Append("<div class='pulpcard'>");
 			html.Append($"<h3><small class='upper'>{pulp.Metadata.PulpDate.Value.ToString("MMM dd, yyyy")}</small><br><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
+			string imageExtension = pulp.Metadata.ImageExtension;
+			html.Append($"<img class='op' src='/vn/{pulp.DirName}/images/preview-small.{imageExtension}' {lazyIfNotFirst}>");
 			html.Append("<div><div>");
 			html.Append($"<h3><a href='/vn/{pulp.DirName}'>Read <i>{pulp.Metadata.VNTitle}</i></a> ({pulp.Metadata.Words.ToString("N0")}&nbsp;words)</h3>");
 			foreach (string line in pulp.Metadata.Blurb.Split('\n')) {
@@ -119,10 +121,9 @@ internal static class Helpers {
 				html.Append($" • <a href='{kvp.Value}'>{kvp.Key}</a>");
 			}
 			html.Append("</p>");
-			string imageExtension = pulp.Metadata.ImageExtension;
 			html.Append($"<img class='ned' src='/vn/{pulp.DirName}/images/c-author.{imageExtension}' {lazyIfNotFirst}>");
 			html.Append($"<img class='ed' src='/vn/{pulp.DirName}/images/c-author-abased.{imageExtension}' loading='lazy'>");
-			html.Append($"</div><img src='/vn/{pulp.DirName}/images/preview.{imageExtension}' {lazyIfNotFirst}>");
+			html.Append($"</div><img class='nop' src='/vn/{pulp.DirName}/images/preview.{imageExtension}' {lazyIfNotFirst}>");
 			lazyIfNotFirst = "loading='lazy'";
 			html.Append("</div></div>");
 		}
