@@ -53,6 +53,7 @@ header > div > a {
 .authors-banner {
   height: 100%;
   width: auto;
+  aspect-ratio: 4;
 }
 #logo:hover {
   border: 3px solid black;
