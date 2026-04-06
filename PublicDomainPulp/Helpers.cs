@@ -145,16 +145,12 @@ internal static class Helpers {
 
 	public static byte[] BuildBlogsPage(Dictionary<string, BlogPage> blogPages) {
 		StringBuilder sb = new();
-		sb.Append("<h2 class='title'>Blog Posts</h2><table><tr><th>Title</th><th>Date</th></tr>");
+		sb.Append("<h1 class='center'>Blog Posts</h1>");
 		List<BlogPage> blogs = blogPages.Values.ToList();
 		blogs.Sort((a, b) => b.Date.CompareTo(a.Date));
 		foreach (BlogPage blog in blogs) {
-			sb.Append("<tr>");
-			sb.Append($"<td><a href='/blog/{blog.Date:yyyy-MM-dd}'>{blog.Title}</a></td>");
-			sb.Append($"<td class='upper'>{blog.Date.ToString("MMM dd, yyyy").Replace(" ", "&nbsp;")}</td>");
-			sb.Append("</tr>");
+			sb.Append($"<div><h3 class='posttitle'><small class='upper'>{blog.Date.ToString("MMM dd, yyyy")}</small><br><a href='/blog/{blog.Date:yyyy-MM-dd}'>{blog.Title}</a></h3></div>");
 		}
-		sb.Append("</table>");
 		return BuildContentPage(sb.ToString(), "Blogs");
 	}
 
