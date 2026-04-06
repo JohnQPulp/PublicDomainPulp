@@ -165,10 +165,11 @@ hr {
   background-repeat: space, space;
 }
 #blog {
-  max-width: 45em;
+  max-width: min(45em, 100%);
   margin: 0 auto 20px;
   font-size: 1.1em;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 #blog h2 {
   margin-top: 35px;
