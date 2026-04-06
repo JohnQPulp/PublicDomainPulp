@@ -131,12 +131,20 @@ internal static class Helpers {
 
 	public static byte[] BuildUpcomingsPage(List<Metadata> upcomings) {
 		StringBuilder sb = new();
-		sb.Append("<h2 class='title'><small>Upcoming Visual Novels</small></h2><table><tr><th>Title</th><th>Author</th><th>Words</th></tr>");
+		sb.Append("<style>");
+		sb.Append("table {margin: 0 auto;}");
+		sb.Append("td {padding-bottom: 10px;}");
+		sb.Append("th {font-size: 1.25em;}");
+		sb.Append(".tc {text-align: center;}");
+		sb.Append(".tr {text-align: right;}");
+		sb.Append("@media (width > 1000px) { table {font-size: 1.2em;}}");
+		sb.Append("</style>");
+		sb.Append("<h1 class='center'>Upcoming Visual Novels</h1><table><tr><th>Title</th><th>Author</th><th>Words</th></tr>");
 		upcomings.Sort((a, b) => a.Title.CompareTo(b.Title, StringComparison.Ordinal));
 		foreach (Metadata upcoming in upcomings) {
 			sb.Append("<tr>");
 			sb.Append($"<td><i>{upcoming.Title}</i></td>");
-			sb.Append($"<td>{upcoming.Author.Replace(" ", "&nbsp;")}</td>");
+			sb.Append($"<td class='tc'>{upcoming.Author}</td>");
 			sb.Append($"<td class='tr'>{upcoming.Words:N0}</td>");
 			sb.Append("</tr>");
 		}
