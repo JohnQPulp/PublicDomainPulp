@@ -75,7 +75,7 @@ nav {
 nav a {
   font-family: serif;
   text-decoration: none;
-  color: black;
+  color: black !important;
 }
 nav a:hover {
   text-decoration: underline;
@@ -328,4 +328,7 @@ code, pre {
 }
 #homecard > h4 {
   margin: 0;
+}
+a:link {
+  color: rgb(0, 0, 200);
 }
