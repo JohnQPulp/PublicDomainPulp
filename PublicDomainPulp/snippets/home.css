@@ -285,6 +285,13 @@ code, pre {
 .upper {
   font-variant: small-caps;
 }
+#myblurb {
+  font-size: 1.2em;
+  padding: 0 5px;
+}
+#newest {
+  margin-bottom: 0;
+}
 #homecardwrapper {
   width: 100%;
   display: flex;

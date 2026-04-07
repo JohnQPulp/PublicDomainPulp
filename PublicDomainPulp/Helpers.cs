@@ -87,6 +87,8 @@ internal static class Helpers {
 
 	public static byte[] BuildHomePage(Dictionary<string, VisualNovel> visualNovels) {
 		StringBuilder sb = new();
+		sb.Append("<p id='myblurb' class='center'>Public Domain Pulp’s visual novel adaptations are all free, unabridged, and dedicated to the public&nbsp;domain.</p>");
+		sb.Append("<h2 id='newest' class='center'>Newest Releases:</h2>");
 		if (visualNovels.Count > 1) {
 			sb.Append("<div id='homecardwrapper'>");
 			List<VisualNovel> vns = visualNovels.Values.OrderByDescending(vn => vn.Metadata.PulpDate).Take(2).ToList();
@@ -102,7 +104,7 @@ internal static class Helpers {
 			sb.Append("</div>");
 		}
 
-		sb.Append("<h2 class='center'><a href='/catalog'>Browse the Full Catalog</a></h2>");
+		sb.Append("<h1 class='center'><a href='/catalog'>Browse the Full Catalog</a></h1>");
 
 		return BuildContentPage(sb.ToString(), null);
 	}
