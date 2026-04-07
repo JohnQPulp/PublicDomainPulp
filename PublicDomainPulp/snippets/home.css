@@ -290,7 +290,7 @@ code, pre {
   display: flex;
   justify-content: space-around;
 }
-@media (orientation: portrait) and (max-width: 999px) {
+@media (orientation: portrait) and (max-width: 750px) {
   #homecardwrapper {
     flex-wrap: wrap;
   }
@@ -306,7 +306,7 @@ code, pre {
   margin: 5px 0;
   display: flex;
   flex-direction: column;
-  padding: 3px 0;
+  padding: 5px 0;
 }
 #homecard:hover {
   border: 3px solid black;
@@ -314,7 +314,7 @@ code, pre {
 }
 #homecard > img {
   width: 100%;
-  margin: 3px 0;
+  margin: 5px 0;
 }
 #homecard > h3:first-child {
   margin: auto 0;
