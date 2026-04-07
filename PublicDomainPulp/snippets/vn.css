@@ -169,6 +169,16 @@ main {
 .copyLinkBtn.copied::after {
   content: 'Copied';
 }
+@media (orientation: landscape) {
+  #fullscreenToggleDisabled {
+    display: none;
+  }
+}
+@media (orientation: portrait) {
+  #fullscreenToggle {
+    display: none;
+  }
+}
 @media (orientation: landscape) and (min-width: 1000px) {
   #bookmarkBtn::after {
     content: 'Add to Highlights (H)';

@@ -113,6 +113,11 @@ function exitFullscreen() {
   document.getElementById("appwrapper").classList.toggle("fullscreen", false);
   document.getElementById("fullscreenToggle").classList.remove("btnActive");
 }
+if (screen.orientation) {
+  screen.orientation.addEventListener('change', exitFullscreen);
+} else {
+  window.addEventListener('orientationchange', exitFullscreen);
+}
 function setWindowProps(vwUnit, vhUnit) {
   document.getElementsByTagName("main")[0].style.setProperty("--vwUnit", vwUnit);
   document.getElementsByTagName("main")[0].style.setProperty("--vhUnit", vhUnit);
