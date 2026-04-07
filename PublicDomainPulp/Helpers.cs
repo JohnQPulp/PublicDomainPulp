@@ -106,7 +106,7 @@ internal static class Helpers {
 			string imageExtension = pulp.Metadata.ImageExtension;
 			html.Append($"<img class='op' src='/vn/{pulp.DirName}/images/preview-small.{imageExtension}' loading='lazy'>");
 			html.Append("<div><div>");
-			html.Append($"<h3><a href='/vn/{pulp.DirName}'>Read <i>{pulp.Metadata.VNTitle}</i></a> ({pulp.Metadata.Words.ToString("N0")}&nbsp;words)</h3>");
+			html.Append($"<h3><a href='/vn/{pulp.DirName}'>Read <i>{pulp.Metadata.ShortTitle}: The Visual&nbsp;Novel</i></a> ({pulp.Metadata.Words.ToString("N0")}&nbsp;words)</h3>");
 			foreach (string line in pulp.Metadata.Blurb.Split('\n')) {
 				html.Append($"<p class='blurb ned'>{BookTag.FormatText(line)}</p>");
 			}
@@ -225,7 +225,7 @@ internal static class Helpers {
 		sb.Append(HeaderHtml);
 		sb.Append($"<script>window['bookId'] = '{name}';</script>");
 		sb.Append("<div id='vn-header' class='smargin'><p><b>To Go Back:</b><br>Click/tap left half of VN<br><span class='nopp'>OR<br>Left arrow key<br>OR<br>Shift+scroll (up)</span></p>");
-		sb.Append($"<div id='vn-header-mid'><h1><i>{metadata.VNTitle}</i></h1><h4>{metadata.Author} • {metadata.Year} • {metadata.Words:N0} Words</h4><h4><a href='{metadata.Repo}'>Github</a>");
+		sb.Append($"<div id='vn-header-mid'><h1><i>{metadata.ShortTitle}: The Visual&nbsp;Novel</i></h1><h4>{metadata.Author} • {metadata.Year} • {metadata.Words:N0} Words</h4><h4><a href='{metadata.Repo}'>Github</a>");
 		foreach (KeyValuePair<string, string> kvp in metadata.Links) {
 			sb.Append($" • <a href='{kvp.Value}'>{kvp.Key}</a>");
 		}
