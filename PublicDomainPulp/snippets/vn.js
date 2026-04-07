@@ -113,10 +113,15 @@ function exitFullscreen() {
   document.getElementById("appwrapper").classList.toggle("fullscreen", false);
   document.getElementById("fullscreenToggle").classList.remove("btnActive");
 }
+function tryExitFullscreen() {
+  if (isFullscreen) {
+    toggleFullscreen();
+  }
+}
 if (screen.orientation) {
-  screen.orientation.addEventListener('change', exitFullscreen);
+  screen.orientation.addEventListener('change', tryExitFullscreen);
 } else {
-  window.addEventListener('orientationchange', exitFullscreen);
+  window.addEventListener('orientationchange', tryExitFullscreen);
 }
 function setWindowProps(vwUnit, vhUnit) {
   document.getElementsByTagName("main")[0].style.setProperty("--vwUnit", vwUnit);
