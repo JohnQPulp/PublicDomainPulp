@@ -93,13 +93,13 @@ internal static class Helpers {
 			sb.Append("<div id='homecardwrapper'>");
 			List<VisualNovel> vns = visualNovels.Values.OrderByDescending(vn => vn.Metadata.PulpDate).Take(2).ToList();
 			foreach (VisualNovel vn in vns) {
-				sb.Append("<div id='homecard'>");
+				sb.Append($"<a id='homecard' href='/vn/{vn.DirName}'>");
 				sb.Append($"<h3 class='center'><i>{vn.Metadata.ShortTitle}: The Visual&nbsp;Novel</i></h3>");
 				string imageExtension = vn.Metadata.ImageExtension;
 				sb.Append($"<img class='opp' src='/vn/{vn.DirName}/images/preview-small.{imageExtension}' loading='lazy'>");
 				sb.Append($"<img class='nopp' src='/vn/{vn.DirName}/images/preview.{imageExtension}' loading='lazy'>");
 				sb.Append($"<h4 class='center'>{vn.Metadata.Author} • {vn.Metadata.Year} • {vn.Metadata.Words.ToString("N0")}&nbsp;words</h4>");
-				sb.Append("</div>");
+				sb.Append("</a>");
 			}
 			sb.Append("</div>");
 		}

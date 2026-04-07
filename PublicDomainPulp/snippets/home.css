@@ -306,12 +306,14 @@ code, pre {
   }
 }
 #homecard {
+  color: inherit !important;
+  text-decoration: none !important;
   width: 48%;
   background-color: #f8efd4;
   box-sizing: border-box;
   border: 3px double black;
   margin: 5px 0;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   padding: 5px 0;
 }
