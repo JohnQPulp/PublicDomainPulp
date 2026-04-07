@@ -99,12 +99,27 @@ hr {
     display: none;
   }
 }
-
 @media (orientation: portrait) and (max-width: 999px) {
   .nop {
     display: none;
   }
   .op {
+    display: block;
+  }
+}
+@media (orientation: landscape) and (min-width: 1000px) {
+  .nopp {
+    display: block;
+  }
+  .opp {
+    display: none;
+  }
+}
+@media (orientation: portrait) or (max-width: 999px) {
+  .nopp {
+    display: none;
+  }
+  .opp {
     display: block;
   }
 }

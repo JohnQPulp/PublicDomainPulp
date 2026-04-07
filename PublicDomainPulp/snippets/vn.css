@@ -18,20 +18,16 @@
 #vn-header-mid > * {
   margin: 7px 0;
 }
-#warning {
-  font-size: 2em;
-  display: none;
-}
-@media (orientation: portrait) {
-  #warning {
-    display: block;
-  }
+@media (orientation: portrait) or (max-width: 999px) {
   #vn-header {
     flex-wrap: wrap;
   }
   #vn-header-mid {
     order: -1;
     flex-basis: 100%;
+  }
+  #vn-header > p {
+    margin-bottom: 5px;
   }
 }
 main {
@@ -87,15 +83,38 @@ main {
 .button-bar > .resetButton::after {
   content: 'Reset to Default';
 }
-@media (orientation: portrait) {
+@media (orientation: portrait) or (max-width: 999px) {
   .button-bar > .resetButton::after {
     content: 'Reset';
   }
   #menu-toc .copyLinkBtn, #menu-bookmarks .copyLinkBtn {
     display: none;
   }
+}
+@media (orientation: portrait) and (max-width: 999px) {
+  #menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  #menu-toc {
+    max-width: unset !important;
+  }
   #menu > #menu-toc, #menu > #menu-bookmarks {
     margin: 0 0 50px;
+  }
+}
+@media (orientation: portrait) and (max-width: 600px) {
+  .button-bar > input[type='range'] {
+    flex-basis: 100%;
+    order: 3;
+  }
+  .button-bar {
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+  }
+  .button-bar.slider-bar {
+    justify-content: space-between;
+    align-items: flex-start;
   }
 }
 #menu {
@@ -144,33 +163,61 @@ main {
 #menu-bookmarks button:nth-child(2) {
   margin-left: 5px;
 }
-#bookmarkBtn::after {
-  content: 'Add to Highlights (H)';
-}
-#bookmarkBtn.bookmarked::after {
-  content: 'Remove Highlight (H)';
-}
 .copyLinkBtn::after {
   content: 'Copy Link';
 }
 .copyLinkBtn.copied::after {
   content: 'Copied';
 }
-#fullscreenToggle::after {
-  content: 'Enter Fullscreen (F)';
+@media (orientation: landscape) and (min-width: 1000px) {
+  #bookmarkBtn::after {
+    content: 'Add to Highlights (H)';
+  }
+  #bookmarkBtn.bookmarked::after {
+    content: 'Remove Highlight (H)';
+  }
+  #fullscreenToggle::after {
+    content: 'Enter Fullscreen (F)';
+  }
+  #fullscreenToggle.btnActive::after {
+    content: 'Exit Fullscreen (F)';
+  }
+  #autoToggle::after {
+    content: 'Start Auto-play (P)';
+  }
+  #autoToggle.btnActive::after {
+    content: 'Pause Auto-play (P)';
+  }
+  #editorToggle::after {
+    content: "Show Editor's Notes (E)";
+  }
+  #editorToggle.btnActive::after {
+    content: "Hide Editor's Notes (E)";
+  }
 }
-#fullscreenToggle.btnActive::after {
-  content: 'Exit Fullscreen (F)';
-}
-#autoToggle::after {
-  content: 'Start Auto-play (P)';
-}
-#autoToggle.btnActive::after {
-  content: 'Pause Auto-play (P)';
-}
-#editorToggle::after {
-  content: "Show Editor's Notes (E)";
-}
-#editorToggle.btnActive::after {
-  content: "Hide Editor's Notes (E)";
+@media (orientation: portrait) or (max-width: 999px) {
+  #bookmarkBtn::after {
+    content: 'Add to Highlights';
+  }
+  #bookmarkBtn.bookmarked::after {
+    content: 'Remove Highlight';
+  }
+  #fullscreenToggle::after {
+    content: 'Enter Fullscreen';
+  }
+  #fullscreenToggle.btnActive::after {
+    content: 'Exit Fullscreen';
+  }
+  #autoToggle::after {
+    content: 'Start Auto-play';
+  }
+  #autoToggle.btnActive::after {
+    content: 'Pause Auto-play ';
+  }
+  #editorToggle::after {
+    content: "Show Editor's Notes";
+  }
+  #editorToggle.btnActive::after {
+    content: "Hide Editor's Notes";
+  }
 }

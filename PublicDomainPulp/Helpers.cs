@@ -224,14 +224,13 @@ internal static class Helpers {
 		StringBuilder sb = BuildHead(metadata.VNTitle, [HomeCss, VNCss], [VNJs], $"/vn/{name}/");
 		sb.Append(HeaderHtml);
 		sb.Append($"<script>window['bookId'] = '{name}';</script>");
-		sb.Append("<div id='vn-header' class='smargin'><p><b>To Go Back:</b><br>Click/tap left half of VN<br>OR<br>Left arrow key<br>OR<br>Shift+scroll (up)</p>");
+		sb.Append("<div id='vn-header' class='smargin'><p><b>To Go Back:</b><br>Click/tap left half of VN<br><span class='nopp'>OR<br>Left arrow key<br>OR<br>Shift+scroll (up)</span></p>");
 		sb.Append($"<div id='vn-header-mid'><h1><i>{metadata.VNTitle}</i></h1><h4>{metadata.Author} • {metadata.Year} • {metadata.Words:N0} Words</h4><h4><a href='{metadata.Repo}'>Github</a>");
 		foreach (KeyValuePair<string, string> kvp in metadata.Links) {
 			sb.Append($" • <a href='{kvp.Value}'>{kvp.Key}</a>");
 		}
 		sb.Append($"</h4><small>(This visual novel's text is unmodified<a href='/blog/2026-02-13#text-lines'>*</a> from its original <a href='{metadata.Source}'>Standard Ebooks .epub source</a>.)</small></div>");
-		sb.Append("<p><b>To Advance:</b><br>Click/tap right half of VN<br>OR<br>Right arrow key<br>OR<br>Shift+scroll (down)</p></div>");
-		sb.Append("<h1 id='warning' class='title'>Switch to landscape for the best VN-reading experience.</h1>");
+		sb.Append("<p><b>To Advance:</b><br>Click/tap right half of VN<br><span class='nopp'>OR<br>Right arrow key<br>OR<br>Shift+scroll (down)</span></p></div>");
 		sb.Append("<main>");
 		sb.Append(VNBodyHtml);
 		sb.Append("<div id='appwrapper'>");
