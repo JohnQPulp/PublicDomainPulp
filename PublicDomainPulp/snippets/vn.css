@@ -169,12 +169,12 @@ main {
 .copyLinkBtn.copied::after {
   content: 'Copied';
 }
-@media (orientation: landscape) {
+@media (orientation: landscape) or (min-width: 750px) {
   #fullscreenToggleDisabled {
     display: none;
   }
 }
-@media (orientation: portrait) {
+@media (orientation: portrait) and (max-width: 749px) {
   #fullscreenToggle {
     display: none;
   }
