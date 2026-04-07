@@ -33,8 +33,8 @@
 main {
   display: flex;
   flex-direction: column-reverse;
-  --vwUnit: min(0.8vw, 1.6vh);
-  --vhUnit: min(0.45vw, 0.9vh);
+  --vwUnit: min(max(0.8vw, min(6px, 0.98vw)), 1.6vh);
+  --vhUnit: min(max(0.45vw, min(3.375px, 0.55125vw)), 0.9vh);
 }
 #appwrapper {
   display: flex;

@@ -109,7 +109,7 @@ function enterFullscreen() {
 }
 function exitFullscreen() {
   isFullscreen = false;
-  setWindowProps("min(0.8vw, 1.6vh)", "min(0.45vw, 0.9vh)");
+  setWindowProps("min(max(0.8vw, min(6px, 0.98vw)), 1.6vh)", "min(max(0.45vw, min(3.375px, 0.55125vw)), 0.9vh)");
   document.getElementById("appwrapper").classList.toggle("fullscreen", false);
   document.getElementById("fullscreenToggle").classList.remove("btnActive");
 }
