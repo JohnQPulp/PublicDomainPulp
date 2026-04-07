@@ -74,7 +74,7 @@ app.UseStaticFiles(new StaticFileOptions
 	}
 });
 
-Helpers.MapPage(app, "/", Helpers.BuildHomePage(visualPulps, blogPages), TimeSpan.FromHours(1));
+Helpers.MapPage(app, "/", Helpers.BuildHomePage(visualPulps), TimeSpan.FromHours(1));
 Helpers.MapPage(app, "/catalog", Helpers.BuildCatalogPage(visualPulps), TimeSpan.FromHours(1));
 Helpers.MapPage(app, "/about", Helpers.BuildAboutPage(baseDirectory), TimeSpan.FromDays(1));
 Helpers.MapPage(app, "/contact", Helpers.BuildContactPage(baseDirectory), TimeSpan.FromDays(1));
