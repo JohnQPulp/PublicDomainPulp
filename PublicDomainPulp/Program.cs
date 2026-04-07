@@ -81,7 +81,7 @@ Helpers.MapPage(app, "/contact", Helpers.BuildContactPage(baseDirectory), TimeSp
 Helpers.MapPage(app, "/blog", Helpers.BuildBlogsPage(blogPages), TimeSpan.FromHours(1));
 Helpers.MapPage(app, "/upcoming", Helpers.BuildUpcomingsPage(upcomings), TimeSpan.FromHours(1));
 
-byte[] notFoundHtml = Helpers.BuildContentPage("<h2 class='center'>404 Not Found</h2>");
+byte[] notFoundHtml = Helpers.BuildContentPage("<h2 class='center'>404 Not Found</h2>", "404 Not Found");
 app.MapGet("/blog/{date:regex(\\d{{4}}-\\d{{2}}-\\d{{2}})}", (string date, HttpContext context) => {
 	if (!blogPages.TryGetValue(date, out BlogPage blogPage)) {
 		return Helpers.HtmlResult(notFoundHtml, 404);
@@ -116,7 +116,7 @@ app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}", (string book, HttpContext co
 				return Helpers.HtmlResult(Helpers.BuildVisualNovel(book, dir, metadata));
 			}
 		} catch (Exception e) {
-			return Helpers.HtmlResult(Helpers.BuildContentPage(e.ToString().Replace("\n", "<br>")));
+			return Helpers.HtmlResult(Helpers.BuildContentPage(e.ToString().Replace("\n", "<br>"), "DEBUG OOPS"));
 		}
 #endif
 

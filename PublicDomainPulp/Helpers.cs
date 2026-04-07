@@ -59,7 +59,7 @@ internal static class Helpers {
 		return uncompressed;
 	}
 
-	public static byte[] BuildContentPage(string html, string title = "Public Domain Visual Novels") {
+	public static byte[] BuildContentPage(string html, string? title) {
 		StringBuilder sb = BuildHead(title, [HomeCss], []);
 		sb.Append(HeaderHtml);
 		sb.Append("<div id='content'>");
@@ -87,7 +87,7 @@ internal static class Helpers {
 
 	public static byte[] BuildHomePage(Dictionary<string, VisualNovel> visualNovels, Dictionary<string, BlogPage> blogPages) {
 		StringBuilder sb = new();
-		return BuildContentPage("Home Page!");
+		return BuildContentPage("Home Page!", null);
 	}
 
 	public static byte[] BuildAboutPage(string baseDirectory) {
@@ -126,7 +126,7 @@ internal static class Helpers {
 			html.Append($"</div><img class='nop' src='/vn/{pulp.DirName}/images/preview.{imageExtension}' loading='lazy'>");
 			html.Append("</div></div>");
 		}
-		return BuildContentPage(html.ToString(), "Catalog of Pulp");
+		return BuildContentPage(html.ToString(), "Visual Novel Catalog");
 	}
 
 	public static byte[] BuildUpcomingsPage(List<Metadata> upcomings) {
@@ -160,7 +160,7 @@ internal static class Helpers {
 		foreach (BlogPage blog in blogs) {
 			sb.Append($"<div><h3 class='posttitle'><small class='upper'>{blog.Date.ToString("MMM dd, yyyy")}</small><br><a href='/blog/{blog.Date:yyyy-MM-dd}'>{blog.Title}</a></h3></div>");
 		}
-		return BuildContentPage(sb.ToString(), "Blogs");
+		return BuildContentPage(sb.ToString(), "Blog Posts");
 	}
 
 	public static byte[] BuildContactPage(string baseDirectory) {
@@ -251,12 +251,13 @@ internal static class Helpers {
 		return GetPageBytes(sb);
 	}
 
-	private static StringBuilder BuildHead(string title, string[] styles, string[] scripts, string? baseHref = null) {
+	private static StringBuilder BuildHead(string? title, string[] styles, string[] scripts, string? baseHref = null) {
 		StringBuilder sb = new();
 		sb.Append("<!DOCTYPE html>");
 		sb.Append("<html>");
 		sb.Append("<head>");
-		sb.Append("<title>" + title + "</title>");
+		string fullTitle = title == null ? "Public Domain Pulp: Classic Literature as Visual Novels, Free and Unabridged" : (title + " | Public Domain Pulp");
+		sb.Append("<title>" + fullTitle + "</title>");
 		if (baseHref != null) {
 			sb.Append($"<base href='{baseHref}'>");
 		}
