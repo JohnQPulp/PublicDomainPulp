@@ -64,7 +64,7 @@ public class StartupTests {
 
 	[TestMethod]
 	[DataRow("/assets/favicon.ico", "image/x-icon", false)]
-	[DataRow("/assets/icon-144.png", "image/png", false)]
+	[DataRow("/assets/icon-192.png", "image/png", false)]
 	public async Task Assets_200(string path, string contentType, bool shouldHaveUtf8Charset) {
 		HttpResponseMessage res = await TestApp.Client.GetAsync(path);
 		res.EnsureSuccessStatusCode();
@@ -73,7 +73,7 @@ public class StartupTests {
 	}
 
 	[TestMethod]
-	[DataRow("/assets/icon-144.ico")]
+	[DataRow("/assets/icon-192.ico")]
 	[DataRow("/assets/favicon.png")]
 	public async Task Assets_404(string path) {
 		HttpResponseMessage res = await TestApp.Client.GetAsync(path);
