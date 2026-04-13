@@ -277,6 +277,7 @@ internal static class Helpers {
 			}
 		}
 		foreach (KeyValuePair<string, List<string>> kvp in expressionDict) {
+			kvp.Value.Sort();
 			sb.Append($"'{kvp.Key}':['{string.Join("','", kvp.Value)}'],");
 		}
 		sb.Append("};");
