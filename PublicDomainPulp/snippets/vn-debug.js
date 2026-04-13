@@ -11,3 +11,4 @@ document.addEventListener("keydown", e => {
     navigator.clipboard.writeText("e:" + matchArr2[2] + "=" + (matchArr2[7] ?? "") + ";i=" + (matchArr2[9] ?? ""));
   }
 });
+toggleEditorializing();
