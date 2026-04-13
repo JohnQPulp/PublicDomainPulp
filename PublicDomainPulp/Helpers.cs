@@ -262,6 +262,38 @@ internal static class Helpers {
 				if (!File.Exists(Path.Combine(dir, "images", file))) throw new Exception($"Missing image: {file}");
 			}
 		}
+		sb.Append("<script>expressions={");
+		Regex expressionRegex = new Regex(@"^(c-[^-]+(-a[^-]+)?((-x[^-]+)+)?)(-e[^-]+)?(-s?[123]?)?$");
+		Dictionary<string, List<string>> expressionDict = new();
+		foreach (string file in Directory.GetFiles(Path.Combine(dir, "images"))) {
+			string key = Path.GetFileNameWithoutExtension(file);
+			Match expressionMatch = expressionRegex.Match(key);
+			if (expressionMatch.Success) {
+				string expressionKey = expressionMatch.Groups[1].Value;
+				if (!expressionDict.TryGetValue(expressionKey, out List<string> expressionList)) {
+					expressionDict[expressionKey] = expressionList = new List<string>();
+				}
+				expressionList.Add(key);
+			}
+		}
+		foreach (KeyValuePair<string, List<string>> kvp in expressionDict) {
+			sb.Append($"'{kvp.Key}':['{string.Join("','", kvp.Value)}'],");
+		}
+		sb.Append("};");
+		sb.Append("""
+		          document.addEventListener("keydown", e => {
+		          if (e.key === "," || e.key === ".") {
+		          var increment = e.key === "," ? -1 : 1;
+		          speakerElem = document.querySelector("#pulp:nth-child(2) .speaker-back")
+		          matchArr = speakerElem.style.backgroundImage.match(/(c-[^-\.]+(-a[^-\.]+)?((-x[^-\.]+)+)?)(-e[^-\.]+)?(-s?[123]?)?/)
+		          expressionsArr = expressions[matchArr[1]]
+		          expressionNew = expressionsArr[(expressionsArr.indexOf(matchArr[0]) + increment + expressionsArr.length) % expressionsArr.length]
+		          console.log(expressionNew)
+		          speakerElem.outerHTML = `<div class="speaker-back" style="background-image: url(images/${expressionNew}.${imageExt})"></div>`
+		          }
+		          });
+		          """);
+		sb.Append("</script>");
 #endif
 		sb.Append("</main>");
 		sb.Append(FooterHtml);
