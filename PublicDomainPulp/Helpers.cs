@@ -17,6 +17,7 @@ internal static class Helpers {
 	private static readonly string HomeCss = ReadResource("snippets.home.css");
 	private static readonly string VNCss = ReadResource("snippets.vn.css");
 	private static readonly string VNJs = ReadResource("snippets.vn.js");
+	private static readonly string VNDebugJs = ReadResource("snippets.vn-debug.js");
 
 	private static string ReadResource(string name)
 	{
@@ -280,20 +281,8 @@ internal static class Helpers {
 			kvp.Value.Sort();
 			sb.Append($"'{kvp.Key}':['{string.Join("','", kvp.Value)}'],");
 		}
-		sb.Append("};");
-		sb.Append("""
-		          document.addEventListener("keydown", e => {
-		          if (e.key === "," || e.key === ".") {
-		          var increment = e.key === "," ? -1 : 1;
-		          speakerElem = document.querySelector("#pulp:nth-child(2) .speaker-back")
-		          matchArr = speakerElem.style.backgroundImage.match(/(c-[^-\.]+(-a[^-\.]+)?((-x[^-\.]+)+)?)(-e[^-\.]+)?(-s?[123]?)?/)
-		          expressionsArr = expressions[matchArr[1]]
-		          expressionNew = expressionsArr[(expressionsArr.indexOf(matchArr[0]) + increment + expressionsArr.length) % expressionsArr.length]
-		          console.log(expressionNew)
-		          speakerElem.outerHTML = `<div class="speaker-back" style="background-image: url(images/${expressionNew}.${imageExt})"></div>`
-		          }
-		          });
-		          """);
+		sb.AppendLine("};");
+		sb.AppendLine(VNDebugJs);
 		sb.Append("</script>");
 #endif
 		sb.Append("</main>");

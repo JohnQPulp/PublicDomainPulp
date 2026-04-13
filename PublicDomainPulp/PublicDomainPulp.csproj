@@ -15,5 +15,6 @@
     <EmbeddedResource Include="snippets\home.css" />
     <EmbeddedResource Include="snippets\vn.css" />
     <EmbeddedResource Include="snippets\vn.js" />
+    <EmbeddedResource Include="snippets\vn-debug.js" />
   </ItemGroup>
 </Project>
