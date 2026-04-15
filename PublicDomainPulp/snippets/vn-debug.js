@@ -8,7 +8,7 @@ document.addEventListener("keydown", e => {
     const expressionNew = expressionsArr[(expressionsArr.indexOf(matchArr[0]) + increment + expressionsArr.length) % expressionsArr.length]
     speakerElem.outerHTML = `<div class="speaker-back" style="background-image: url(images/${expressionNew}.${imageExt})"></div>`;
     const matchArr2 = expressionNew.match(regex);
-    navigator.clipboard.writeText("e:" + matchArr2[2] + "=" + (matchArr2[7] ?? "") + ";i=" + (matchArr2[9] ?? ""));
+    navigator.clipboard.writeText(";e:" + matchArr2[2] + "=" + (matchArr2[7] ?? "") + ";i=" + (matchArr2[9] ?? ""));
   }
 });
 toggleEditorializing();
