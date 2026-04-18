@@ -216,6 +216,7 @@ internal static class Helpers {
 	public static (Dictionary<string, VisualNovel>, List<Metadata>) BuildVisualNovels(string baseDirectory) {
 		Dictionary<string, VisualNovel> visualPulps = new(StringComparer.OrdinalIgnoreCase);
 		List<Metadata> upcomings = new List<Metadata>();
+		string? pulpDelay = Environment.GetEnvironmentVariable("PULP_VNS");
 
 		foreach (string dir in Directory.GetDirectories(Path.Combine(baseDirectory, "VisualPulps"))) {
 			string name = Path.GetFileName(dir);
@@ -223,7 +224,7 @@ internal static class Helpers {
 			string metadataJson = File.ReadAllText(Path.Combine(dir, "metadata.json"));
 			Metadata metadata = Metadata.Parse(metadataJson);
 
-			if (metadata.PulpDate == null) {
+			if (metadata.PulpDate == null || pulpDelay == "DELAY") {
 				upcomings.Add(metadata);
 				continue;
 			}
