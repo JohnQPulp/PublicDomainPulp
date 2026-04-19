@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'Noto Serif Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/assets/NotoSerif-Variable-Pulp.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Noto Serif Variable';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/assets/NotoSerif-Italic-Variable-Pulp.woff2') format('woff2');
+}
 #vn-header {
   min-width: 80%;
   display: flex;
