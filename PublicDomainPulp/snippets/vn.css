@@ -97,7 +97,13 @@ main {
     justify-content: center;
   }
   #menu-toc {
-    max-width: unset !important;
+    max-width: 100% !important;
+  }
+  #menu-toc button {
+    margin-right: 20px;
+  }
+  #menu-bookmarks {
+    width: 98vw !important;
   }
   #menu > #menu-toc, #menu > #menu-bookmarks {
     margin: 0 0 50px;
@@ -134,6 +140,7 @@ main {
 }
 #menu h2 {
   text-align: center;
+  margin: 20px;
 }
 #menu-toc {
   flex: 0 0 auto;
