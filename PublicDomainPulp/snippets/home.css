@@ -332,6 +332,8 @@ code, pre {
 #homecard > img {
   width: 100%;
   margin: 5px 0;
+  aspect-ratio: 16 / 9;
+  background-color: #f0ddb6;
 }
 #homecard > h3:first-child {
   margin: auto 0;
