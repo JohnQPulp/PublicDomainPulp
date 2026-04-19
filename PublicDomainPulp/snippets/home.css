@@ -73,9 +73,10 @@ nav {
   padding: 5px 10px;
 }
 nav a {
-  font-family: serif;
+  font-family: "Liberation Serif", serif;
   text-decoration: none;
   color: black !important;
+  font-size-adjust: 0.54;
 }
 nav a:hover {
   text-decoration: underline;
