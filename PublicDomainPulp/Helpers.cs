@@ -97,7 +97,7 @@ internal static class Helpers {
 				sb.Append($"<a id='homecard' href='/vn/{vn.DirName}'>");
 				sb.Append($"<h3 class='center'><i>{vn.Metadata.ShortTitle}: The Visual&nbsp;Novel</i></h3>");
 				string imageExtension = vn.Metadata.ImageExtension;
-				sb.Append($"<img src='/vn/{vn.DirName}/images/preview.{imageExtension}'>");
+				sb.Append($"<img src='/vn/{vn.DirName}/images/preview.avif'>");
 				sb.Append($"<h4 class='center'>{vn.Metadata.Author} • {vn.Metadata.Year} • {vn.Metadata.Words.ToString("N0")}&nbsp;words</h4>");
 				sb.Append("</a>");
 			}
@@ -127,7 +127,7 @@ internal static class Helpers {
 			html.Append("<div class='pulpcard'>");
 			html.Append($"<h3><small class='upper'>{pulp.Metadata.PulpDate.Value.ToString("MMM dd, yyyy")}</small><br><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
 			string imageExtension = pulp.Metadata.ImageExtension;
-			html.Append($"<img src='/vn/{pulp.DirName}/images/preview.{imageExtension}' loading='lazy'>");
+			html.Append($"<img src='/vn/{pulp.DirName}/images/preview.avif' loading='lazy'>");
 			html.Append("<div><div>");
 			html.Append($"<h3><a href='/vn/{pulp.DirName}'>Read <i>{pulp.Metadata.ShortTitle}: The Visual&nbsp;Novel</i></a> ({pulp.Metadata.Words.ToString("N0")}&nbsp;words)</h3>");
 			foreach (string line in pulp.Metadata.Blurb.Split('\n')) {
