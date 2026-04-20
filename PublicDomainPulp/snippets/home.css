@@ -230,33 +230,32 @@ code, pre {
   background-color: #f8eed3;
   white-space: pre-wrap;
 }
-@media (orientation: portrait) and (max-width: 999px) {
-  .pulpcard {
-    max-width: max(80vw, 750px);
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-  .pulpcard > div > div {
-    width: 100%;
-    min-width: unset !important;
-    padding-bottom: max(200px, 40vw) !important;
-  }
+#catalog-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 50px;
+  align-items: last baseline;
 }
 .pulpcard {
   width: 100%;
+  max-width: 500px;
   overflow: hidden;
-  border-bottom: 1px solid black;
+  border: 3px double black;
   margin: 1em 0 40px;
+  background: linear-gradient(to top, #f0ddb6, #f8efd4);
 }
 .pulpcard > h3 {
   width: 100%;
   text-align: center;
   margin: 0;
   font-size: 1.25em;
-  padding-bottom: 2px;
+  padding: 0 5px 2px;
+  box-sizing: border-box;
 }
 .pulpcard > img {
   width: 100%;
+  aspect-ratio: 16 / 9;
 }
 .pulpcard > div {
   display: flex;
@@ -264,10 +263,10 @@ code, pre {
   justify-content: space-between;
 }
 .pulpcard > div > div {
-  min-width: calc(max(30%, 20em));
-  padding-bottom: 200px;
-  padding-right: 5px;
+  width: 100%;
+  padding: 0 5px max(200px, 60%);
   position: relative;
+  box-sizing: border-box;
 }
 .pulpcard > div > div > h3 {
   text-align: center;
@@ -275,11 +274,6 @@ code, pre {
 .pulpcard > div > div > img {
   width: 100%;
   position: absolute;
-}
-.pulpcard > div > img {
-  min-width: calc(max(69%, 32em));
-  object-fit: cover;
-  object-position: left center;
 }
 .pulpcard p.small {
   font-size: 0.9em;

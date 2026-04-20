@@ -97,7 +97,7 @@ internal static class Helpers {
 				sb.Append($"<a id='homecard' href='/vn/{vn.DirName}'>");
 				sb.Append($"<h3 class='center'><i>{vn.Metadata.ShortTitle}: The Visual&nbsp;Novel</i></h3>");
 				string imageExtension = vn.Metadata.ImageExtension;
-				sb.Append($"<img src='/vn/{vn.DirName}/images/preview-small.{imageExtension}'>");
+				sb.Append($"<img src='/vn/{vn.DirName}/images/preview.{imageExtension}'>");
 				sb.Append($"<h4 class='center'>{vn.Metadata.Author} • {vn.Metadata.Year} • {vn.Metadata.Words.ToString("N0")}&nbsp;words</h4>");
 				sb.Append("</a>");
 			}
@@ -118,12 +118,13 @@ internal static class Helpers {
 	public static byte[] BuildCatalogPage(Dictionary<string, VisualNovel> visualNovels) {
 		StringBuilder html = new();
 		html.Append("<h1 class='center'>Visual Novel Catalog</h1>");
+		html.Append("<div id='catalog-container'>");
 		List<VisualNovel> visualNovelList = visualNovels.Values.OrderByDescending(vn => vn.Metadata.PulpDate).ToList();
 		foreach (VisualNovel pulp in visualNovelList) {
 			html.Append("<div class='pulpcard'>");
 			html.Append($"<h3><small class='upper'>{pulp.Metadata.PulpDate.Value.ToString("MMM dd, yyyy")}</small><br><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
 			string imageExtension = pulp.Metadata.ImageExtension;
-			html.Append($"<img class='op' src='/vn/{pulp.DirName}/images/preview-small.{imageExtension}' loading='lazy'>");
+			html.Append($"<img src='/vn/{pulp.DirName}/images/preview.{imageExtension}' loading='lazy'>");
 			html.Append("<div><div>");
 			html.Append($"<h3><a href='/vn/{pulp.DirName}'>Read <i>{pulp.Metadata.ShortTitle}: The Visual&nbsp;Novel</i></a> ({pulp.Metadata.Words.ToString("N0")}&nbsp;words)</h3>");
 			foreach (string line in pulp.Metadata.Blurb.Split('\n')) {
@@ -142,9 +143,9 @@ internal static class Helpers {
 			html.Append("</p>");
 			html.Append($"<img class='ned' src='/vn/{pulp.DirName}/images/c-author.{imageExtension}' loading='lazy'>");
 			html.Append($"<img class='ed' src='/vn/{pulp.DirName}/images/c-author-abased.{imageExtension}' loading='lazy'>");
-			html.Append($"</div><img class='nop' src='/vn/{pulp.DirName}/images/preview.{imageExtension}' loading='lazy'>");
-			html.Append("</div></div>");
+			html.Append("</div></div></div>");
 		}
+		html.Append("</div>");
 		return BuildContentPage(html.ToString(), "Visual Novel Catalog");
 	}
 
