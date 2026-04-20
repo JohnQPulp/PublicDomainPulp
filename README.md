@@ -2,7 +2,7 @@
 
 This repository contains all the code and contents for running the Public Domain Pulp website, including all the CC0-licensed visual novels themselves.
 
-![Preview](PublicDomainPulp/assets/preview.webp)
+![Preview](PublicDomainPulp/assets/preview.avif)
 
 You can read the VNs online at https://publicdomainpulp.com (or https://publicdomainpulp.com/catalog).
 
