@@ -67,6 +67,7 @@ public class StartupTests {
 	[DataRow("/assets/icon-192.png", "image/png", false)]
 	[DataRow("/assets/NotoSerif-Variable-Pulp.woff2", "font/woff2", false)]
 	[DataRow("/assets/NotoSerif-Italic-Variable-Pulp.woff2", "font/woff2", false)]
+	[DataRow("/assets/preview.avif", "image/avif", false)]
 	public async Task Assets_200(string path, string contentType, bool shouldHaveUtf8Charset) {
 		HttpResponseMessage res = await TestApp.Client.GetAsync(path);
 		res.EnsureSuccessStatusCode();
@@ -87,6 +88,8 @@ public class StartupTests {
 	[TestMethod]
 	[DataRow("/images/palette.webp", "image/webp", false)]
 	[DataRow("/images/buchan.webp", "image/webp", false)]
+	[DataRow("/images/about.avif", "image/avif", false)]
+	[DataRow("/images/slide.avif", "image/avif", false)]
 	public async Task CC_Images_200(string path, string contentType, bool shouldHaveUtf8Charset) {
 		HttpResponseMessage res = await TestApp.Client.GetAsync(path);
 		res.EnsureSuccessStatusCode();
