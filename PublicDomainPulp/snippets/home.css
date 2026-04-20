@@ -230,15 +230,27 @@ code, pre {
   background-color: #f8eed3;
   white-space: pre-wrap;
 }
+#catalog-title {
+  margin-bottom: 0.5em;
+  font-size: clamp(1.2em, 6vw, 2em);
+}
 #catalog-search {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 0.5em;
+  font-size: clamp(16px, 4vw, 20px);
+  align-items: center;
+  gap: 0.25em;
 }
 #catalog-search input {
-  font-size: 20px;
+  font-size: clamp(16px, 4vw, 20px);
   height: 2em;
   padding: 5px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 20px;
+  max-width: 400px;
 }
 #catalog-container {
   display: flex;
