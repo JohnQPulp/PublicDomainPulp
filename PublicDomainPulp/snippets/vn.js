@@ -106,12 +106,14 @@ function enterFullscreen() {
   document.getElementById("appwrapper").classList.toggle("fullscreen", true);
   document.getElementById("appwrapper").scrollIntoView({behavior: "instant"});
   document.getElementById("fullscreenToggle").classList.add("btnActive");
+  document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover');
 }
 function exitFullscreen() {
   isFullscreen = false;
   setWindowProps("min(max(0.8vw, min(6px, 0.98vw)), 1.6vh)", "min(max(0.45vw, min(3.375px, 0.55125vw)), 0.9vh)");
   document.getElementById("appwrapper").classList.toggle("fullscreen", false);
   document.getElementById("fullscreenToggle").classList.remove("btnActive");
+  document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0');
 }
 function tryExitFullscreen() {
   if (isFullscreen) {
