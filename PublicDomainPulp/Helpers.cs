@@ -118,6 +118,10 @@ internal static class Helpers {
 	public static byte[] BuildCatalogPage(Dictionary<string, VisualNovel> visualNovels) {
 		StringBuilder html = new();
 		html.Append("<h1 class='center'>Visual Novel Catalog</h1>");
+		html.Append("<div id='catalog-search'>");
+		html.Append("<input type='search' size='32' placeholder='Search by title, author, or year' oninput='[...document.querySelectorAll(`.pulpcard`)].forEach(p => p.classList.toggle(`hiddencard`, !p.children[0].innerText.toLowerCase().includes(event.target.value.toLowerCase()))); document.querySelector(`#catalog-results`).innerText = document.querySelectorAll(`.pulpcard:not(.hiddencard)`).length + ` Results`'>");
+		html.Append("</div>");
+		html.Append($"<h3 class='center' id='catalog-results'>{visualNovels.Count} Results</h3>");
 		html.Append("<div id='catalog-container'>");
 		List<VisualNovel> visualNovelList = visualNovels.Values.OrderByDescending(vn => vn.Metadata.PulpDate).ToList();
 		foreach (VisualNovel pulp in visualNovelList) {
