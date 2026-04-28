@@ -5,7 +5,7 @@ let bookmarks = [];
 function populateBookmarks() {
   const bookmarksList = document.querySelector("#menu-bookmarks > ul");
   bookmarksList.innerHTML = bookmarks.map(p => {
-    const line = htmlArr[p].replace(/<p class='e'>.*?<\/p>/g, "").replace(/<b class='speaker'>.*?<\/b>/g, "").replace(/<.*?>/g, "");
+    const line = htmlArr[p].replace(/<p class='e'>.*?<\/p>/g, "").replace(/<b class='speaker'>.*?<\/b>/g, "").replace("<br>", " ").replace(/<.*?>/g, "");
     return `<li><span>${createLineButtons(p)}: ${line}</span></li>`
   }).join("\n");
 }
