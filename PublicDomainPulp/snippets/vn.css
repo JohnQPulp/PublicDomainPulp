@@ -17,7 +17,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0 auto;
+  margin: 5px auto;
 }
 #vn-header > * {
   text-align: center;
@@ -119,8 +119,12 @@ main {
   #menu-bookmarks {
     width: 98vw !important;
   }
-  #menu > #menu-toc, #menu > #menu-bookmarks {
-    margin: 0 0 50px;
+  #menu > #menu-bookmarks {
+    margin: 0;
+  }
+  #menu > #menu-toc {
+    border-bottom: 1px solid black;
+    margin: 0;
   }
 }
 @media (orientation: portrait) and (max-width: 600px) {
@@ -142,7 +146,7 @@ main {
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
-  margin: 10px 10vw;
+  margin: 25px 10vw;
 }
 #menu button {
   white-space: nowrap;
@@ -164,11 +168,18 @@ main {
   flex-grow: 1;
   padding-right: 5px;
 }
+#menu-bookmarks > ul {
+  min-height: 100px;
+  border-bottom: 1px solid black;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
 #menu ul {
   padding-left: 2em;
 }
 #menu #menu-toc > ul {
   padding-left: 0;
+  font-size: 1.1em;
 }
 #menu li {
   margin-bottom: 3px;
@@ -189,6 +200,13 @@ main {
 }
 .copyLinkBtn.copied::after {
   content: 'Copied';
+}
+#menu-links {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  font-size: 1.1em;
 }
 @media (orientation: landscape) or (min-width: 750px) {
   #fullscreenToggleDisabled {

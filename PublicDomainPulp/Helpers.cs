@@ -256,7 +256,11 @@ internal static class Helpers {
 		sb.Append($"</h4><small>(This visual novel's text is unmodified<a href='/blog/2026-02-13#text-lines'>*</a> from its original <a href='{metadata.Source}'>Standard Ebooks .epub source</a>.)</small></div>");
 		sb.Append("<p><b>To Advance:</b><br>Click/tap right half of VN<br><span class='nopp'>OR<br>Right arrow key<br>OR<br>Shift+scroll (down)</span></p></div>");
 		sb.Append("<main>");
-		sb.Append(VNBodyHtml);
+		List<string> editorLinks = new();
+		foreach (Match match in Regex.Matches(pulpText, @"<book>(.*?)(\|.*?)?</book>")) {
+			editorLinks.Add(BookTag.CreateBookLink(match.Groups[1].Value, true));
+		}
+		sb.Append(VNBodyHtml.Replace("<!--LINKS2-->", string.Join("</li><li>", BookTag.GetAuthorLinks(metadata.Author))).Replace("<!--LINKS-->", string.Join("</li><li>", editorLinks)));
 		sb.Append("<div id='appwrapper'>");
 		sb.Append(Compiler.BuildHtml(rawText, pulpText, out Dictionary<string, ImageMetadata> files, metadata.ImageExtension));
 		sb.Append("</div>");
