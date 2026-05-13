@@ -132,6 +132,17 @@ public class StartupTests {
 	}
 
 	[TestMethod]
+	[DataRow("<i>Pride and Prejudice: The Visual&nbsp;Novel</i>")]
+	[DataRow("<a href='https://standardebooks.org/ebooks/jane-austen/pride-and-prejudice'>Standard Ebooks .epub source</a>")]
+	[DataRow("<a href='https://www.goodreads.com/book/show/14935.Sense_and_Sensibility'>Sense and Sensibility</a>")]
+	[DataRow("<a href='https://www.goodreads.com/book/show/5390186-irene-iddesleigh'>Irene Iddesleigh</a>")]
+	public async Task VN_ContainsText(string text) {
+		HttpResponseMessage res = await TestApp.Client.GetAsync("vn/PrideAndPrejudice");
+		string html = await res.Content.ReadAsStringAsync();
+		Assert.Contains(text, html);
+	}
+
+	[TestMethod]
 	public async Task Blog_200() {
 		HttpResponseMessage res = await TestApp.Client.GetAsync("/blog/2026-01-01");
 		res.EnsureSuccessStatusCode();
