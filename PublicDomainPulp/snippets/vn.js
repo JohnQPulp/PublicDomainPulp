@@ -38,8 +38,8 @@ window.addEventListener("load", e => {
   }
   populateBookmarks();
   const tocList = document.querySelector("#menu-toc > ul");
-  let level = 1;
-  let ulHtml = "<ul>";
+  let level = 0;
+  let ulHtml = "";
   headers.forEach(headerStr => {
     headerArr = headerStr.split('|');
     let line = parseInt(headerArr[0]);
@@ -54,7 +54,7 @@ window.addEventListener("load", e => {
     ulHtml += `<li><span><b>${headerText}</b> ${createLineButtons(line)}</span></li>`;
   });
   ulHtml += "</ul>";
-  tocList.innerHTML = ulHtml;
+  tocList.outerHTML = ulHtml;
   document.getElementById("progress").max = htmlArr.length - 1;
 });
 function copyClick(e, i) {

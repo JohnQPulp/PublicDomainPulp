@@ -183,10 +183,10 @@ main {
 }
 #menu ul {
   padding-left: 2em;
-  min-width: 200px;
+  min-width: 175px;
 }
 #menu #menu-toc > ul {
-  padding-left: 0;
+  padding-left: 1em;
   font-size: 1.1em;
 }
 #menu li {
