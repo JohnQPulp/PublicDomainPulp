@@ -126,8 +126,8 @@ if (screen.orientation) {
   window.addEventListener('orientationchange', tryExitFullscreen);
 }
 function setWindowProps(vwUnit, vhUnit) {
-  document.getElementsByTagName("main")[0].style.setProperty("--vwUnit", vwUnit);
-  document.getElementsByTagName("main")[0].style.setProperty("--vhUnit", vhUnit);
+  document.getElementsByTagName("main")[0].style.setProperty("--vwRefUnit", vwUnit);
+  document.getElementsByTagName("main")[0].style.setProperty("--vhRefUnit", vhUnit);
 }
 let autoplayCounter = 0;
 let autoplay = false;
