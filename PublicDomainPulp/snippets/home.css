@@ -314,6 +314,14 @@ code, pre {
 .pulpcard > div > div > h3 {
   text-align: center;
 }
+h3.reediting {
+  border: 3px double black;
+  background-color: #fffab2;
+  width: fit-content;
+  padding: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .pulpcard > div > div > img {
   width: 100%;
   position: absolute;

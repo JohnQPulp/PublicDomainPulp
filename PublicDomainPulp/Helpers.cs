@@ -129,6 +129,9 @@ internal static class Helpers {
 			string imageExtension = pulp.Metadata.ImageExtension;
 			html.Append($"<img src='/vn/{pulp.DirName}/images/preview.avif' loading='lazy'>");
 			html.Append("<div><div>");
+			if (pulp.Metadata.NeedsReediting) {
+				html.Append("<h3 class='reediting'>Warning: Poorly Edited</h3>");
+			}
 			html.Append($"<h3><a href='/vn/{pulp.DirName}'>Read <i>{pulp.Metadata.ShortTitle}: The Visual&nbsp;Novel</i></a> ({pulp.Metadata.Words.ToString("N0")}&nbsp;words)</h3>");
 			foreach (string line in pulp.Metadata.Blurb.Split('\n')) {
 				html.Append($"<p class='blurb ned'>{BookTag.FormatText(line)}</p>");
