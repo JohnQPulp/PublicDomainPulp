@@ -86,29 +86,6 @@ internal static class Helpers {
 		return GetPageBytes(sb);
 	}
 
-	public static byte[] BuildHomePage(Dictionary<string, VisualNovel> visualNovels) {
-		StringBuilder sb = new();
-		sb.Append("<p id='myblurb' class='center'>Public Domain Pulp’s visual novel adaptations are all free, unabridged, and dedicated to the public&nbsp;domain.</p>");
-		sb.Append("<h2 id='newest' class='center'>Newest Releases:</h2>");
-		if (visualNovels.Count > 1) {
-			sb.Append("<div id='homecardwrapper'>");
-			List<VisualNovel> vns = visualNovels.Values.OrderByDescending(vn => vn.Metadata.PulpDate).Take(2).ToList();
-			foreach (VisualNovel vn in vns) {
-				sb.Append($"<a id='homecard' href='/vn/{vn.DirName}'>");
-				sb.Append($"<h3 class='center'><i>{vn.Metadata.ShortTitle}: The Visual&nbsp;Novel</i></h3>");
-				string imageExtension = vn.Metadata.ImageExtension;
-				sb.Append($"<img src='/vn/{vn.DirName}/images/preview.avif'>");
-				sb.Append($"<h4 class='center'>{vn.Metadata.Author} • {vn.Metadata.Year} • {vn.Metadata.Words.ToString("N0")}&nbsp;words</h4>");
-				sb.Append("</a>");
-			}
-			sb.Append("</div>");
-		}
-
-		sb.Append("<h1 class='center'><a href='/catalog'>Browse the Full Catalog</a></h1>");
-
-		return BuildContentPage(sb.ToString(), null);
-	}
-
 	public static byte[] BuildAboutPage(string baseDirectory) {
 		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "about.html");
 		string html = BookTag.FormatText(File.ReadAllText(path));

@@ -4,7 +4,7 @@ This repository contains all the code and contents for running the Public Domain
 
 ![Preview](PublicDomainPulp/assets/preview.avif)
 
-You can read the VNs online at https://publicdomainpulp.com (or https://publicdomainpulp.com/catalog).
+You can read the VNs online at https://publicdomainpulp.com.
 
 Or: you can read the VNs locally by building/running the site via the setup steps further below.
 
