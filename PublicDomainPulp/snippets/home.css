@@ -231,7 +231,7 @@ code, pre {
   white-space: pre-wrap;
 }
 #catalog-title {
-  margin-bottom: 0.5em;
+  margin: 0.3em 0 0.5em;
   font-size: clamp(1.2em, 6vw, 2em);
 }
 #catalog-search {
@@ -341,6 +341,7 @@ h3.reediting {
 #myblurb {
   font-size: 1.2em;
   padding: 0 5px;
+  margin-bottom: 0;
 }
 #newest {
   margin-bottom: 0;

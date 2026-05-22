@@ -117,6 +117,7 @@ internal static class Helpers {
 
 	public static byte[] BuildCatalogPage(Dictionary<string, VisualNovel> visualNovels) {
 		StringBuilder html = new();
+		html.Append("<p id='myblurb' class='center'>Public Domain Pulp’s visual novel adaptations are all free, unabridged, and dedicated to the public&nbsp;domain.</p>");
 		html.Append($"<h1 id='catalog-title' class='center'>Visual Novel Catalog&nbsp;(<span id='catalog-results'>{visualNovels.Count}</span>)</h1>");
 		html.Append("<div id='catalog-search'><label for='catalog-input'>Search:</label>");
 		html.Append("<input id='catalog-input' type='search' placeholder='Title, author, or year' oninput='[...document.querySelectorAll(`.pulpcard`)].forEach(p => p.classList.toggle(`hiddencard`, !p.children[0].innerText.toLowerCase().includes(event.target.value.toLowerCase()))); document.querySelector(`#catalog-results`).innerText = document.querySelectorAll(`.pulpcard:not(.hiddencard)`).length'>");
