@@ -102,7 +102,7 @@ addEventListener("fullscreenchange", (event) => {
 });
 function enterFullscreen() {
   isFullscreen = true;
-  setWindowProps("min(1vw, calc(16vh / 9))", "min(1vh, calc(9vw / 16))");
+  setWindowProps("min(1vw, calc(1376vh / 768))", "min(1vh, calc(768vw / 1376))");
   document.getElementById("appwrapper").classList.toggle("fullscreen", true);
   document.getElementById("appwrapper").scrollIntoView({behavior: "instant"});
   document.getElementById("fullscreenToggle").classList.add("btnActive");
@@ -110,7 +110,7 @@ function enterFullscreen() {
 }
 function exitFullscreen() {
   isFullscreen = false;
-  setWindowProps("min(max(0.8vw, min(6px, 0.98vw)), 1.6vh)", "min(max(0.45vw, min(3.375px, 0.55125vw)), 0.9vh)");
+  setWindowProps("var(--vwBaseUnit)", "var(--vhBaseUnit)");
   document.getElementById("appwrapper").classList.toggle("fullscreen", false);
   document.getElementById("fullscreenToggle").classList.remove("btnActive");
   document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0');
