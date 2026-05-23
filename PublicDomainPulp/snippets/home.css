@@ -297,7 +297,8 @@ code, pre {
 }
 .pulpcard > img {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 1376 / 768;
+  object-fit: cover;
 }
 .pulpcard > div {
   display: flex;
