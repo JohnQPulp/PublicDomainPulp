@@ -58,10 +58,28 @@ header > div > a {
   aspect-ratio: 1346 / 637;
   color: transparent;
 }
-.authors-banner {
+.authors-banner-left, .authors-banner-right {
   height: 100%;
-  width: auto;
-  aspect-ratio: 4;
+  background-size: auto 100%;
+  flex-grow: 1;
+}
+.authors-banner-left {
+  background-position: right center;
+}
+.authors-banner-right {
+  background-position: left center;
+}
+.authors-banner-left.ned {
+  background-image: url('/assets/authors-left.webp');
+}
+.authors-banner-left.ed {
+  background-image: url('/assets/authors-left-abased.webp');
+}
+.authors-banner-right.ned {
+  background-image: url('/assets/authors-right.webp');
+}
+.authors-banner-right.ed {
+  background-image: url('/assets/authors-right-abased.webp');
 }
 #logo-wrapper:hover {
   border: 3px solid black;

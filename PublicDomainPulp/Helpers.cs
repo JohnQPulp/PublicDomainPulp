@@ -101,11 +101,13 @@ internal static class Helpers {
 		html.Append("</div>");
 		html.Append("<div id='catalog-container'>");
 		List<VisualNovel> visualNovelList = visualNovels.Values.OrderByDescending(vn => vn.Metadata.PulpDate).ToList();
+		int i = 0;
 		foreach (VisualNovel pulp in visualNovelList) {
 			html.Append("<div class='pulpcard'>");
 			html.Append($"<h3><small class='upper'>{pulp.Metadata.PulpDate.Value.ToString("MMM dd, yyyy")}</small><br><i>{pulp.Metadata.Title}</i> ({pulp.Metadata.Year}) by {pulp.Metadata.Author}</h3>");
 			string imageExtension = pulp.Metadata.ImageExtension;
-			html.Append($"<img src='/vn/{pulp.DirName}/images/preview.avif' loading='lazy'>");
+			string loading = i < 3 ? "" : "loading='lazy'";
+			html.Append($"<img src='/vn/{pulp.DirName}/images/preview.avif' {loading}>");
 			html.Append("<div><div>");
 			if (pulp.Metadata.NeedsReediting) {
 				html.Append("<h3 class='reediting'>Warning: Poorly Edited</h3>");
@@ -125,9 +127,10 @@ internal static class Helpers {
 				html.Append($" • <a href='{kvp.Value}'>{kvp.Key}</a>");
 			}
 			html.Append("</p>");
-			html.Append($"<img class='ned' src='/vn/{pulp.DirName}/images/c-author.{imageExtension}' loading='lazy'>");
+			html.Append($"<img class='ned' src='/vn/{pulp.DirName}/images/c-author.{imageExtension}' {loading}>");
 			html.Append($"<img class='ed' src='/vn/{pulp.DirName}/images/c-author-abased.{imageExtension}' loading='lazy'>");
 			html.Append("</div></div></div>");
+			i++;
 		}
 		html.Append("</div>");
 		return BuildContentPage(html.ToString(), "Visual Novel Catalog");
