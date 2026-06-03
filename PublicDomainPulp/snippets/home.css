@@ -345,6 +345,8 @@ h3.reediting {
 .pulpcard > div > div > img {
   width: 100%;
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .pulpcard p.small {
   font-size: 0.9em;

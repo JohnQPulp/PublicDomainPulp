@@ -127,8 +127,9 @@ internal static class Helpers {
 				html.Append($" • <a href='{kvp.Value}'>{kvp.Key}</a>");
 			}
 			html.Append("</p>");
-			html.Append($"<img class='ned' src='/vn/{pulp.DirName}/images/c-author.{imageExtension}' {loading}>");
-			html.Append($"<img class='ed' src='/vn/{pulp.DirName}/images/c-author-abased.{imageExtension}' loading='lazy'>");
+			string style = pulp.Metadata.AuthorWidth.HasValue ? $"style='width: {pulp.Metadata.AuthorWidth.Value}%'" : "";
+			html.Append($"<img class='ned' src='/vn/{pulp.DirName}/images/c-author.{imageExtension}' {loading} {style}>");
+			html.Append($"<img class='ed' src='/vn/{pulp.DirName}/images/c-author-abased.{imageExtension}' loading='lazy' {style}>");
 			html.Append("</div></div></div>");
 			i++;
 		}
