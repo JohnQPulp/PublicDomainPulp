@@ -54,13 +54,16 @@ A simple setup for a simple website. (Since if I'm stealing Standard Ebooks' tex
 
 For visual novel contributions, I'm open to any and all suggestions for improvements, whether that be background changes, sprite changes, line-break flow improvements, or what-have-you. Identifying straight-up mistakes is especially valuable, as while I try to eliminate these in the editing process, they can still crop up in the form of incorrect speaker attributions, [image/text inconsistencies](https://publicdomainpulp.com/blog/2026-03-09), speaker name spelling mistakes, and so forth.
 
-Feel free to submit any such ideas to their associated VN repos as issues.
+Feel free to submit any such ideas to their associated VN repos as issues or pull requests, in collaborative pursuit of making these VNs all as pleasant-to-read as possible.
 
-I'll also take a look at pull requests made to the VN repos, though I haven't yet completed the documentation around the pulpification process and its formats and tooling. Therefore, it might be difficult to contribute changes directly, since for example, I have a whole pipeline around making the generated images consistent in style across all the sprites and backgrounds, but it's not written-up yet. But once completed, the documentation should not only explain how to make good edits to the existing VNs, but also the full process for creating VNs from books from scratch. Here's the documentation series post list, with links to the titles that currently exist:
+(Noting that: while there should be enough information written-up for contributing edits towards the existing VNs, the full pulpification process-and-tooling documentation series isn't yet complete, so there may not be enough there yet for how to create new VNs from books from scratch.)
+
+Here's the documentation series post list, with links to the titles that currently exist:
 
 * [Converting Books Into Visual Novels Part 0: The pulp.txt Format](https://publicdomainpulp.com/blog/2026-02-13)
 * [Converting Books Into Visual Novels Part 0.5: Creating book.txt](https://publicdomainpulp.com/blog/2026-02-14)
 * [Converting Books Into Visual Novels Part 1: The First Edit — Creating the Starter pulp.txt](https://publicdomainpulp.com/blog/2026-03-20)
+* [Converting Books Into Visual Novels Part 2±0.5: An Image Prompting and Processing Guide](https://publicdomainpulp.com/blog/2026-06-04)
 * Converting Books Into Visual Novels Part 2: The Second Edit — Fully Populating pulp.txt
 * Converting Books Into Visual Novels Part 3: Character Sprite Generation
 * Converting Books Into Visual Novels Part 4: Background Generation
