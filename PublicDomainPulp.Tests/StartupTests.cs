@@ -96,6 +96,18 @@ public class StartupTests {
 	}
 
 	[TestMethod]
+	[DataRow("/images/reference/b-example.jpeg", "image/jpeg", false)]
+	[DataRow("/images/reference/c-example-1.jpeg", "image/jpeg", false)]
+	[DataRow("/images/reference/c-example-2.jpeg", "image/jpeg", false)]
+	[DataRow("/images/reference/pC.png", "image/png", false)]
+	public async Task CC_ImagesInSubfolder_200(string path, string contentType, bool shouldHaveUtf8Charset) {
+		HttpResponseMessage res = await TestApp.Client.GetAsync(path);
+		res.EnsureSuccessStatusCode();
+		res.AssertContentType(contentType, shouldHaveUtf8Charset);
+		res.AssertCacheControl($"public, max-age={60 * 60 * 24 * 30}, immutable");
+	}
+
+	[TestMethod]
 	[DataRow("/images/palette.gif")]
 	[DataRow("/images/Buchan.webp")]
 	public async Task CC_Images_200(string path) {
