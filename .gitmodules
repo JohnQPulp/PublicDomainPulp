@@ -67,3 +67,6 @@
 [submodule "VisualPulps/Hunger"]
 	path = VisualPulps/Hunger
 	url = https://github.com/JohnQPulp/Hunger
+[submodule "VisualPulps/TheDuel"]
+	path = VisualPulps/TheDuel
+	url = https://github.com/JohnQPulp/TheDuel
