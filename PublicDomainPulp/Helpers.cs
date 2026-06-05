@@ -153,7 +153,7 @@ internal static class Helpers {
 			sb.Append("<tr>");
 			sb.Append($"<td><i>{upcoming.Title}</i></td>");
 			sb.Append($"<td class='tc'>{upcoming.Author}</td>");
-			sb.Append($"<td class='tr'>{upcoming.Words:N0}</td>");
+			sb.Append($"<td class='tr'>{upcoming.Words:0,\\k}</td>");
 			sb.Append("</tr>");
 		}
 		sb.Append("</table>");
