@@ -212,8 +212,8 @@ public class StartupTests {
 	}
 
 	[TestMethod]
-	public async Task ImagePages_Images_200() {
-		List<string> pages = ["/about", "/contact"];
+	public async Task Pages_Links_200() {
+		List<string> pages = ["/", "/about", "/blog", "/upcoming", "/contact"];
 
 		HttpResponseMessage res = await TestApp.Client.GetAsync("/blog");
 		string html = await res.Content.ReadAsStringAsync();
@@ -227,11 +227,12 @@ public class StartupTests {
 		foreach (string page in pages) {
 			res = await TestApp.Client.GetAsync(page);
 			html = await res.Content.ReadAsStringAsync();
-			matches = Regex.Matches(html, "src=[\"'](/.*?)[\"']");
+			matches = Regex.Matches(html, "((src)|(href))=[\"'](/.*?)[\"']");
 			imageCount += matches.Count;
 			foreach (Match match in matches) {
-				res = await TestApp.Client.GetAsync(match.Groups[1].Value);
-				Assert.AreEqual(HttpStatusCode.OK, res.StatusCode, $"Missing image: {match.Groups[1].Value}");
+				string link = match.Groups[4].Value;
+				res = await TestApp.Client.GetAsync(link);
+				Assert.AreEqual(HttpStatusCode.OK, res.StatusCode, $"On page \"{page}\", missing link \"{link}\".");
 			}
 		}
 		Assert.IsGreaterThan(25, imageCount);
