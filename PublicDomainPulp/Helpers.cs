@@ -193,7 +193,7 @@ internal static class Helpers {
 			StringBuilder sb = new();
 			sb.Append($"<h1 id='bloghead' class='center'>{title}</h1>");
 			sb.Append($"<h3 id='blogsubhead' class='center'><small class='upper'>{date.ToString("MMM dd, yyyy")}</small></h3>");
-			sb.Append(BookTag.FormatText(File.ReadAllText(file)));
+			sb.Append(BookTag.FormatText(Regex.Replace(File.ReadAllText(file), @"<img (.*?)>", "<img loading='lazy' $1>")));
 			byte[] bytes = BuildBlogPage(sb.ToString(), title);
 
 			blogPages.Add(date.ToString("yyyy-MM-dd"), new(title, date, bytes, Compress(bytes)));
