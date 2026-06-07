@@ -2,6 +2,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Pulp.PublicDomainPulp.Tests;
 
@@ -208,5 +209,31 @@ public class StartupTests {
 		Assert.AreEqual(HttpStatusCode.NotFound, res.StatusCode);
 		res.AssertCacheControl("no-store");
 		await res.AssertEmpty();
+	}
+
+	[TestMethod]
+	public async Task ImagePages_Images_200() {
+		List<string> pages = ["/about", "/contact"];
+
+		HttpResponseMessage res = await TestApp.Client.GetAsync("/blog");
+		string html = await res.Content.ReadAsStringAsync();
+		MatchCollection matches = Regex.Matches(html, "<a href='(.*?)'>");
+		Assert.IsNotEmpty(matches);
+		foreach (Match match in Regex.Matches(html, "<a href='(.*?)'>")) {
+			pages.Add(match.Groups[1].Value);
+		}
+
+		int imageCount = 0;
+		foreach (string page in pages) {
+			res = await TestApp.Client.GetAsync(page);
+			html = await res.Content.ReadAsStringAsync();
+			matches = Regex.Matches(html, "src=[\"'](/.*?)[\"']");
+			imageCount += matches.Count;
+			foreach (Match match in matches) {
+				res = await TestApp.Client.GetAsync(match.Groups[1].Value);
+				Assert.AreEqual(HttpStatusCode.OK, res.StatusCode, $"Missing image: {match.Groups[1].Value}");
+			}
+		}
+		Assert.IsGreaterThan(25, imageCount);
 	}
 }
