@@ -122,10 +122,9 @@ internal static class Helpers {
 				}
 			}
 			html.Append($"<p class='small'>See the <a href='{pulp.Metadata.Repo}'>JohnQPulp/{pulp.DirName} Github repository</a> for offline downloading and issue reporting.</p>");
-			html.Append($"<p class='small center'><a href='{pulp.Metadata.Source}'>Standard Ebooks</a>");
-			foreach (KeyValuePair<string, string> kvp in pulp.Metadata.Links) {
-				html.Append($" • <a href='{kvp.Value}'>{kvp.Key}</a>");
-			}
+			html.Append($"<p class='small center'><a href='{pulp.Metadata.Source}'>{pulp.Metadata.SourceName}</a>");
+			html.Append($" • {BookTag.CreateBookLink(pulp.Metadata.ShortTitle, false, "Goodreads")}");
+			html.Append($" • <a href='{pulp.Metadata.Wikipedia}'>Wikipedia</a>");
 			html.Append("</p>");
 			string style = pulp.Metadata.AuthorWidth.HasValue ? $"style='width: {pulp.Metadata.AuthorWidth.Value}%'" : "";
 			html.Append($"<img class='ned' src='/vn/{pulp.DirName}/images/c-author.{imageExtension}' {loading} {style}>");
@@ -212,6 +211,7 @@ internal static class Helpers {
 
 			string metadataJson = File.ReadAllText(Path.Combine(dir, "metadata.json"));
 			Metadata metadata = Metadata.Parse(metadataJson);
+			if (metadata.NonStandardSource) throw new Exception("No website support for non-standard sources yet.");
 
 			if (metadata.PulpDate == null || pulpDelay == "DELAY") {
 				upcomings.Add(metadata);
@@ -235,10 +235,9 @@ internal static class Helpers {
 		sb.Append($"<script>window['bookId'] = '{name}';</script>");
 		sb.Append("<div id='vn-header' class='smargin'><p><b>To Go Back:</b><br>Click/tap left half of VN<br><span class='nopp'>OR<br>Left arrow key<br>OR<br>Shift+scroll (up)</span></p>");
 		sb.Append($"<div id='vn-header-mid'><h1><i>{metadata.ShortTitle}: The Visual&nbsp;Novel</i></h1><h4>{metadata.Author} • {metadata.Year} • {metadata.Words:N0} Words</h4><h4><a href='{metadata.Repo}'>Github</a>");
-		foreach (KeyValuePair<string, string> kvp in metadata.Links) {
-			sb.Append($" • <a href='{kvp.Value}'>{kvp.Key}</a>");
-		}
-		sb.Append($"</h4><small>(This visual novel's text is unmodified<a href='/blog/2026-02-13#text-lines'>*</a> from its original <a href='{metadata.Source}'>Standard Ebooks .epub source</a>.)</small></div>");
+		sb.Append($" • {BookTag.CreateBookLink(metadata.ShortTitle, false, "Goodreads")}");
+		sb.Append($" • <a href='{metadata.Wikipedia}'>Wikipedia</a>");
+		sb.Append($"</h4><small>(This visual novel's text is unmodified<a href='/blog/2026-02-13#text-lines'>*</a> from its original <a href='{metadata.Source}'>{metadata.SourceName} .epub source</a>.)</small></div>");
 		sb.Append("<p><b>To Advance:</b><br>Click/tap right half of VN<br><span class='nopp'>OR<br>Right arrow key<br>OR<br>Shift+scroll (down)</span></p></div>");
 		sb.Append("<main>");
 		List<string> editorLinks = new();
