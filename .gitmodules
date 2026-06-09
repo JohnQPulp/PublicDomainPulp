@@ -70,3 +70,57 @@
 [submodule "VisualPulps/TheDuel"]
 	path = VisualPulps/TheDuel
 	url = https://github.com/JohnQPulp/TheDuel
+[submodule "VisualPulps/AFarewellToArms"]
+	path = VisualPulps/AFarewellToArms
+	url = https://github.com/JohnQPulp/AFarewellToArms
+[submodule "VisualPulps/TheLostWorld"]
+	path = VisualPulps/TheLostWorld
+	url = https://github.com/JohnQPulp/TheLostWorld
+[submodule "VisualPulps/LesMiserables"]
+	path = VisualPulps/LesMiserables
+	url = https://github.com/JohnQPulp/LesMiserables
+[submodule "VisualPulps/SenseAndSensibility"]
+	path = VisualPulps/SenseAndSensibility
+	url = https://github.com/JohnQPulp/SenseAndSensibility
+[submodule "VisualPulps/TheMurderOnTheLinks"]
+	path = VisualPulps/TheMurderOnTheLinks
+	url = https://github.com/JohnQPulp/TheMurderOnTheLinks
+[submodule "VisualPulps/IreneIddesleigh"]
+	path = VisualPulps/IreneIddesleigh
+	url = https://github.com/JohnQPulp/IreneIddesleigh
+[submodule "VisualPulps/LairOfTheWhiteWorm"]
+	path = VisualPulps/LairOfTheWhiteWorm
+	url = https://github.com/JohnQPulp/LairOfTheWhiteWorm
+[submodule "VisualPulps/EdisonsConquestOfMars"]
+	path = VisualPulps/EdisonsConquestOfMars
+	url = https://github.com/JohnQPulp/EdisonsConquestOfMars
+[submodule "VisualPulps/JaneEyre"]
+	path = VisualPulps/JaneEyre
+	url = https://github.com/JohnQPulp/JaneEyre
+[submodule "VisualPulps/TheDeathOfIvanIlyitch"]
+	path = VisualPulps/TheDeathOfIvanIlyitch
+	url = https://github.com/JohnQPulp/TheDeathOfIvanIlyitch
+[submodule "VisualPulps/AllQuietOnTheWesternFront"]
+	path = VisualPulps/AllQuietOnTheWesternFront
+	url = https://github.com/JohnQPulp/AllQuietOnTheWesternFront
+[submodule "VisualPulps/AnneOfGreenGables"]
+	path = VisualPulps/AnneOfGreenGables
+	url = https://github.com/JohnQPulp/AnneOfGreenGables
+[submodule "VisualPulps/FathersAndSons"]
+	path = VisualPulps/FathersAndSons
+	url = https://github.com/JohnQPulp/FathersAndSons
+[submodule "VisualPulps/TheRedBadgeOfCourage"]
+	path = VisualPulps/TheRedBadgeOfCourage
+	url = https://github.com/JohnQPulp/TheRedBadgeOfCourage
+[submodule "VisualPulps/TheAwakening"]
+	path = VisualPulps/TheAwakening
+	url = https://github.com/JohnQPulp/TheAwakening
+[submodule "VisualPulps/TheMalteseFalcon"]
+	path = VisualPulps/TheMalteseFalcon
+	url = https://github.com/JohnQPulp/TheMalteseFalcon
+[submodule "VisualPulps/ATaleOfTwoCities"]
+	path = VisualPulps/ATaleOfTwoCities
+	url = https://github.com/JohnQPulp/ATaleOfTwoCities
+[submodule "VisualPulps/TheCountOfMonteCristo"]
+	path = VisualPulps/TheCountOfMonteCristo
+	url = https://github.com/JohnQPulp/TheCountOfMonteCristo
