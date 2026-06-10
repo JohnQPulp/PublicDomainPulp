@@ -136,38 +136,34 @@ internal static class Helpers {
 		return BuildContentPage(html.ToString(), "Visual Novel Catalog");
 	}
 
-	public static byte[] BuildUpcomingsPage(List<Metadata> upcomings) {
+	public static byte[] BuildUpcomingsPage(string baseDirectory, List<Metadata> upcomings) {
 		StringBuilder sb = new();
-		sb.Append("<style>");
-		sb.Append("table {margin: 0 auto;}");
-		sb.Append("td {padding-bottom: 10px;}");
-		sb.Append("th {font-size: 1.25em;}");
-		sb.Append(".tc {text-align: center;}");
-		sb.Append(".tr {text-align: right;}");
-		sb.Append("@media (width > 1000px) { table {font-size: 1.2em;}}");
-		sb.Append("</style>");
-		sb.Append("<h1 class='center'>Upcoming Visual Novels</h1><table><tr><th>Title</th><th>Author</th><th>Words</th></tr>");
 		upcomings.Sort((a, b) => a.Title.CompareTo(b.Title, StringComparison.Ordinal));
 		foreach (Metadata upcoming in upcomings) {
-			sb.Append("<tr>");
-			sb.Append($"<td><i>{upcoming.Title}</i></td>");
-			sb.Append($"<td class='tc'>{upcoming.Author}</td>");
-			sb.Append($"<td class='tr'>{upcoming.Words:0,\\k}</td>");
-			sb.Append("</tr>");
+			sb.Append("<div class='upcomingtitle'>");
+			sb.Append($"<h4 class='center'><a href='{upcoming.Repo}'>Github</a> • <a href='{upcoming.Source}'>{upcoming.SourceName}</a></h4>");
+			sb.Append($"<h2 class='center'>{upcoming.Title}</h2>");
+			sb.Append($"<h4 class='center'>{upcoming.Author} • {upcoming.Year} • {upcoming.Words:0,\\k} Words</h4>");
+			sb.Append("</div>");
 		}
 		sb.Append("</table>");
-		return BuildContentPage(sb.ToString(), "Upcoming Visual Novels");
+
+		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "upcomings.html");
+		string html = BookTag.FormatText(File.ReadAllText(path)).Replace("<!--UPCOMINGS-->", sb.ToString());
+		return BuildBlogPage(html, "Upcoming Visual Novels");
 	}
 
-	public static byte[] BuildBlogsPage(Dictionary<string, BlogPage> blogPages) {
+	public static byte[] BuildBlogsPage(string baseDirectory, Dictionary<string, BlogPage> blogPages) {
 		StringBuilder sb = new();
-		sb.Append("<h1 class='center'>Blog Posts</h1>");
 		List<BlogPage> blogs = blogPages.Values.ToList();
 		blogs.Sort((a, b) => b.Date.CompareTo(a.Date));
 		foreach (BlogPage blog in blogs) {
 			sb.Append($"<div><h3 class='posttitle'><small class='upper'>{blog.Date.ToString("MMM dd, yyyy")}</small><br><a href='/blog/{blog.Date:yyyy-MM-dd}'>{blog.Title}</a></h3></div>");
 		}
-		return BuildContentPage(sb.ToString(), "Blog Posts");
+
+		string path = Path.Combine(baseDirectory, "CreativeCommonsContent", "blogs.html");
+		string html = BookTag.FormatText(File.ReadAllText(path)).Replace("<!--BLOGS-->", sb.ToString());
+		return BuildBlogPage(html, "Blog Posts");
 	}
 
 	public static byte[] BuildContactPage(string baseDirectory) {
