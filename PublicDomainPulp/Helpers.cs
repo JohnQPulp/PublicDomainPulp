@@ -121,11 +121,11 @@ internal static class Helpers {
 					html.Append($"<p class='blurb ed'>{BookTag.FormatText(line)}</p>");
 				}
 			}
-			html.Append($"<p class='small'>See the <a href='{pulp.Metadata.Repo}'>JohnQPulp/{pulp.DirName} Github repository</a> for offline downloading and issue reporting.</p>");
 			html.Append($"<p class='small center'><a href='{pulp.Metadata.Source}'>{pulp.Metadata.SourceName}</a>");
 			html.Append($" • {BookTag.CreateBookLink(pulp.Metadata.ShortTitle, false, "Goodreads")}");
 			html.Append($" • <a href='{pulp.Metadata.Wikipedia}'>Wikipedia</a>");
 			html.Append("</p>");
+			html.Append($"<p class='small center'>See the <a href='{pulp.Metadata.Repo}'>JohnQPulp/{pulp.DirName} Github repository</a> for offline downloading and issue reporting.</p>");
 			string style = pulp.Metadata.AuthorWidth.HasValue ? $"style='width: {pulp.Metadata.AuthorWidth.Value}%'" : "";
 			html.Append($"<img class='ned' src='/vn/{pulp.DirName}/images/c-author.{imageExtension}' {loading} {style}>");
 			html.Append($"<img class='ed' src='/vn/{pulp.DirName}/images/c-author-abased.{imageExtension}' loading='lazy' {style}>");

@@ -285,34 +285,20 @@ code, pre {
   max-width: 500px;
   overflow: hidden;
   margin: 1em 0 40px;
-  border-bottom: 1px solid black;
+  border: 3px double black;
+  background: linear-gradient(to top, #f1e0ba, #f8efd4);
 }
 .hiddencard {
   display: none;
-}
-@media (min-width: 400px) {
-  .pulpcard {
-    border: 3px double black !important;
-    background: linear-gradient(to top, #f1e0ba, #f8efd4);
-  }
-  .pulpcard > h3 {
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-  .pulpcard > div > div {
-    padding-left: 5px;
-    padding-right: 5px;
-  }
 }
 .pulpcard > h3 {
   width: 100%;
   text-align: center;
   margin: 0;
   font-size: 1.25em;
-  padding-top: 0;
-  padding-bottom: 2px;
   box-sizing: border-box;
   text-wrap: pretty;
+  padding: 0 5px 2px;
 }
 .pulpcard > img {
   width: 100%;
@@ -327,7 +313,7 @@ code, pre {
 }
 .pulpcard > div > div {
   width: 100%;
-  padding-bottom: max(200px, 60%);
+  padding: 0 5px max(200px, 60%);
   position: relative;
   box-sizing: border-box;
 }
