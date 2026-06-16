@@ -32,7 +32,7 @@ The ultimate end goal is to have all public domain fiction books readable as vis
     * `VisualPulps/CupOfGold/`: The https://github.com/JohnQPulp/CupOfGold.git submodule (*Cup of Gold: The Visual Novel*).
     * `VisualPulps/TheThirtyNineSteps/`: The https://github.com/JohnQPulp/TheThirtyNineSteps.git submodule (*The Thirty-Nine Steps: The Visual Novel*).
     * etc
-* `CreativeCommonsContent/`: The https://github.com/JohnQPulp/CreativeCommonsFiction.git submodule containing the website's CC0 blog contents.
+* `CreativeCommonsContent/`: The https://github.com/JohnQPulp/CreativeCommonsContent.git submodule containing the website's CC0 blog contents.
 
 ### Running the Site
 
