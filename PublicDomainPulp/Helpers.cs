@@ -271,6 +271,9 @@ internal static class Helpers {
 		}
 		sb.AppendLine("};");
 		sb.AppendLine(VNDebugJs);
+		if (metadata.PulpDate == null) {
+			sb.AppendLine("skipTimeout=true;");
+		}
 		sb.Append("</script>");
 #endif
 		sb.Append("</main>");
