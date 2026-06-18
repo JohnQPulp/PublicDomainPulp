@@ -2,37 +2,19 @@
 
 This repository contains all the code and contents for running the Public Domain Pulp website, including all the CC0-licensed visual novels themselves.
 
-![Preview](PublicDomainPulp/assets/preview.avif)
-
 You can read the VNs online at https://publicdomainpulp.com.
 
-Or: you can read the VNs locally by building/running the site via the setup steps further below.
+Or: You can read the VNs locally by building/running the site via the setup steps.
 
-Or: if you're just interested in learning about the process of converting books into visual novels, read down through the contributing section.
+Or: You can read about the book-to-VN conversion process in the Contributing section further below.
 
 ### About
 
-See https://publicdomainpulp.com/about, but the gist is that this is an open source project around transforming public domain books into visual novels.
+See https://publicdomainpulp.com/about, but TL;DR:
 
-The idea is that all this great prose is just sitting out there, but only in your boring, standard-book form. So why not add some pictures?
+This is a project around converting public domain books into public domain visual novels, unabridged.
 
-And what makes the visual novel format so great is that, unlike adaptations into movies or TV shows or graphic novels or what-have-you, the visual novel can fully retain the original prose of the converted texts — no abridging or simplifying of the source needed. You get the full literary experience, but without having to keep track of who's talking when Hemingway fails to attribute dialogue ten paragraphs in-a-row.
-
-The ultimate end goal is to have all public domain fiction books readable as visual novels, each with a corresponding open source repo that anyone can pull from and/or improve upon. (How many books could there possibly be?)
-
-### Structure
-
-* `PublicDomainPulp/`: The ASP.NET/C# project that contains the middleware pipeline, routings, and web helpers.
-* `PublicDomainPulp.Tests/`: The integration tests for the website.
-* `Pulpifier/`: The https://github.com/JohnQPulp/Pulpifier submodule, a prerequisite for the website.
-    * `Pulpifier/Pulpifier/`: The C# library that builds the visual novel `pulp.txt` files into html.
-    * `Pulpifier/Pulpifier.Tests/`: The unit tests for the library.
-    * `Pulpifier/PulpifierCLI/`: CLI tool for invoking the library.
-* `VisualPulps/`: A directory containing all of the website's CC0 visual novel contents
-    * `VisualPulps/CupOfGold/`: The https://github.com/JohnQPulp/CupOfGold.git submodule (*Cup of Gold: The Visual Novel*).
-    * `VisualPulps/TheThirtyNineSteps/`: The https://github.com/JohnQPulp/TheThirtyNineSteps.git submodule (*The Thirty-Nine Steps: The Visual Novel*).
-    * etc
-* `CreativeCommonsContent/`: The https://github.com/JohnQPulp/CreativeCommonsContent.git submodule containing the website's CC0 blog contents.
+The end goal is to have all public domain fiction novels readable as visual novels, each with a corresponding open source (CC0) repo that anyone can pull from and/or improve upon.
 
 ### Running the Site
 
@@ -48,7 +30,21 @@ dotnet build PublicDomainPulp.slnx
 dotnet run --no-build --project PublicDomainPulp --launch-profile http
 ```
 
-A simple setup for a simple website. (Since if I'm stealing Standard Ebooks' texts, I might as well steal [their principles](https://alexcabal.com/posts/standard-ebooks-and-classic-web-tech) too.)
+Since every visual novel repo is a submdoule of this repo, the `submodule update` will automatically pull them all in for local reading. [Simple!](https://alexcabal.com/posts/standard-ebooks-and-classic-web-tech)
+
+#### Structure
+
+* `PublicDomainPulp/`: The ASP.NET/C# project that contains the middleware pipeline, routings, and web helpers.
+* `PublicDomainPulp.Tests/`: The integration tests for the website.
+* `Pulpifier/`: The https://github.com/JohnQPulp/Pulpifier submodule, a prerequisite for the website.
+    * `Pulpifier/Pulpifier/`: The C# library that builds the visual novel `pulp.txt` files into html.
+    * `Pulpifier/Pulpifier.Tests/`: The unit tests for the library.
+    * `Pulpifier/PulpifierCLI/`: CLI tool for invoking the library.
+* `VisualPulps/`: A directory containing all of the website's CC0 visual novel contents
+    * `VisualPulps/PrideAndPrejudice/`: The https://github.com/JohnQPulp/PrideAndPrejudice.git submodule (*Pride and Prejudice: The Visual Novel*).
+    * `VisualPulps/AStudyInScarlet/`: The https://github.com/JohnQPulp/AStudyInScarlet.git submodule (*A Study in Scarlet: The Visual Novel*).
+    * etc
+* `CreativeCommonsContent/`: The https://github.com/JohnQPulp/CreativeCommonsContent.git submodule containing the website's CC0 blog contents.
 
 ### Contributing
 
