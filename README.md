@@ -6,7 +6,7 @@ You can read the VNs online at https://publicdomainpulp.com.
 
 Or: You can read the VNs locally by building/running the site via the setup steps.
 
-Or: You can read about the book-to-VN conversion process in the Contributing section further below.
+Or: You can read about the book-to-VN conversion process in the Documentation section further below.
 
 ### About
 
@@ -48,13 +48,15 @@ Since every visual novel repo is a submdoule of this repo, the `submodule update
 
 ### Contributing
 
-For visual novel contributions, I'm open to any and all suggestions for improvements, whether that be background changes, sprite changes, line-break flow improvements, or what-have-you. Identifying straight-up mistakes is especially valuable, as while I try to eliminate these in the editing process, they can still crop up in the form of incorrect speaker attributions, [image/text inconsistencies](https://publicdomainpulp.com/blog/2026-03-09), speaker name spelling mistakes, and so forth.
+While this project treats the texts of its public domain novel sources as immutable, the images and editing of the converted VNs have continuous room for improvement.
 
-Feel free to submit any such ideas to their associated VN repos as issues or pull requests, in collaborative pursuit of making these VNs all as pleasant-to-read as possible.
+Improvements can take the form of background changes, sprite changes, line-break flow improvements, and so on. These can be either to address mistakes that can sometimes sneak into the visuals (e.g., [image/text inconsistencies](https://publicdomainpulp.com/blog/2026-03-09)) or to just enhance the visuals and/or reading experience.
 
-(Noting that: while there should be enough information written-up for contributing edits towards the existing VNs, the full pulpification process-and-tooling documentation series isn't yet complete, so there may not be enough there yet for how to create new VNs from books from scratch.)
+All visual novel repos are open for issues and pull requests, in collaborative pursuit of making them all as visually pleasing and accurate as possible.
 
-Here's the documentation series post list, with links to the titles that currently exist:
+#### Documentation
+
+Here are the links to the currently written posts in the book-to-VN conversion process series:
 
 * [Converting Books Into Visual Novels Part 0: The pulp.txt Format](https://publicdomainpulp.com/blog/2026-02-13)
 * [Converting Books Into Visual Novels Part 0.5: Creating book.txt](https://publicdomainpulp.com/blog/2026-02-14)
@@ -65,5 +67,7 @@ Here's the documentation series post list, with links to the titles that current
 * Converting Books Into Visual Novels Part 4: Background Generation
 * Converting Books Into Visual Novels Part 5: The Third Edit — Visualizing pulp.txt
 
-As for code contributions: I'll take a look at issues or pull requests made to this repo or the Pulpifier, though I don't currently have a formal code contribution process planned out. I don't know how much ongoing code development will really be necessary, what with the visual novel formats being so relatively simple. (More features *could* be added, though I'd want to balance that out with keeping the codebase small and also spending time working on creating more VNs.)
+While the full pulpification process-and-tooling documentation isn't yet fully complete, there should be enough information here for contributing edits/improvements towards the existing VNs.
+
+In particular, see the "pulp.txt Format" for learning about how to edit the VNs' metadata and the the "Image Prompting and Processing" post for how to generate new images in the correct (consistent) style.
 
