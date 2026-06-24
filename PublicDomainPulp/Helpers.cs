@@ -214,6 +214,8 @@ internal static class Helpers {
 				continue;
 			}
 
+			Console.WriteLine($"Pulpifying: {metadata.ShortTitle}");
+
 			byte[] bytes = BuildVisualNovel(name, dir, metadata);
 
 			visualPulps.Add(name, new(name, metadata, bytes, Compress(bytes)));
