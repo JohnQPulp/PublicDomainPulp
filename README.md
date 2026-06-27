@@ -30,7 +30,7 @@ dotnet build PublicDomainPulp.slnx
 dotnet run --no-build --project PublicDomainPulp --launch-profile http
 ```
 
-Since every visual novel repo is a submdoule of this repo, the `submodule update` will automatically pull them all in for local reading. [Simple!](https://alexcabal.com/posts/standard-ebooks-and-classic-web-tech)
+Since every visual novel repo is a submdoule of this repo, the `submodule update` will automatically pull them all in for local reading. (Simple!)
 
 #### Structure
 
