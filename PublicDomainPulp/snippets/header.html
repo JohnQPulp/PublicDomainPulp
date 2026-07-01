@@ -35,7 +35,7 @@ function toggleEditorializing() {
   }
 }
 document.addEventListener("keydown", e => {
-  if (e.target.tagName !== "INPUT" && (e.key === "e" || e.key === "E")) {
+  if ((e.target.tagName !== "INPUT" || e.target.type === "range") && (e.key === "e" || e.key === "E")) {
     toggleEditorializing();
   }
 });
