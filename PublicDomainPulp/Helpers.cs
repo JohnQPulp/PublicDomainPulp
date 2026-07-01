@@ -209,10 +209,17 @@ internal static class Helpers {
 			Metadata metadata = Metadata.Parse(metadataJson);
 			if (metadata.NonStandardSource) throw new Exception("No website support for non-standard sources yet.");
 
-			if (metadata.PulpDate == null || pulpDelay == "DELAY") {
+			if (metadata.PulpDate == null) {
 				upcomings.Add(metadata);
 				continue;
 			}
+#if DEBUG
+			if (pulpDelay == "DELAY") {
+				upcomings.Add(metadata);
+				visualPulps.Add(name + " (fake)", new(name, metadata, [], []));
+				continue;
+			}
+#endif
 
 			Console.WriteLine($"Pulpifying: {metadata.ShortTitle}");
 
