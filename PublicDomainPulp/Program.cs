@@ -115,7 +115,7 @@ app.MapGet("/vn/{book:regex(^[A-Za-z]{{1,100}}$)}", (string book, HttpContext co
 				return Helpers.HtmlResult(Helpers.BuildVisualNovel(book, dir, metadata));
 			}
 		} catch (Exception e) {
-			return Helpers.HtmlResult(Helpers.BuildContentPage(e.ToString().Replace("\n", "<br>"), "DEBUG OOPS"));
+			return Helpers.HtmlResult(Helpers.BuildContentPage($"<pre>{e}</pre>", "DEBUG OOPS"));
 		}
 #endif
 
