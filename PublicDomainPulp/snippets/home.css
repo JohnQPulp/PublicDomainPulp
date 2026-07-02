@@ -226,6 +226,10 @@ hr {
 }
 .imghead {
   margin-top: 10px !important;
+  height: min(min(25em, 40vh), 60vw);
+  color: transparent;
+  background-color: #f0ddb6;
+  object-fit: contain;
 }
 #blog blockquote {
   white-space: pre-wrap;
