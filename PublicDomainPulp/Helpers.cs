@@ -140,11 +140,13 @@ internal static class Helpers {
 		StringBuilder sb = new();
 		upcomings.Sort((a, b) => a.Title.CompareTo(b.Title, StringComparison.Ordinal));
 		foreach (Metadata upcoming in upcomings) {
-			sb.Append("<div class='upcomingtitle'>");
-			sb.Append($"<h4 class='center'><a href='{upcoming.Repo}'>Github</a> • <a href='{upcoming.Source}'>{upcoming.SourceName}</a></h4>");
-			sb.Append($"<h2 class='center'>{upcoming.Title}</h2>");
-			sb.Append($"<h4 class='center'>{upcoming.Author} • {upcoming.Year} • {upcoming.Words:0,\\k} Words</h4>");
-			sb.Append("</div>");
+			if (upcoming.PulpDate == null) {
+				sb.Append("<div class='upcomingtitle'>");
+				sb.Append($"<h4 class='center'><a href='{upcoming.Repo}'>Github</a> • <a href='{upcoming.Source}'>{upcoming.SourceName}</a></h4>");
+				sb.Append($"<h2 class='center'>{upcoming.Title}</h2>");
+				sb.Append($"<h4 class='center'>{upcoming.Author} • {upcoming.Year} • {upcoming.Words:0,\\k} Words</h4>");
+				sb.Append("</div>");
+			}
 		}
 		sb.Append("</table>");
 
