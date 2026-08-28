@@ -1,6 +1,7 @@
 using System.IO.Compression;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using Pulp.Pulpifier;
 
@@ -9,6 +10,8 @@ namespace Pulp.PublicDomainPulp;
 public readonly record struct VisualNovel(string DirName, Metadata Metadata, byte[] Html, byte[] BrotliHtml);
 
 public readonly record struct BlogPage(string Title, DateOnly Date, byte[] Html, byte[] BrotliHtml);
+
+public readonly record struct ExternalBlog(string Title, string Url, DateOnly Date);
 
 internal static class Helpers {
 	private static readonly string HeaderHtml = ReadResource("snippets.header.html");
@@ -156,10 +159,20 @@ internal static class Helpers {
 	}
 
 	public static byte[] BuildBlogsPage(string baseDirectory, Dictionary<string, BlogPage> blogPages) {
+		string externalJson = File.ReadAllText(Path.Combine(baseDirectory, "CreativeCommonsContent", "blog", "external.json"));
+		List<ExternalBlog> externalBlogs = JsonSerializer.Deserialize<List<ExternalBlog>>(externalJson, new JsonSerializerOptions { AllowTrailingCommas = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase })!;
+		externalBlogs.Sort((a, b) => b.Date.CompareTo(a.Date));
+		int externalIndex = 0;
+
 		StringBuilder sb = new();
 		List<BlogPage> blogs = blogPages.Values.ToList();
 		blogs.Sort((a, b) => b.Date.CompareTo(a.Date));
 		foreach (BlogPage blog in blogs) {
+			while (externalIndex < externalBlogs.Count && externalBlogs[externalIndex].Date > blog.Date) {
+				ExternalBlog exBlog = externalBlogs[externalIndex];
+				sb.Append($"<div><h3 class='posttitle'><small class='upper'>{exBlog.Date.ToString("MMM dd, yyyy")}</small><br>{exBlog.Title}<br><small><small>External: <a href='{exBlog.Url}'>{exBlog.Url}</a></small></small></h3></div>");
+				externalIndex++;
+			}
 			sb.Append($"<div><h3 class='posttitle'><small class='upper'>{blog.Date.ToString("MMM dd, yyyy")}</small><br><a href='/blog/{blog.Date:yyyy-MM-dd}'>{blog.Title}</a></h3></div>");
 		}
 
