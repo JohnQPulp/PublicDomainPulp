@@ -2,6 +2,9 @@ html, body {
   margin: 0px;
   padding: 0px;
 }
+html {
+  scrollbar-color: #888 #f8efd4;
+}
 body {
   width: 100%;
   overflow-y: auto;
