@@ -60,9 +60,10 @@ Here are the links to the currently written posts in the book-to-VN conversion p
 
 * [Converting Books Into Visual Novels Part 0: The pulp.txt Format](https://publicdomainpulp.com/blog/2026-02-13)
 * [Converting Books Into Visual Novels Part 0.5: Creating book.txt](https://publicdomainpulp.com/blog/2026-02-14)
-* [Converting Books Into Visual Novels Part 1: The First Edit — Creating the Starter pulp.txt](https://publicdomainpulp.com/blog/2026-03-20)
+* ~~[Converting Books Into Visual Novels Part 1: The First Edit — Creating the Starter pulp.txt](https://publicdomainpulp.com/blog/2026-03-20)~~ (obsolete?)
 * [Converting Books Into Visual Novels Part 2±0.5: An Image Prompting and Processing Guide](https://publicdomainpulp.com/blog/2026-06-04)
-* Converting Books Into Visual Novels Part 2: The Second Edit — Fully Populating pulp.txt
+* [Converting Books Into Visual Novels Part ?: The Overall Process](https://publicdomainpulp.com/blog/2026-10-14)
+* Converting Books Into Visual Novels Part 2: ~~The Second Edit — Fully Populating pulp.txt~~ Reviewing pulp.txt?
 * Converting Books Into Visual Novels Part 3: Character Sprite Generation
 * Converting Books Into Visual Novels Part 4: Background Generation
 * Converting Books Into Visual Novels Part 5: The Third Edit — Visualizing pulp.txt
