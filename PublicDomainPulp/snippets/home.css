@@ -310,8 +310,7 @@ code, pre {
 }
 .pulpcard > img {
   width: 100%;
-  aspect-ratio: 1376 / 768;
-  object-fit: cover;
+  aspect-ratio: 1920 / 1070;
 }
 .pulpcard > div {
   display: flex;
