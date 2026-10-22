@@ -13,7 +13,7 @@ document.addEventListener("keydown", e => {
         index += increment;
         expressionNew = expressionsArr[index % expressionsArr.length];
       } while (!!expressionOld.match(/-s[123]?$/) !== !!expressionNew.match(/-s[123]?$/));
-      speakerElem.outerHTML = `<div class="speaker-back" style="background-image: url(images/${expressionNew}.${imageExt})"></div>`;
+      speakerElem.style.backgroundImage = `url(images/${expressionNew}.${imageExt})`;
       const matchArr2 = expressionNew.match(regex);
       navigator.clipboard.writeText(";e:" + matchArr2[2] + "=" + (matchArr2[7] ?? "") + ";i=" + (matchArr2[9] ?? ""));
     }
