@@ -34,6 +34,8 @@ document.addEventListener("keydown", e => {
       navigator.clipboard.writeText(clipboard);
       updateDummy(increment);
     }
+  } else if (e.key === "j") {
+    document.getElementById("vn-header").scrollIntoView(true);
   }
 });
 toggleEditorializing();
