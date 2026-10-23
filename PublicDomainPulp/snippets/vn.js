@@ -25,12 +25,12 @@ function bookmarkClick() {
   updateBookmarkBtn();
   localStorage.setItem(getLocalStorageKey('b'), JSON.stringify(bookmarks));
 }
-window["handlePosUpdate"] = function(isAutoNext) {
-  if (autoplay && !isAutoNext) toggleAuto();
+window.addEventListener("posUpdate", e => {
+  if (autoplay && !e.detail.isAutoNext) toggleAuto();
   updateBookmarkBtn();
   document.getElementById("linecount").innerHTML = "<b>Line:</b> " + pos + "/" + (htmlArr.length - 1);
   document.getElementById("progress").value = pos;
-}
+});
 window.addEventListener("load", e => {
   const bookmarksString = localStorage.getItem(getLocalStorageKey('b'));
   if (bookmarksString) {
