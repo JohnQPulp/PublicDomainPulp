@@ -1,0 +1,9 @@
+#dummy {
+  position: absolute;
+  height: 200px;
+  width: 100px;
+  top: 1000px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+}

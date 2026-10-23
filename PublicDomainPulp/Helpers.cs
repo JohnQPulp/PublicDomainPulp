@@ -21,6 +21,7 @@ internal static class Helpers {
 	private static readonly string VNCss = ReadResource("snippets.vn.css");
 	private static readonly string VNJs = ReadResource("snippets.vn.js");
 	private static readonly string VNDebugJs = ReadResource("snippets.vn-debug.js");
+	private static readonly string VNDebugCss = ReadResource("snippets.vn-debug.css");
 
 	private static string ReadResource(string name)
 	{
@@ -301,6 +302,8 @@ internal static class Helpers {
 			sb.AppendLine("skipTimeout=true;");
 		}
 		sb.Append("</script>");
+		sb.AppendLine($"<style>\n{VNDebugCss}\n</style>");
+		sb.Append("<div id='dummy'></div>");
 #endif
 		sb.Append("</main>");
 		sb.Append(FooterHtml);
