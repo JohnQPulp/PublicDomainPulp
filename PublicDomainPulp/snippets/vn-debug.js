@@ -4,6 +4,9 @@ function getSpeakerStuff(speakerElem, increment) {
   const expressionsArr = expressions[matchArr[1]];
   let expressionOld = matchArr[0];
   let expressionNew;
+  if (expressionsArr.indexOf(expressionOld) === -1) {
+    return [speakerElem.style.backgroundImage, ""];
+  }
   let index = expressionsArr.indexOf(expressionOld) + expressionsArr.length;
   do {
     index += increment;
