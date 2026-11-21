@@ -4,13 +4,14 @@ function getSpeakerStuff(speakerElem, increment) {
   const expressionsArr = expressions[matchArr[1]];
   let expressionOld = matchArr[0];
   let expressionNew;
-  if (expressionsArr.indexOf(expressionOld) === -1) {
-    return [speakerElem.style.backgroundImage, ""];
-  }
   let index = expressionsArr.indexOf(expressionOld) + expressionsArr.length;
+  let count = 0;
   do {
     index += increment;
     expressionNew = expressionsArr[index % expressionsArr.length];
+    if (count++ === expressionsArr.length) {
+      return [speakerElem.style.backgroundImage, ""];
+    }
   } while (!!expressionOld.match(/-s[123]?$/) !== !!expressionNew.match(/-s[123]?$/));
   const url= `url(images/${expressionNew}.${imageExt})`;
   const matchArr2 = expressionNew.match(regex);
